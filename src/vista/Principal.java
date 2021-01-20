@@ -5,17 +5,21 @@
  */
 package vista;
 
+import java.awt.Dimension;
+
 /**
  *
  * @author LENOVO
  */
 public class Principal extends javax.swing.JFrame {
 
+    private VistaProducto vp;
     /**
      * Creates new form VentanaUsuario
      */
     public Principal() {
         initComponents();
+        this.setExtendedState(Principal.MAXIMIZED_BOTH);
     }
 
     /**
@@ -45,6 +49,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -255,6 +260,19 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 947, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 578, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -267,7 +285,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+            jDesktopPane1.repaint();
+            vp = new VistaProducto();
+            vp.toFront();
+            vp.setVisible(true);
+            jDesktopPane1.add(vp);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vp.getSize();
+            vp.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vp.toFront();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -342,6 +369,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
