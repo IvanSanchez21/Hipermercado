@@ -9,6 +9,9 @@ package controlador;
  *
  * @author Johnny
  */
-public class controladorClientes {
+public class controladorCliente {
     
+    public void buscarCliente(){
+        
+    }
 }
