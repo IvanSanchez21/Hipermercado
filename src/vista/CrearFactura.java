@@ -65,7 +65,6 @@ public class CrearFactura extends javax.swing.JInternalFrame {
         jLabel6.setText("Ruc/CI:");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("0107128100");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
