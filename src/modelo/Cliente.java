@@ -26,6 +26,19 @@ public class Cliente {
     public Cliente() {
     }
 
+    public Cliente(int cli_id, String cli_cedula, String cli_nombre, String cli_apellido, Date cli_fecha_registro, String cli_direccion, String cli_tel_convencional, char cli_celular, String cli_correo_electronico) {
+        this.cli_id = cli_id;
+        this.cli_cedula = cli_cedula;
+        this.cli_nombre = cli_nombre;
+        this.cli_apellido = cli_apellido;
+        this.cli_fecha_registro = cli_fecha_registro;
+        this.cli_direccion = cli_direccion;
+        this.cli_tel_convencional = cli_tel_convencional;
+        this.cli_celular = cli_celular;
+        this.cli_correo_electronico = cli_correo_electronico;
+    }
+    
+
     public int getCli_id() {
         return cli_id;
     }
