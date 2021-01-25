@@ -14,7 +14,7 @@ import java.awt.Dimension;
 public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
-    private CrearFactura vf;
+    private VistaFactura vf;
 
     /**
      * Creates new form VentanaUsuario
@@ -324,7 +324,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint(); 
-        vf = new CrearFactura();
+        vf = new VistaFactura();
         vf.toFront();
         vf.setVisible(true);
         jDesktopPane1.add(vf);
