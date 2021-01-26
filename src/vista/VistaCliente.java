@@ -5,6 +5,13 @@
  */
 package vista;
 
+import controlador.controladorCliente;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import modelo.Cliente;
 /**
  *
  * @author Johnny
@@ -14,8 +21,10 @@ public class VistaCliente extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaCliente
      */
+    controladorCliente ccliente;
     public VistaCliente() {
         initComponents();
+        ccliente = new controladorCliente();
     }
 
     /**
@@ -79,6 +88,13 @@ public class VistaCliente extends javax.swing.JInternalFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Correo Electronico:");
+
+        jTextField1.setAutoscrolls(false);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Crear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +209,20 @@ public class VistaCliente extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+         if(jTextField1.equals("")||jTextField2.equals("")||
+           jTextField3.equals("")||jTextField4.equals("")||
+           jTextField5.equals("")||jTextField6.equals("")||jTextField7.equals("")||
+           jTextField8.equals("")||jTextField9.equals("")){
+            
+        }else{
+            llenarCasillas();
+        }
+  
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,4 +250,55 @@ public class VistaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarCasillas() {
+       
+        Cliente cli=new Cliente();
+        cli.setCli_id(Integer.parseInt(jTextField1.getText()));
+        cli.setCli_cedula(jTextField2.getText());
+        cli.setCli_nombre(jTextField3.getText());
+        cli.setCli_apellido(jTextField4.getText());
+        Date fecha= Date(jTextField5.getText());
+        cli.setCli_fecha_registro((java.sql.Date) fecha);
+        cli.setCli_direccion(jTextField6.getText());
+        cli.setCli_tel_convencional(jTextField7.getText());
+        cli.setCli_celular(jTextField8.getText());
+        cli.setCli_correo_electronico(jTextField8.getText());
+        
+        if(ccliente.anadirCliente(cli)==true){
+            JOptionPane.showMessageDialog(null,"Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,"Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE); 
+        }
+        
+        
+    }
+      public static Date ParseFecha(String fecha)
+    {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(fecha);
+        } 
+        catch (ParseException ex) 
+        {
+            System.out.println(ex);
+        }
+        return fechaDate;
+    }
+
+    private Date Date(String text) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(text);
+        } 
+        catch (ParseException ex) 
+        {
+            System.out.println(ex);
+        }
+        return fechaDate;
+    }
+    
 }

@@ -19,14 +19,14 @@ public class Cliente {
     private Date cli_fecha_registro;
     private String cli_direccion;
     private String cli_tel_convencional;
-    private char cli_celular;
+    private String cli_celular;
     private String cli_correo_electronico;
     
     
     public Cliente() {
     }
 
-    public Cliente(int cli_id, String cli_cedula, String cli_nombre, String cli_apellido, Date cli_fecha_registro, String cli_direccion, String cli_tel_convencional, char cli_celular, String cli_correo_electronico) {
+    public Cliente(int cli_id, String cli_cedula, String cli_nombre, String cli_apellido, Date cli_fecha_registro, String cli_direccion, String cli_tel_convencional, String cli_celular, String cli_correo_electronico) {
         this.cli_id = cli_id;
         this.cli_cedula = cli_cedula;
         this.cli_nombre = cli_nombre;
@@ -95,11 +95,11 @@ public class Cliente {
         this.cli_tel_convencional = cli_tel_convencional;
     }
 
-    public char getCli_celular() {
+    public String getCli_celular() {
         return cli_celular;
     }
 
-    public void setCli_celular(char cli_celular) {
+    public void setCli_celular(String cli_celular) {
         this.cli_celular = cli_celular;
     }
 
