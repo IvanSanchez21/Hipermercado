@@ -15,6 +15,8 @@ public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
     private VistaFactura vf;
+     private VistaCliente vc;
+    
 
     /**
      * Creates new form VentanaUsuario
@@ -281,8 +283,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        VistaCliente vc = new VistaCliente();
+      jDesktopPane1.removeAll();
+        jDesktopPane1.repaint(); 
+        vc = new VistaCliente();
+        vc.toFront();
         vc.setVisible(true);
+        jDesktopPane1.add(vc);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = vc.getSize();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
