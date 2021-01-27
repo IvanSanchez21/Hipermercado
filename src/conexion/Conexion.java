@@ -1,18 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controlador;
+package conexion;
+
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
  * @author Johnny
  */
+
+
+/*°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+    Clase para conectarse con la base de datos (SQL Developer) 
+    y con una interfaz en Java NetBeans.
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°*/
+
 public class Conexion {
+
     public static void main(String[] args) {
      
         /* Llamar al método (Close) para cerrar la base de datos */
@@ -22,15 +28,13 @@ public class Conexion {
     
     
     /*°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-            Método para ingresar a la base de datos
-                Usuario: 
-                Clave: 
+            
     °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°*/
     public static Connection getConnection() {
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");  
         	Connection con = DriverManager.getConnection(  
-                    "jdbc:oracle:thin:@localhost:1521:xe", "hpprueba","hp123");  
+                    "jdbc:oracle:thin:@localhost:1521:xe", "hipermercado","1234");  
         	System.out.println("Conectado");
             return con;
            
@@ -51,4 +55,5 @@ public class Conexion {
         } catch (Exception ex) {
         }
     }
+    
 }
