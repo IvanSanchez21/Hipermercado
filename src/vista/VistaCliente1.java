@@ -604,11 +604,22 @@ JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionP
                     jTextCedula.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
                     jTextNombre.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
                     jTextApellido.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                    jTextFecha.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+                    SimpleDateFormat formato=new SimpleDateFormat("yyyy-mm-dd");
+                    String fecha=(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+                    Date d=null;
+                            try {
+                        d=formato.parse(fecha);
+                        formato.applyPattern("dd/mm/yyyy");
+                         String nv=formato.format(d);
+                    jTextFecha.setText(nv);
                     jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
                     jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
                     jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
                     jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                   
                 }
 
             }
