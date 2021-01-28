@@ -9,6 +9,7 @@ import conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import modelo.Cliente;
 
 
@@ -65,5 +66,27 @@ public class controladorCliente {
 
         return r;
     }
+     public int llenarId(){
+        int llena=0;
+        boolean ban=false;
+        Connection con = null;
+            String sql = "SELECT count(*) "
+                       + "from hip_clientes";
+         try {
+
+            con = Conexion.getConnection();
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                llena = rs.getInt(1)+1;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            Conexion.close(con);
+        }
+        return llena;
+    }
+    
     
 }

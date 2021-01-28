@@ -27,6 +27,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     public VistaCliente1() {
         initComponents();
          ctCliente = new controladorCliente();
+          //llenar Codigo
+        jTextId.setText(""+ctCliente.llenarId());
     }
 
     /**
