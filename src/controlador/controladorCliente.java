@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 
 
@@ -86,6 +87,40 @@ public class controladorCliente {
             Conexion.close(con);
         }
         return llena;
+    }
+     
+      public void llenarTabla(DefaultTableModel dtm,Object [] o){
+        Connection con = null;
+
+        String sql = " SELECT *"
+                    + " FROM hip_clientes";
+        try {
+            con = Conexion.getConnection();
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            
+            while(rs.next()){
+                
+                //String ObjetoS[]=new String [8];
+                o[0] = rs.getString("cli_id");
+                o[1] = rs.getString("cli_cedula");
+                o[2]=rs.getString("cli_nombre");
+                o[3]=rs.getString("cli_apellido");
+                o[4]=rs.getDate("cli_fecha_registro");
+                o[5]=rs.getString("cli_direccion");
+                o[6]=rs.getString("cli_tel_convencional");
+                o[7]=rs.getString("cli_celular");
+                o[8]=rs.getString("cli_correo_electronico");
+                
+
+                dtm.addRow(o);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Conexion.close(con);
+        }
     }
     
     
