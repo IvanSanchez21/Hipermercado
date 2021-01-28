@@ -126,6 +126,43 @@ public class controladorCliente {
             Conexion.close(con);
         }
     }
+    
+     public void filtro(DefaultTableModel dtm, Object[] o, Cliente cl) {
+         System.out.println(cl);
+        
+        Connection con = null;
+
+        String sql = " SELECT *"
+                + " FROM hip_clientes where cli_cedula=?";
+        try {
+            con = Conexion.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+           ps.setString(1, cl.getCli_cedula());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                //String ObjetoS[]=new String [8];
+                o[0] = rs.getString("cli_id");
+                o[1] = rs.getString("cli_cedula");
+                o[2] = rs.getString("cli_nombre");
+                o[3] = rs.getString("cli_apellido");
+                o[4] = rs.getDate("cli_fecha_registro");
+                o[5] = rs.getString("cli_direccion");
+                o[6] = rs.getString("cli_tel_convencional");
+                o[7] = rs.getString("cli_celular");
+                o[8] = rs.getString("cli_correo_electronico");
+
+                dtm.addRow(o);
+                
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Conexion.close(con);
+        }
+    }
 
     public boolean actualizarCliente(Cliente cli) {
 
@@ -244,4 +281,6 @@ public class controladorCliente {
             return false;
         }
     }
+
+    
 }
