@@ -5,6 +5,15 @@
  */
 package vista;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.Cliente;
+import controlador.controladorCliente;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Johnny
@@ -14,8 +23,10 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaCliente1
      */
+    controladorCliente ctCliente;
     public VistaCliente1() {
         initComponents();
+         ctCliente = new controladorCliente();
     }
 
     /**
@@ -123,6 +134,11 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         });
 
         JButtonCrear.setText("Crear");
+        JButtonCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonCrearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,6 +266,57 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     private void jTextEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextEmailActionPerformed
+
+    private void JButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCrearActionPerformed
+        // TODO add your handling code here:
+         if(jTextId.equals("")||jTextCedula.equals("")||
+           jTextNombre.equals("")||jTextApellido.equals("")||
+           jTextFecha.equals("")||jTextDireccion.equals("")
+           ||jTextTelefono.equals("")||
+           jTextCelular.equals("")||jTextEmail.equals("")){
+            JOptionPane.showMessageDialog(null,"Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }else{
+            llenarCasillas();
+        }
+        
+    }//GEN-LAST:event_JButtonCrearActionPerformed
+private void llenarCasillas(){
+    Cliente cl= new Cliente();
+    
+        cl.setCli_id(Integer.parseInt(jTextId.getText()));
+        cl.setCli_cedula(jTextCedula.getText());
+        cl.setCli_nombre(jTextNombre.getText());
+        cl.setCli_apellido(jTextApellido.getText());
+        
+        String fecha1 = jTextFecha.getText(); // Entrada recogida (scanner)
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy"); // Creamos Fecha (Fecha del sistema)
+
+        Date fecha=null;
+
+        try {
+            fecha = (Date) format.parse(fecha1);
+        } catch (ParseException ex) {
+            Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         java.util.Date fin = new java.util.Date();
+       java.sql.Date fin2 = new java.sql.Date(fin.getTime());
+        cl.setCli_fecha_registro(fin2);
+        cl.setCli_direccion(jTextDireccion.getText());
+        cl.setCli_tel_convencional(jTextTelefono.getText());
+        cl.setCli_celular(jTextCelular.getText());
+        cl.setCli_correo_electronico(jTextEmail.getText());
+        
+        
+        if(ctCliente.anadirCliente(cl)==true){
+            JOptionPane.showMessageDialog(null,"Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,"Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE); 
+        }
+    
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

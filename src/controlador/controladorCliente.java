@@ -22,24 +22,39 @@ public class controladorCliente {
         
     }
      public boolean anadirCliente(Cliente cli){
-        boolean r = false;
+     boolean r = false;
         Connection con = null;
-       String txt= "to_date";
-        String sql = "Insert Into HIP_CLIENTES Values("+cli.getCli_id()
-                +",'"+cli.getCli_cedula()
-                +"','"+cli.getCli_nombre()
-                +"','"+cli.getCli_apellido()
-                +"','21/12/2020','"+cli.getCli_direccion()
-                +"','"+cli.getCli_tel_convencional()
-                +"','"+cli.getCli_celular()
-                +"','"+cli.getCli_correo_electronico()
-                +"');";
+       String t="to_Date";
+        String sql = "Insert Into hip_clientes (cli_id,cli_cedula,cli_nombre,cli_apellido,cli_fecha_registro,cli_direccion,"
+                + "cli_tel_convencional,cli_celular,cli_correo_electronico)"
+                + " VALUES(?,?,?,?,?,?,?,?,?)";
+          /*      + "Values("+fac.getFac_id()
+                                                    +",'"+fin2
+                                                    +"',"+fac.getFac_subTotal()
+                                                    +","+fac.getFac_iva()
+                                                    +","+fac.getFac_subTotal()
+                                                    +","+fac.getSuc_id()
+                                                    +",'"+fac.getCli_id()
+                                                    +"','"+fac.getFac_estado()
+                                                    +"')";*/
+        
+        
         try{
-            
-            con =Conexion.getConnection();
+            con = Conexion.getConnection();
             PreparedStatement ps= con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
-            
+            ps.setInt(1,cli.getCli_id());
+            ps.setString(2, cli.getCli_cedula());
+            ps.setString(3, cli.getCli_nombre());
+            ps.setString(4, cli.getCli_apellido());
+            ps.setDate(5, cli.getCli_fecha_registro());
+            ps.setString(6, cli.getCli_direccion());
+            ps.setString(7, cli.getCli_tel_convencional());
+            ps.setString(8, cli.getCli_celular());
+          ps.setString(9, cli.getCli_correo_electronico());
+          
+            //ResultSet rs=ps.executeQuery();
+            ps.executeQuery();
+            //actualizarAuto(form.getAut_id(),nomSuc);
             r=true;
 	    
         } catch (Exception e) {
