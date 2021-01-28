@@ -169,6 +169,11 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         });
 
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -348,9 +353,66 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JButtonCrearActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+      if(jTextId.equals("")||jTextCedula.equals("")||
+           jTextNombre.equals("")||jTextApellido.equals("")||
+           jTextFecha.equals("")||jTextDireccion.equals("")
+           ||jTextTelefono.equals("")||
+           jTextCelular.equals("")||jTextEmail.equals("")){
+            JOptionPane.showMessageDialog(null,"Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }else{
+            actualizarDatos();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
-private void llenarCasillas(){
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(ctCliente.eliminarCliente(Integer.parseInt(jTextId.getText()))==true){
+                JOptionPane.showMessageDialog(null,"Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null,"Datos Ocupando Otras Tablas ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void actualizarDatos(){
+        Cliente cl= new Cliente();
+    
+        cl.setCli_id(Integer.parseInt(jTextId.getText()));
+        cl.setCli_cedula(jTextCedula.getText());
+        cl.setCli_nombre(jTextNombre.getText());
+        cl.setCli_apellido(jTextApellido.getText());
+        
+         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+String strFecha = jTextFecha.getText();
+Date fecha = null;
+try {
+
+fecha = formatoDelTexto.parse(strFecha);
+
+} catch (ParseException ex) {
+
+ex.printStackTrace();
+
+}
+
+    java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
+        cl.setCli_fecha_registro(fin2);
+        System.out.println(fin2);
+        cl.setCli_direccion(jTextDireccion.getText());
+        cl.setCli_tel_convencional(jTextTelefono.getText());
+        cl.setCli_celular(jTextCelular.getText());
+        cl.setCli_correo_electronico(jTextEmail.getText());
+        
+        
+        if(ctCliente.actualizarCliente(cl)==true){
+            JOptionPane.showMessageDialog(null,"Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+           
+        }else{
+            JOptionPane.showMessageDialog(null,"Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE); 
+        }
+    }
+    private void llenarCasillas(){
     Cliente cl= new Cliente();
     
         cl.setCli_id(Integer.parseInt(jTextId.getText()));
@@ -358,19 +420,20 @@ private void llenarCasillas(){
         cl.setCli_nombre(jTextNombre.getText());
         cl.setCli_apellido(jTextApellido.getText());
         
-        String fecha1 = jTextFecha.getText(); // Entrada recogida (scanner)
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy"); // Creamos Fecha (Fecha del sistema)
+       SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+String strFecha = jTextFecha.getText();
+Date fecha = null;
+try {
 
-        Date fecha=null;
+fecha = formatoDelTexto.parse(strFecha);
 
-        try {
-            fecha = (Date) format.parse(fecha1);
-        } catch (ParseException ex) {
-            Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-         java.util.Date fin = new java.util.Date();
-       java.sql.Date fin2 = new java.sql.Date(fin.getTime());
+} catch (ParseException ex) {
+
+ex.printStackTrace();
+
+}
+
+    java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
         cl.setCli_fecha_registro(fin2);
         cl.setCli_direccion(jTextDireccion.getText());
         cl.setCli_tel_convencional(jTextTelefono.getText());

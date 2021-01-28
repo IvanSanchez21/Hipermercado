@@ -71,7 +71,7 @@ public class controladorCliente {
         int llena=0;
         boolean ban=false;
         Connection con = null;
-            String sql = "SELECT count(*) "
+            String sql = "SELECT count(*)"
                        + "from hip_clientes";
          try {
 
@@ -122,6 +122,60 @@ public class controladorCliente {
             Conexion.close(con);
         }
     }
-    
+      
+      public boolean actualizarCliente(Cliente cli){
+      
+          System.out.println(cli.getCli_id());
+           System.out.println(cli.getCli_apellido());
+            System.out.println(cli.getCli_cedula());
+             System.out.println(cli.getCli_fecha_registro());
+        boolean r = false;
+        Connection con = null;
+       
+        String sql = "UPDATE hip_clientes SET cli_cedula= '"+ cli.getCli_cedula()
+                +"', cli_nombre='"+cli.getCli_nombre()
+                +"', cli_apellido='"+cli.getCli_apellido()
+                +"', cli_fecha_registro='12/12/2014"
+                +"', cli_direccion='"+cli.getCli_direccion()
+                +"', cli_tel_convencional='"+cli.getCli_tel_convencional()
+                +"', cli_celular='"+cli.getCli_celular()
+                +"', cli_correo_electronico='"+cli.getCli_correo_electronico()
+                + "' WHERE cli_id = "+cli.getCli_id();
+        try{
+            con = Conexion.getConnection();
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            
+            r=true;
+	    
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Conexion.close(con);
+        }
+
+        return r;
+        
+    }
+     public boolean eliminarCliente(int id){
+        boolean r = false;
+        Connection con = null;
+       
+        String sql = "DELETE FROM  hip_clientes WHERE cli_id = "+id;
+        try{
+            con = Conexion.getConnection();
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            
+            r=true;
+	    
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Conexion.close(con);
+        }
+
+        return r;
+    }
     
 }
