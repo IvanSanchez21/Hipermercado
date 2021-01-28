@@ -32,13 +32,14 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     controladorCliente ctCliente;
     DefaultTableModel dtm;
     Object[] o = new Object[9];
+
     public VistaCliente1() {
         initComponents();
-         ctCliente = new controladorCliente();
-          //llenar Codigo
-        jTextId.setText(""+ctCliente.llenarId());
-        dtm = (DefaultTableModel)jTable1.getModel();
-        
+        ctCliente = new controladorCliente();
+        //llenar Codigo
+        jTextId.setText("" + ctCliente.llenarId());
+        dtm = (DefaultTableModel) jTable1.getModel();
+
         llenarTabla();
         cargaraJtext();
     }
@@ -339,149 +340,174 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     private void JButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCrearActionPerformed
         // TODO add your handling code here:
-         if(jTextId.equals("")||jTextCedula.equals("")||
-           jTextNombre.equals("")||jTextApellido.equals("")||
-           jTextFecha.equals("")||jTextDireccion.equals("")
-           ||jTextTelefono.equals("")||
-           jTextCelular.equals("")||jTextEmail.equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        if (jTextId.equals("") || jTextCedula.equals("")
+                || jTextNombre.equals("") || jTextApellido.equals("")
+                || jTextFecha.equals("") || jTextDireccion.equals("")
+                || jTextTelefono.equals("")
+                || jTextCelular.equals("") || jTextEmail.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-        }else{
+        } else {
             llenarCasillas();
         }
-        
+
     }//GEN-LAST:event_JButtonCrearActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      if(jTextId.equals("")||jTextCedula.equals("")||
-           jTextNombre.equals("")||jTextApellido.equals("")||
-           jTextFecha.equals("")||jTextDireccion.equals("")
-           ||jTextTelefono.equals("")||
-           jTextCelular.equals("")||jTextEmail.equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        if (jTextId.equals("") || jTextCedula.equals("")
+                || jTextNombre.equals("") || jTextApellido.equals("")
+                || jTextFecha.equals("") || jTextDireccion.equals("")
+                || jTextTelefono.equals("")
+                || jTextCelular.equals("") || jTextEmail.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-        }else{
+        } else {
             actualizarDatos();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(ctCliente.eliminarCliente(Integer.parseInt(jTextId.getText()))==true){
-                JOptionPane.showMessageDialog(null,"Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(null,"Datos Ocupando Otras Tablas ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            }
+        if (ctCliente.eliminarCliente(Integer.parseInt(jTextId.getText())) == true) {
+            JOptionPane.showMessageDialog(null, "Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Datos Ocupando Otras Tablas ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void actualizarDatos(){
-        Cliente cl= new Cliente();
-    
+    private void actualizarDatos() {
+        Cliente cl = new Cliente();
+
         cl.setCli_id(Integer.parseInt(jTextId.getText()));
-        cl.setCli_cedula(jTextCedula.getText());
-        cl.setCli_nombre(jTextNombre.getText());
-        cl.setCli_apellido(jTextApellido.getText());
-        
-         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
-String strFecha = jTextFecha.getText();
-Date fecha = null;
-try {
+        cl.setCli_id(Integer.parseInt(jTextId.getText()));
+        boolean c = ctCliente.valida(jTextCedula.getText());
+        boolean e = ctCliente.validarEmail(jTextEmail.getText());
+        if (c == true) {
+            if (e = true) {
+                cl.setCli_correo_electronico(jTextEmail.getText());
+                cl.setCli_cedula(jTextCedula.getText());
+                cl.setCli_nombre(jTextNombre.getText());
+                cl.setCli_apellido(jTextApellido.getText());
 
-fecha = formatoDelTexto.parse(strFecha);
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+                String strFecha = jTextFecha.getText();
+                Date fecha = null;
+                try {
 
-} catch (ParseException ex) {
+                    fecha = formatoDelTexto.parse(strFecha);
 
-ex.printStackTrace();
+                } catch (ParseException ex) {
 
-}
+                    ex.printStackTrace();
 
-    java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
-        cl.setCli_fecha_registro(fin2);
-        System.out.println(fin2);
-        cl.setCli_direccion(jTextDireccion.getText());
-        cl.setCli_tel_convencional(jTextTelefono.getText());
-        cl.setCli_celular(jTextCelular.getText());
-        cl.setCli_correo_electronico(jTextEmail.getText());
-        
-        
-        if(ctCliente.actualizarCliente(cl)==true){
-            JOptionPane.showMessageDialog(null,"Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-           
-        }else{
-            JOptionPane.showMessageDialog(null,"Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE); 
+                }
+
+                java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
+                cl.setCli_fecha_registro(fin2);
+                System.out.println(fin2);
+                cl.setCli_direccion(jTextDireccion.getText());
+                cl.setCli_tel_convencional(jTextTelefono.getText());
+                cl.setCli_celular(jTextCelular.getText());
+
+                if (ctCliente.actualizarCliente(cl) == true) {
+                    JOptionPane.showMessageDialog(null, "Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Email invalido", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
+
     }
-    private void llenarCasillas(){
-    Cliente cl= new Cliente();
-    
+
+    private void llenarCasillas() {
+        Cliente cl = new Cliente();
+
         cl.setCli_id(Integer.parseInt(jTextId.getText()));
-        cl.setCli_cedula(jTextCedula.getText());
-        cl.setCli_nombre(jTextNombre.getText());
-        cl.setCli_apellido(jTextApellido.getText());
-        
-       SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
-String strFecha = jTextFecha.getText();
-Date fecha = null;
-try {
+        boolean c = ctCliente.valida(jTextCedula.getText());
+        boolean e = ctCliente.validarEmail(jTextEmail.getText());
+        if (c == true) {
+            if (e == true) {
+                cl.setCli_correo_electronico(jTextEmail.getText());
+                cl.setCli_cedula(jTextCedula.getText());
+                cl.setCli_nombre(jTextNombre.getText());
+                cl.setCli_apellido(jTextApellido.getText());
 
-fecha = formatoDelTexto.parse(strFecha);
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
+                String strFecha = jTextFecha.getText();
+                Date fecha = null;
+                try {
 
-} catch (ParseException ex) {
+                    fecha = formatoDelTexto.parse(strFecha);
 
-ex.printStackTrace();
+                } catch (ParseException ex) {
 
-}
+                    ex.printStackTrace();
 
-    java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
-        cl.setCli_fecha_registro(fin2);
-        cl.setCli_direccion(jTextDireccion.getText());
-        cl.setCli_tel_convencional(jTextTelefono.getText());
-        cl.setCli_celular(jTextCelular.getText());
-        cl.setCli_correo_electronico(jTextEmail.getText());
-        
-        
-        if(ctCliente.anadirCliente(cl)==true){
-            JOptionPane.showMessageDialog(null,"Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            jTextCedula.setText("");
-            jTextNombre.setText("");
-            jTextApellido.setText("");
-            jTextFecha.setText("");
-            jTextDireccion.setText("");
-            jTextTelefono.setText("");
-            jTextCelular.setText("");
-            jTextEmail.setText("");
-        }else{
-            JOptionPane.showMessageDialog(null,"Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE); 
+                }
+
+                java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
+                cl.setCli_fecha_registro(fin2);
+                cl.setCli_direccion(jTextDireccion.getText());
+                cl.setCli_tel_convencional(jTextTelefono.getText());
+                cl.setCli_celular(jTextCelular.getText());
+
+                if (ctCliente.anadirCliente(cl) == true) {
+                    JOptionPane.showMessageDialog(null, "Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                    jTextCedula.setText("");
+                    jTextNombre.setText("");
+                    jTextApellido.setText("");
+                    jTextFecha.setText("");
+                    jTextDireccion.setText("");
+                    jTextTelefono.setText("");
+                    jTextCelular.setText("");
+                    jTextEmail.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Email invalido", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
-    
-}
-  public void llenarTabla(){
+
+    }
+
+    public void llenarTabla() {
         dtm.setRowCount(0);
         dtm = (DefaultTableModel) jTable1.getModel();
-        String ObjetoS[]=new String [6];
-        ctCliente.llenarTabla( dtm,o);  
+        String ObjetoS[] = new String[6];
+        ctCliente.llenarTabla(dtm, o);
     }
-  private void cargaraJtext() {
-        jTable1.addMouseListener(new MouseAdapter(){
-        public void mousePressed(MouseEvent mouse_evt){
-            JTable table = ( JTable)mouse_evt.getSource();
-            Point  point = mouse_evt.getPoint();
-            int row = table.rowAtPoint(point);
-            if(mouse_evt.getClickCount()==2){
-               jTextId.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-               jTextCedula.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-               jTextNombre.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-               jTextApellido.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                jTextFecha.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
-                 jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                  jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(),6).toString());
-                   jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
-                   jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
+
+    private void cargaraJtext() {
+        jTable1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouse_evt) {
+                JTable table = (JTable) mouse_evt.getSource();
+                Point point = mouse_evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouse_evt.getClickCount() == 2) {
+                    jTextId.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                    jTextCedula.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                    jTextNombre.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+                    jTextApellido.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+                    jTextFecha.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+                    jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
+                    jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
+                    jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
+                    jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
+                }
+
             }
-            
-        }
         });
     }
 
@@ -513,5 +539,4 @@ ex.printStackTrace();
     private javax.swing.JTextField jTextTelefono;
     // End of variables declaration//GEN-END:variables
 
-    
 }
