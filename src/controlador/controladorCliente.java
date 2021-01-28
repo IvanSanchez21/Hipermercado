@@ -77,8 +77,7 @@ public class controladorCliente {
         int llena = 0;
         boolean ban = false;
         Connection con = null;
-        String sql = "SELECT count(*)"
-                + "from hip_clientes";
+        String sql = "SELECT MAX (cli_id) FROM hip_clientes";
         try {
 
             con = Conexion.getConnection();
