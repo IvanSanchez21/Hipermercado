@@ -24,6 +24,10 @@ public class controladorCliente {
         
     }
      public boolean anadirCliente(Cliente cli){
+          System.out.println(cli.getCli_id());
+           System.out.println(cli.getCli_apellido());
+            System.out.println(cli.getCli_cedula());
+             System.out.println(cli.getCli_fecha_registro());
      boolean r = false;
         Connection con = null;
        String t="to_Date";
@@ -132,18 +136,21 @@ public class controladorCliente {
         boolean r = false;
         Connection con = null;
        
-        String sql = "UPDATE hip_clientes SET cli_cedula= '"+ cli.getCli_cedula()
-                +"', cli_nombre='"+cli.getCli_nombre()
-                +"', cli_apellido='"+cli.getCli_apellido()
-                +"', cli_fecha_registro='12/12/2014"
-                +"', cli_direccion='"+cli.getCli_direccion()
-                +"', cli_tel_convencional='"+cli.getCli_tel_convencional()
-                +"', cli_celular='"+cli.getCli_celular()
-                +"', cli_correo_electronico='"+cli.getCli_correo_electronico()
-                + "' WHERE cli_id = "+cli.getCli_id();
+        String sql = "UPDATE hip_clientes SET cli_cedula= ?, cli_nombre=?, cli_apellido=?, cli_fecha_registro=?, cli_direccion=?"
+                +", cli_tel_convencional=?, cli_celular=?, cli_correo_electronico=?"
+                + " WHERE cli_id = ?";
         try{
             con = Conexion.getConnection();
             PreparedStatement ps= con.prepareStatement(sql);
+            ps.setString(1,cli.getCli_cedula());
+            ps.setString(2,cli.getCli_nombre());
+            ps.setString(3,cli.getCli_apellido());
+            ps.setDate(4,cli.getCli_fecha_registro());
+            ps.setString(5,cli.getCli_direccion()); 
+            ps.setString(6,cli.getCli_tel_convencional());
+            ps.setString(7,cli.getCli_celular());
+            ps.setString(8,cli.getCli_correo_electronico());
+            ps.setInt(9,cli.getCli_id());
             ResultSet rs=ps.executeQuery();
             
             r=true;
