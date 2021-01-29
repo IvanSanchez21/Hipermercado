@@ -34,7 +34,7 @@ public class Conexion {
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");  
         	Connection con = DriverManager.getConnection(  
-                    "jdbc:oracle:thin:@localhost:1521:xe", "hiperadmin","hiperadmin");  
+                    "jdbc:oracle:thin:@localhost:1521:xe", "hipermercado","1234");  
         	System.out.println("Conectado");
             return con;
            
