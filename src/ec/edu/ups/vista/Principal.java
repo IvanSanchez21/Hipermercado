@@ -6,18 +6,20 @@
 package ec.edu.ups.vista;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author LENOVO
+ * @author Iván
  */
 public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
     private VistaFactura vf;
-     private VistaCliente1 vc;
-     
-    
+    private VistaCliente1 vc;
+    private InicioSesion isesi;
 
     /**
      * Creates new form VentanaUsuario
@@ -25,7 +27,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setExtendedState(Principal.MAXIMIZED_BOTH);
-        //setLocationRelativeTo(null);
+        jDesktopPane1.requestFocusInWindow();
     }
 
     /**
@@ -57,7 +59,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión de Usuario");
+        setUndecorated(true);
 
         jPanel4.setBackground(new java.awt.Color(3, 121, 105));
 
@@ -268,6 +271,16 @@ public class Principal extends javax.swing.JFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
         jDesktopPane1.setForeground(new java.awt.Color(240, 240, 240));
+        jDesktopPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jDesktopPane1MouseEntered(evt);
+            }
+        });
+        jDesktopPane1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jDesktopPane1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -288,7 +301,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
-        jDesktopPane1.repaint(); 
+        jDesktopPane1.repaint();
         vc = new VistaCliente1();
         vc.toFront();
         vc.setVisible(true);
@@ -333,14 +346,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-         System.exit(0);
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que quiere salir del programa?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
-        jDesktopPane1.repaint(); 
+        jDesktopPane1.repaint();
         vf = new VistaFactura();
         vf.toFront();
         vf.setVisible(true);
@@ -350,6 +365,20 @@ public class Principal extends javax.swing.JFrame {
         vf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
         vf.toFront();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jDesktopPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDesktopPane1KeyPressed
+        char car = (char) evt.getKeyCode();
+        if (car == (char) KeyEvent.VK_ESCAPE) {
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que quiere salir del programa?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION || (char) evt.getKeyCode() == KeyEvent.VK_S) {
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jDesktopPane1KeyPressed
+
+    private void jDesktopPane1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseEntered
+        jDesktopPane1.requestFocusInWindow();
+    }//GEN-LAST:event_jDesktopPane1MouseEntered
 
     /**
      * @param args the command line arguments

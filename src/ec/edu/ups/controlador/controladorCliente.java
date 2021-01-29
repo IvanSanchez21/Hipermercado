@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 import ec.edu.ups.modelo.Cliente;
+import java.sql.Date;
 
 /**
  *
@@ -53,7 +54,7 @@ public class controladorCliente {
             ps.setString(2, cli.getCli_cedula());
             ps.setString(3, cli.getCli_nombre());
             ps.setString(4, cli.getCli_apellido());
-            ps.setDate(5, cli.getCli_fecha_registro());
+            ps.setDate(5, (Date) cli.getCli_fecha_registro());
             ps.setString(6, cli.getCli_direccion());
             ps.setString(7, cli.getCli_tel_convencional());
             ps.setString(8, cli.getCli_celular());
@@ -126,10 +127,10 @@ public class controladorCliente {
             Conexion.close(con);
         }
     }
-    
-     public void filtro(DefaultTableModel dtm, Object[] o, Cliente cl) {
-         System.out.println(cl);
-        
+
+    public void filtro(DefaultTableModel dtm, Object[] o, Cliente cl) {
+        System.out.println(cl);
+
         Connection con = null;
 
         String sql = " SELECT *"
@@ -137,7 +138,7 @@ public class controladorCliente {
         try {
             con = Conexion.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-           ps.setString(1, cl.getCli_cedula());
+            ps.setString(1, cl.getCli_cedula());
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -154,7 +155,7 @@ public class controladorCliente {
                 o[8] = rs.getString("cli_correo_electronico");
 
                 dtm.addRow(o);
-                
+
             }
 
         } catch (Exception e) {
@@ -182,7 +183,7 @@ public class controladorCliente {
             ps.setString(1, cli.getCli_cedula());
             ps.setString(2, cli.getCli_nombre());
             ps.setString(3, cli.getCli_apellido());
-            ps.setDate(4, cli.getCli_fecha_registro());
+            ps.setDate(4, (Date) cli.getCli_fecha_registro());
             ps.setString(5, cli.getCli_direccion());
             ps.setString(6, cli.getCli_tel_convencional());
             ps.setString(7, cli.getCli_celular());
@@ -282,5 +283,4 @@ public class controladorCliente {
         }
     }
 
-    
 }

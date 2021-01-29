@@ -47,9 +47,10 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     public String getFechaActual() {
         fechactual = new Date();
-        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);      
+        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
         return vFechaOK;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,9 +271,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(jTextApellido)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextCedula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(jTextId, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(jTextCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(jTextId))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
@@ -292,11 +292,12 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(ftFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel6)
+                        .addComponent(ftFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -505,13 +506,12 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             cl.setCli_cedula(jTextFiltro.getText());
             dtm.setRowCount(0);
             dtm = (DefaultTableModel) jTable1.getModel();
-        String ObjetoS[] = new String[6];
+            String ObjetoS[] = new String[6];
             ctCliente.filtro(dtm, o, cl);
-                
-        
+
         } else {
-JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-     
+            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
         }
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
@@ -641,22 +641,22 @@ JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionP
                     jTextCedula.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
                     jTextNombre.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
                     jTextApellido.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                    SimpleDateFormat formato=new SimpleDateFormat("yyyy-mm-dd");
-                    String fecha=(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
-                    Date d=null;
-                            try {
-                        d=formato.parse(fecha);
+                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
+                    String fecha = (jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+                    Date d = null;
+                    try {
+                        d = formato.parse(fecha);
                         formato.applyPattern("dd/mm/yyyy");
-                         String nv=formato.format(d);
-                    ftFecha.setText(nv);
-                    jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                    jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-                    jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
-                    jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
+                        String nv = formato.format(d);
+                        ftFecha.setText(nv);
+                        jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
+                        jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
+                        jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
+                        jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
                     } catch (ParseException ex) {
                         Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                   
+
                 }
 
             }

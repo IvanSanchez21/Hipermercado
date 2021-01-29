@@ -11,11 +11,12 @@ import java.util.Date;
 
 /**
  *
- * @author LENOVO
+ * @author Josze
  */
 public class VistaProducto extends javax.swing.JInternalFrame {
 
     private Date fechactual;
+
     /**
      * Creates new form VistaProducto
      */
@@ -26,9 +27,10 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
     public String getFechaActual() {
         fechactual = new Date();
-        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);      
+        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
         return vFechaOK;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

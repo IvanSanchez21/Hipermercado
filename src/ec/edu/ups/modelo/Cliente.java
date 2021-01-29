@@ -5,13 +5,14 @@
  */
 package ec.edu.ups.modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
  * @author Johnny
  */
 public class Cliente {
+
     private int cli_id;
     private String cli_cedula;
     private String cli_nombre;
@@ -21,12 +22,9 @@ public class Cliente {
     private String cli_tel_convencional;
     private String cli_celular;
     private String cli_correo_electronico;
-    
-    
+
     public Cliente() {
     }
-
- 
 
     public int getCli_id() {
         return cli_id;
@@ -100,7 +98,4 @@ public class Cliente {
         this.cli_correo_electronico = cli_correo_electronico;
     }
 
-    
-    
-    
 }

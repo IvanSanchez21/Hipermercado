@@ -5,6 +5,9 @@
  */
 package ec.edu.ups.vista;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LENOVO
@@ -17,6 +20,7 @@ public class InicioSesion extends javax.swing.JFrame {
     public InicioSesion() {
         initComponents();
         this.setLocationRelativeTo(null);
+        jPanel4.requestFocusInWindow();
         
     }
 
@@ -63,6 +67,16 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel3.setToolTipText("");
 
         jPanel4.setBackground(new java.awt.Color(3, 121, 105));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel4MouseEntered(evt);
+            }
+        });
+        jPanel4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel4KeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,6 +204,17 @@ public class InicioSesion extends javax.swing.JFrame {
         }
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel4KeyPressed
+        char car = (char) evt.getKeyCode();
+        if (car == (char) KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jPanel4KeyPressed
+
+    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
+        jPanel4.requestFocusInWindow();
+    }//GEN-LAST:event_jPanel4MouseEntered
 
     /**
      * @param args the command line arguments
