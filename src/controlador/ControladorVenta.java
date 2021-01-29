@@ -19,6 +19,7 @@ public class ControladorVenta {
     private Cliente cliente;
     private ConexionBD conexion;
     
+    // este método es paa 
     public Cliente buscarPorCedula(String cedula) {
         try {
             cliente = new Cliente();
