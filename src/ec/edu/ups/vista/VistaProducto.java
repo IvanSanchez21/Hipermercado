@@ -157,7 +157,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/buscar.png"))); // NOI18N
         bBuscar.setText("Buscar");
 
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Activo", "Pasivo" }));

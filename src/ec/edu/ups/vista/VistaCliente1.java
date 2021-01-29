@@ -115,7 +115,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
         }
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/actualizar.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/actualizar.png"))); // NOI18N
         jButton2.setText("Actualizar");
         jButton2.setIconTextGap(5);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/eliminar.png"))); // NOI18N
         jButton1.setText("Eliminar");
         jButton1.setIconTextGap(5);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +204,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Celular:");
 
-        JButtonCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crearCliente.png"))); // NOI18N
+        JButtonCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/crearUsuario.png"))); // NOI18N
         JButtonCrear.setText("Registrar");
         JButtonCrear.setAlignmentX(0.1F);
         JButtonCrear.setIconTextGap(5);
@@ -219,7 +219,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Cédula:");
 
-        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/buscar.png"))); // NOI18N
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,9 +259,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                                         .addComponent(jTextNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                         .addComponent(jTextApellido)
                                         .addComponent(jTextDireccion)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jTextCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addComponent(jTextCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(jTextTelefono)
                                         .addComponent(jTextEmail)
                                         .addComponent(ftFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(27, 27, 27)

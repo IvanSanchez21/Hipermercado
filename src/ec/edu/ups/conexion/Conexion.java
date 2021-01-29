@@ -19,12 +19,12 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    public static void main(String[] args){
-     
-        /* Llamar al método (Close) para cerrar la base de datos */
-        close(getConnection());
-        
-    }
+//    public static void main(String[] args){
+//     
+//        /* Llamar al método (Close) para cerrar la base de datos */
+//        close(getConnection());
+//        
+//    }
     
     
     /*°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
