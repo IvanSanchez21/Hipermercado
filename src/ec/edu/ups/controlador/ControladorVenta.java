@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador;
+package ec.edu.ups.controlador;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import modelo.Cliente;
+import ec.edu.ups.modelo.Cliente;
 
 /**
  *
@@ -19,7 +19,7 @@ public class ControladorVenta {
     private Cliente cliente;
     private ConexionBD conexion;
     
-    // este método es paa 
+    // este método es para búsqueda 
     public Cliente buscarPorCedula(String cedula) {
         try {
             cliente = new Cliente();

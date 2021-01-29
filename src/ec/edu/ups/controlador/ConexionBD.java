@@ -1,4 +1,4 @@
-package controlador;
+package ec.edu.ups.controlador;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

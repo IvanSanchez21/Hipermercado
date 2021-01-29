@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package ec.edu.ups.vista;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.Cliente;
-import controlador.controladorCliente;
+import ec.edu.ups.modelo.Cliente;
+import ec.edu.ups.controlador.controladorCliente;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

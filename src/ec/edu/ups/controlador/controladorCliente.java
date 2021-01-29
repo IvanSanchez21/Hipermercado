@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador;
+package ec.edu.ups.controlador;
 
-import conexion.Conexion;
+import ec.edu.ups.conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
-import modelo.Cliente;
+import ec.edu.ups.modelo.Cliente;
 
 /**
  *

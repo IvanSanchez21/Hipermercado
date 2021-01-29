@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package ec.edu.ups.modelo;
 
 /**
  *
- * @author ASUS
+ * @author LENOVO
  */
-public class Factura {
+public class Producto {
     
 }
