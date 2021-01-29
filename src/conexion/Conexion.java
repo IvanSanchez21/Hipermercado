@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
      
         /* Llamar al método (Close) para cerrar la base de datos */
         close(getConnection());
@@ -30,11 +30,11 @@ public class Conexion {
     /*°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
             
     °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°*/
-    public static Connection getConnection() {
+    public static Connection getConnection(){
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");  
         	Connection con = DriverManager.getConnection(  
-                    "jdbc:oracle:thin:@localhost:1521:xe", "hipermercado","1234");  
+                    "jdbc:oracle:thin:@localhost:1521:xe", "hiperadmin","hiperadmin");  
         	System.out.println("Conectado");
             return con;
            
