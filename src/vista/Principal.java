@@ -16,6 +16,7 @@ public class Principal extends javax.swing.JFrame {
     private VistaProducto vp;
     private VistaFactura vf;
      private VistaCliente1 vc;
+     
     
 
     /**
@@ -24,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setExtendedState(Principal.MAXIMIZED_BOTH);
+        //setLocationRelativeTo(null);
     }
 
     /**
@@ -265,6 +267,9 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
+        jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
+        jDesktopPane1.setForeground(new java.awt.Color(240, 240, 240));
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -283,7 +288,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-      jDesktopPane1.removeAll();
+        jDesktopPane1.removeAll();
         jDesktopPane1.repaint(); 
         vc = new VistaCliente1();
         vc.toFront();
@@ -328,6 +333,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+         System.exit(0);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
