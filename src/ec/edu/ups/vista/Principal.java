@@ -20,6 +20,8 @@ public class Principal extends javax.swing.JFrame {
     private VistaFactura vf;
     private VistaCliente1 vc;
     private InicioSesion isesi;
+    private AnularFactura af;
+    private BuscarFactura bf;
 
     /**
      * Creates new form VentanaUsuario
@@ -335,10 +337,30 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        af = new AnularFactura();
+        af.toFront();
+        af.setVisible(true);
+        jDesktopPane1.add(af);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = af.getSize();
+        af.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        af.toFront();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        bf = new BuscarFactura();
+        bf.toFront();
+        bf.setVisible(true);
+        jDesktopPane1.add(bf);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = bf.getSize();
+        bf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        bf.toFront();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
