@@ -5,17 +5,21 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorVenta;
+
 /**
  *
  * @author José
  */
 public class BuscarFactura extends javax.swing.JInternalFrame {
 
+    private ControladorVenta venta;
     /**
      * Creates new form BuscarFactura
      */
     public BuscarFactura() {
         initComponents();
+        venta = new ControladorVenta();
     }
 
     /**
@@ -56,6 +60,8 @@ public class BuscarFactura extends javax.swing.JInternalFrame {
         jTextField4 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Buscar Factura");
