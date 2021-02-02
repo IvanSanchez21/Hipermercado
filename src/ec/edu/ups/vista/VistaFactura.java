@@ -70,6 +70,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
 
+        setClosable(true);
         setTitle("Módulo de Facturación");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
