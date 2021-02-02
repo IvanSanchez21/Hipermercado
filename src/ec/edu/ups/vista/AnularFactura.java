@@ -5,17 +5,22 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorVenta;
+
 /**
  *
  * @author José
  */
 public class AnularFactura extends javax.swing.JInternalFrame {
 
+    
+    private ControladorVenta venta;
     /**
      * Creates new form AnularFactura
      */
     public AnularFactura() {
         initComponents();
+        venta = new ControladorVenta();
     }
 
     /**
@@ -58,6 +63,9 @@ public class AnularFactura extends javax.swing.JInternalFrame {
         jTextField4 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Anular Factura");
