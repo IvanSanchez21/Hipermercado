@@ -8,7 +8,10 @@ package ec.edu.ups.vista;
 import ec.edu.ups.controlador.ControladorFactura;
 import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.Producto;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import oracle.sql.NUMBER;
 
 /**
  *
@@ -19,10 +22,12 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private ControladorFactura factura;
     private Cliente cliente;
     private Producto producto;
-    
+    DefaultTableModel modelo = new DefaultTableModel();
+    private int idProd;
+
     public VistaFactura() {
         initComponents();
-       factura = new ControladorFactura();
+        factura = new ControladorFactura();
     }
 
     /**
@@ -50,13 +55,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtCliente = new javax.swing.JTextField();
         btnBuscarCliente = new javax.swing.JButton();
         btnProducto = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
-        jButton5 = new javax.swing.JButton();
+        txtSpiner = new javax.swing.JSpinner();
+        btnAgregarProducto = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTablaDetalle = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -81,11 +86,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel6.setText("Ruc/CI:");
 
         txtCedula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCedula.setText("0101506806");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Cod. Producto:");
 
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCodigo.setText("101010001");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Dirección:");
@@ -128,7 +135,12 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton5.setText("Agregar");
+        btnAgregarProducto.setText("Agregar");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Stock:");
@@ -158,12 +170,12 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSpinner1))
+                            .addComponent(txtSpiner))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnBuscarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -197,7 +209,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
                                 .addGap(1, 1, 1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -205,7 +217,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(btnAgregarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -234,42 +246,29 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTablaDetalle.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tblTablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Producto", "Cantidad", "Valor Unitario", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(100);
+        jScrollPane1.setViewportView(tblTablaDetalle);
+        if (tblTablaDetalle.getColumnModel().getColumnCount() > 0) {
+            tblTablaDetalle.getColumnModel().getColumn(0).setMinWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(2).setMinWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(3).setMinWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(3).setMaxWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(4).setMinWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblTablaDetalle.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -445,44 +444,92 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         EnviarBuscarProducto();
     }//GEN-LAST:event_btnProductoActionPerformed
 
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        // TODO add your handling code here:
+        AgregarProducto();
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
+
+    public void AgregarProducto() {
+        double total;
+        int item = 0;
+        modelo = (DefaultTableModel) tblTablaDetalle.getModel();
+        item = item + 1;
+        idProd = Integer.parseInt(producto.getPrd_cbarra());
+        String nomProducto = txtNombreProducto.getText();
+        double precio = producto.getPrd_precio();
+        int cantidad = Integer.parseInt(txtSpiner.getValue().toString());
+        total = cantidad * precio;
+        double stock = producto.getPrd_stock();
+        ArrayList lista = new ArrayList();
+        if (stock > 0) {
+            lista.add(idProd);
+            lista.add(nomProducto);
+            lista.add(cantidad);
+            lista.add(precio);
+            lista.add(total);
+
+            Object[] obj = new Object[6];
+            obj[0] = lista.get(0);
+            obj[1] = lista.get(1);
+            obj[2] = lista.get(2);
+            obj[3] = lista.get(3);
+            obj[4] = lista.get(4);
+            //obj[5] = lista.get(5);
+            modelo.addRow(obj);
+            tblTablaDetalle.setModel(modelo);
+            borrarCampos();
+
+        } else {
+            borrarCampos();
+            JOptionPane.showMessageDialog(this, "STOCK  de producto no disponible");
+        }
+    }
+    
+    public void borrarCampos(){
+        txtCodigo.setText("");
+        txtNombreProducto.setText("");
+        txtStock.setText("");
+    }
+
     public void EnviarBuscarProducto() {
         String codigo = txtCodigo.getText();
-      
+
         producto = factura.buscarProducto(codigo);
         //System.out.println("pruega-- = " + producto.getPrd_nombre());
-         
+
         if (producto.getPrd_cbarra() != null) {
-        
-        txtStock.setText(Double.toString(producto.getPrd_stock()));
-        txtNombreProducto.setText(producto.getPrd_nombre());
-           
+
+            txtStock.setText(Double.toString(producto.getPrd_stock()));
+            txtNombreProducto.setText(producto.getPrd_nombre());
+
         } else {
             JOptionPane.showMessageDialog(this, "El código ingresado es incorrecto", "Producto no registrado", JOptionPane.OK_OPTION);
         }
-        
+
     }
+
     public void EnviarBuscarCliente() {
         String cedula = txtCedula.getText();
-      
+
         cliente = factura.buscarCliente(cedula);
         if (cliente.getCli_cedula() != null) {
-        
-        txtCliente.setText(cliente.getCli_nombre() + " " + cliente.getCli_apellido());
-        txtDireccion.setText(cliente.getCli_direccion());
-           
+
+            txtCliente.setText(cliente.getCli_nombre() + " " + cliente.getCli_apellido());
+            txtDireccion.setText(cliente.getCli_direccion());
+
         } else {
             JOptionPane.showMessageDialog(this, "La cedula ingresada no está registrada", "Cliente no registrado", JOptionPane.OK_OPTION);
         }
-        
+
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -501,19 +548,19 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable tblTablaDetalle;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNomVendedor;
     private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JSpinner txtSpiner;
     private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 
