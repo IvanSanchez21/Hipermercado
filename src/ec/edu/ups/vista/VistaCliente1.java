@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ec.edu.ups.modelo.Cliente;
-import ec.edu.ups.controlador.controladorCliente;
+import ec.edu.ups.controlador.ControladorCliente;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,19 +23,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Johnny
  */
-public class VistaCliente extends javax.swing.JInternalFrame {
+public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form VistaCliente
+     * Creates new form VistaCliente1
      */
     private Date fechactual;
-    controladorCliente ctCliente;
+    ControladorCliente ctCliente;
     DefaultTableModel dtm;
     Object[] o = new Object[9];
 
-    public VistaCliente() {
+    public VistaCliente1() {
         initComponents();
-        ctCliente = new controladorCliente();
+        ctCliente = new ControladorCliente();
         ftFecha.setText(getFechaActual());
         //llenar Codigo
         jTextId.setText("" + ctCliente.llenarId());
@@ -654,7 +654,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
                         jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
                         jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
                     } catch (ParseException ex) {
-                        Logger.getLogger(VistaCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }

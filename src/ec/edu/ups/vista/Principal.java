@@ -18,7 +18,7 @@ public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
     private VistaFactura vf;
-    private VistaCliente vc;
+    private VistaCliente1 vc;
     private InicioSesion isesi;
     private AnularFactura af;
     private BuscarFactura bf;
@@ -303,7 +303,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        vc = new VistaCliente();
+        vc = new VistaCliente1();
         vc.toFront();
         vc.setVisible(true);
         jDesktopPane1.add(vc);

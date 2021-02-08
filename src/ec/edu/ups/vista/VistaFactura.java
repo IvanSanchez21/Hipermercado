@@ -88,8 +88,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Dirección:");
 
+        txtDireccion.setEditable(false);
         txtDireccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtDireccion.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Cantidad:");
@@ -97,20 +97,20 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Vendedor:");
 
+        jTextField9.setEditable(false);
         jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField9.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Producto:");
 
+        jTextField10.setEditable(false);
         jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField10.setEnabled(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Cliente:");
 
+        txtCliente.setEditable(false);
         txtCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCliente.setEnabled(false);
 
         btnBuscarCliente.setText("Buscar cliente");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +126,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Stock:");
 
-        jTextField13.setEnabled(false);
+        jTextField13.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -360,7 +360,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(214, 217, 223));
@@ -370,13 +370,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel1.setText("Factura Nro:");
         jLabel1.setToolTipText("");
 
-        jTextField5.setEnabled(false);
+        jTextField5.setEditable(false);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel13.setText("Fecha emisión:");
         jLabel13.setToolTipText("");
 
-        jTextField8.setEnabled(false);
+        jTextField8.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -430,10 +430,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         // TODO add your handling code here:
-   
-    
-   
-        
+        EnviarBuscarCliente();
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     public void EnviarBuscarCliente() {
@@ -443,12 +440,11 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         cliente = factura.buscarCliente(cedula);
         if (cliente.getCli_cedula() != null) {
         
-        txtCliente.setText(cliente.getCli_nombre() + cliente.getCli_apellido());
-        txtCedula.setText(cliente.getCli_cedula());
+        txtCliente.setText(cliente.getCli_nombre() + " " + cliente.getCli_apellido());
         txtDireccion.setText(cliente.getCli_direccion());
            
         } else {
-            JOptionPane.showMessageDialog(this, "La cedula ingresada no está registrada", "Buscar cédula de persona", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "La cedula ingresada no está registrada", "Cliente no registrado", JOptionPane.OK_OPTION);
         }
         
     }
