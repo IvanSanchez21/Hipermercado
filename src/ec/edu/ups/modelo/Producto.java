@@ -19,16 +19,16 @@ public class Producto {
     private String prd_nombre;
     private double prd_precio;
     private double prd_stock;
-    private char prd_estado;
+    private String prd_estado;
     private String prd_unidad;
-    private char prd_origen;
-    private char prd_iva;
+    private String prd_origen;
+    private boolean prd_iva;
     private Categoria categoria;
 
     public Producto() {
     }
 
-    public Producto(int prd_id, String prd_cbarra, Date prd_fecha_registro, String prd_nombre, double prd_precio, double prd_stock, char prd_estado, String prd_unidad, char prd_origen, char prd_iva, Categoria categoria) {
+    public Producto(int prd_id, String prd_cbarra, Date prd_fecha_registro, String prd_nombre, double prd_precio, double prd_stock, String prd_estado, String prd_unidad, String prd_origen, boolean prd_iva, Categoria categoria) {
         this.prd_id = prd_id;
         this.prd_cbarra = prd_cbarra;
         this.prd_fecha_registro = prd_fecha_registro;
@@ -90,11 +90,11 @@ public class Producto {
         this.prd_stock = prd_stock;
     }
 
-    public char getPrd_estado() {
+    public String getPrd_estado() {
         return prd_estado;
     }
 
-    public void setPrd_estado(char prd_estado) {
+    public void setPrd_estado(String prd_estado) {
         this.prd_estado = prd_estado;
     }
 
@@ -106,19 +106,19 @@ public class Producto {
         this.prd_unidad = prd_unidad;
     }
 
-    public char getPrd_origen() {
+    public String getPrd_origen() {
         return prd_origen;
     }
 
-    public void setPrd_origen(char prd_origen) {
+    public void setPrd_origen(String prd_origen) {
         this.prd_origen = prd_origen;
     }
 
-    public char getPrd_iva() {
+    public boolean getPrd_iva() {
         return prd_iva;
     }
 
-    public void setPrd_iva(char prd_iva) {
+    public void setPrd_iva(boolean prd_iva) {
         this.prd_iva = prd_iva;
     }
 

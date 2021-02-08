@@ -8,7 +8,9 @@ package ec.edu.ups.vista;
 import ec.edu.ups.controlador.ControladorFactura;
 import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.Producto;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaFactura extends javax.swing.JInternalFrame {
 
+    private Date fechactual;
     private ControladorFactura factura;
     private Cliente cliente;
     private Producto producto = new Producto();
@@ -26,6 +29,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     public VistaFactura() {
         initComponents();
          factura = new ControladorFactura();
+         txtFecha.setText(getFechaActual());
+    }
+
+    public String getFechaActual() {
+        fechactual = new Date();
+        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
+        return vFechaOK;
     }
 
     /**
@@ -380,7 +390,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Producto", "Cantidad", "Valor Unitario", "Total"
+                "Código", "Producto", "Cantidad", "Valor Unitario", "Iva", "Total"
             }
         ));
         jScrollPane1.setViewportView(tblTablaDetalle);
@@ -397,6 +407,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             tblTablaDetalle.getColumnModel().getColumn(4).setMinWidth(150);
             tblTablaDetalle.getColumnModel().getColumn(4).setPreferredWidth(150);
             tblTablaDetalle.getColumnModel().getColumn(4).setMaxWidth(150);
+            tblTablaDetalle.getColumnModel().getColumn(5).setMinWidth(150);
+            tblTablaDetalle.getColumnModel().getColumn(5).setPreferredWidth(150);
+            tblTablaDetalle.getColumnModel().getColumn(5).setMaxWidth(150);
         }
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -545,9 +558,15 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         String nomProducto = producto.getPrd_nombre();
         double precio = producto.getPrd_precio();
         int cantidad = Integer.parseInt(txtSpiner.getValue().toString());
-        total = cantidad * precio;
-        
         double stock = Double.parseDouble(txtStock.getText());
+        
+        total = cantidad * precio;
+        double iva = calcularIva(total);
+        total = total + iva;
+        
+        System.out.println("total: " +total);
+        System.out.println("iva : "  + iva);
+        
         ArrayList lista = new ArrayList();
         
         if(stock > 0){
@@ -555,6 +574,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             lista.add(nomProducto);
             lista.add(cantidad);
             lista.add(precio);
+            lista.add(iva);
             lista.add(total);
             
             Object[] ob = new Object[6];
@@ -563,12 +583,35 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             ob[2] = lista.get(2);
             ob[3] = lista.get(3);
             ob[4] = lista.get(4);
+            ob[5] = lista.get(5);
             modelo.addRow(ob);
             tblTablaDetalle.setModel(modelo);
         }else{
             JOptionPane.showConfirmDialog(this, "Stock del producto no disponible");
         }
     }
+    
+    public void borrarProducto(){
+        txtCodigo.setText("");
+        txtStock.setText("");
+        txtNombreProducto.setText("");
+    }
+    
+    public double calcularIva(double tot){
+        double totalIva = 0;
+        boolean iva = producto.getPrd_iva();
+        if(iva == true){
+            totalIva = (tot * 12) / 100;    
+        }else{
+            totalIva = 0;
+        }
+        return totalIva;
+    }
+    public void calcularTotal(){
+        
+        
+    }
+    
     public void EnviarBuscarProducto() {
         String codigo = txtCodigo.getText();
       

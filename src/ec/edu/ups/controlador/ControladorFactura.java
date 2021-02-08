@@ -77,8 +77,11 @@ public class ControladorFactura {
                 producto.setPrd_nombre(respuesta.getString(4));
                 producto.setPrd_precio(respuesta.getDouble(5));
                 producto.setPrd_stock(respuesta.getDouble(6));
-              //  producto.setPrd_estado(respuesta.getString(7)); 
-
+                producto.setPrd_estado(respuesta.getString(7));
+                producto.setPrd_unidad(respuesta.getString(8));
+                producto.setPrd_origen(respuesta.getString(9));
+                producto.setPrd_iva(respuesta.getBoolean(10));
+                
             }
             conexion.desconectar();
             System.out.println("nombre pro : " + producto.getPrd_nombre());
