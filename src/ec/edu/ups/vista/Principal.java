@@ -18,7 +18,7 @@ public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
     private VistaFactura vf;
-    private VistaCliente1 vc;
+    private VistaCliente vc;
     private InicioSesion isesi;
     private AnularFactura af;
     private BuscarFactura bf;
@@ -62,7 +62,6 @@ public class Principal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
 
         setTitle("Gestión de Usuario");
-        setUndecorated(true);
 
         jPanel4.setBackground(new java.awt.Color(3, 121, 105));
 
@@ -304,7 +303,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        vc = new VistaCliente1();
+        vc = new VistaCliente();
         vc.toFront();
         vc.setVisible(true);
         jDesktopPane1.add(vc);

@@ -23,17 +23,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Johnny
  */
-public class VistaCliente1 extends javax.swing.JInternalFrame {
+public class VistaCliente extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form VistaCliente1
+     * Creates new form VistaCliente
      */
     private Date fechactual;
     controladorCliente ctCliente;
     DefaultTableModel dtm;
     Object[] o = new Object[9];
 
-    public VistaCliente1() {
+    public VistaCliente() {
         initComponents();
         ctCliente = new controladorCliente();
         ftFecha.setText(getFechaActual());
@@ -654,7 +654,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                         jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
                         jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
                     } catch (ParseException ex) {
-                        Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(VistaCliente.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }

@@ -5,9 +5,9 @@
  */
 package ec.edu.ups.vista;
 
-import ec.edu.ups.controlador.ControladorVenta;
-import javax.swing.table.DefaultTableModel;
+import ec.edu.ups.controlador.ControladorFactura;
 import ec.edu.ups.modelo.Cliente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,12 +15,12 @@ import ec.edu.ups.modelo.Cliente;
  */
 public class VistaFactura extends javax.swing.JInternalFrame {
 
-    private ControladorVenta venta;
+    private ControladorFactura factura;
     private Cliente cliente;
     
     public VistaFactura() {
         initComponents();
-        venta = new ControladorVenta();
+       factura = new ControladorFactura();
     }
 
     /**
@@ -430,17 +430,27 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         // TODO add your handling code here:
-        
+   
+    
+   
         
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
-    public void buscar() {
+    public void EnviarBuscarCliente() {
         
         String cedula = txtCedula.getText();
-        cliente = venta.buscarPorCedula(cedula);
+      
+        cliente = factura.buscarCliente(cedula);
+        if (cliente.getCli_cedula() != null) {
+        
         txtCliente.setText(cliente.getCli_nombre() + cliente.getCli_apellido());
         txtCedula.setText(cliente.getCli_cedula());
         txtDireccion.setText(cliente.getCli_direccion());
+           
+        } else {
+            JOptionPane.showMessageDialog(this, "La cedula ingresada no está registrada", "Buscar cédula de persona", JOptionPane.OK_OPTION);
+        }
+        
     }
 
     

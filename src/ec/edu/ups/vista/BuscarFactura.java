@@ -5,7 +5,7 @@
  */
 package ec.edu.ups.vista;
 
-import ec.edu.ups.controlador.ControladorVenta;
+import ec.edu.ups.controlador.ControladorFactura;
 
 /**
  *
@@ -13,13 +13,13 @@ import ec.edu.ups.controlador.ControladorVenta;
  */
 public class BuscarFactura extends javax.swing.JInternalFrame {
 
-    private ControladorVenta venta;
+    private ControladorFactura factura;
     /**
      * Creates new form BuscarFactura
      */
     public BuscarFactura() {
         initComponents();
-        venta = new ControladorVenta();
+        factura = new ControladorFactura();
     }
 
     /**

@@ -109,6 +109,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setBorder(null);
         jTextField1.setDisabledTextColor(new java.awt.Color(3, 121, 105));
+        jTextField1.setFocusTraversalPolicyProvider(true);
 
         jPasswordField1.setBackground(new java.awt.Color(3, 121, 105));
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

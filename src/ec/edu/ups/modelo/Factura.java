@@ -5,10 +5,14 @@
  */
 package ec.edu.ups.modelo;
 
+import ec.edu.ups.controlador.ControladorFactura;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author ASUS
+ * @author Iván
  */
 public class Factura {
+    
     
 }

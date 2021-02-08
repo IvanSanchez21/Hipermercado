@@ -5,7 +5,7 @@
  */
 package ec.edu.ups.vista;
 
-import ec.edu.ups.controlador.ControladorVenta;
+import ec.edu.ups.controlador.ControladorFactura;
 
 /**
  *
@@ -14,13 +14,13 @@ import ec.edu.ups.controlador.ControladorVenta;
 public class AnularFactura extends javax.swing.JInternalFrame {
 
     
-    private ControladorVenta venta;
+    private ControladorFactura factura;
     /**
      * Creates new form AnularFactura
      */
     public AnularFactura() {
         initComponents();
-        venta = new ControladorVenta();
+        factura = new ControladorFactura();
     }
 
     /**

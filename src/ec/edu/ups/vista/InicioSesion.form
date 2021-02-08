@@ -231,6 +231,7 @@
                 <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="69" green="79" red="3" type="rgb"/>
                 </Property>
+                <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="jPasswordField1">
