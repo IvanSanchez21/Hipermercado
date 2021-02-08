@@ -205,12 +205,12 @@
                               </Group>
                               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnQuitarProducto" pref="104" max="32767" attributes="0"/>
+                                  <Component id="btnAgregarProd" pref="104" max="32767" attributes="0"/>
                                   <Component id="jButton1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnAgregarProducto" min="-2" pref="129" max="-2" attributes="0"/>
+                                  <Component id="btnQuitarProd" min="-2" pref="129" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
@@ -293,8 +293,8 @@
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="txtSpiner" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="btnQuitarProducto" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="btnAgregarProducto" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="btnAgregarProd" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="btnQuitarProd" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -401,20 +401,20 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnQuitarProducto">
+            <Component class="javax.swing.JButton" name="btnAgregarProd">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarProductoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarProdActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAgregarProducto">
+            <Component class="javax.swing.JButton" name="btnQuitarProd">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quitar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarProductoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarProdActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">

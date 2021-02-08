@@ -8,7 +8,9 @@ package ec.edu.ups.vista;
 import ec.edu.ups.controlador.ControladorFactura;
 import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.Producto;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +20,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     private ControladorFactura factura;
     private Cliente cliente;
-    private Producto producto;
+    private Producto producto = new Producto();
+    DefaultTableModel modelo = new DefaultTableModel();
     
     public VistaFactura() {
         initComponents();
@@ -51,8 +54,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtNombreProducto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtSpiner = new javax.swing.JSpinner();
-        btnQuitarProducto = new javax.swing.JButton();
-        btnAgregarProducto = new javax.swing.JButton();
+        btnAgregarProd = new javax.swing.JButton();
+        btnQuitarProd = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -168,17 +171,17 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         txtSpiner.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        btnQuitarProducto.setText("Agregar");
-        btnQuitarProducto.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarProd.setText("Agregar");
+        btnAgregarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarProductoActionPerformed(evt);
+                btnAgregarProdActionPerformed(evt);
             }
         });
 
-        btnAgregarProducto.setText("Quitar");
-        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+        btnQuitarProd.setText("Quitar");
+        btnQuitarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarProductoActionPerformed(evt);
+                btnQuitarProdActionPerformed(evt);
             }
         });
 
@@ -284,11 +287,11 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                             .addComponent(txtStock))
                         .addGap(7, 7, 7)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnQuitarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                            .addComponent(btnAgregarProd, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(7, 7, 7)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnQuitarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addComponent(jLabel16)
@@ -348,8 +351,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel8))
                             .addComponent(txtSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnQuitarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAgregarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnQuitarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,15 +527,48 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         EnviarBuscarProducto();
     }//GEN-LAST:event_btnProductoActionPerformed
 
-    private void btnQuitarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarProductoActionPerformed
+    private void btnAgregarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProdActionPerformed
         // TODO add your handling code here:
-        //AgregarProducto();
-    }//GEN-LAST:event_btnQuitarProductoActionPerformed
+        agregarProducto();
+        
+    }//GEN-LAST:event_btnAgregarProdActionPerformed
 
-    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+    private void btnQuitarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarProdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarProductoActionPerformed
+    }//GEN-LAST:event_btnQuitarProdActionPerformed
 
+    public void agregarProducto(){
+        double total = 0;
+        
+        modelo = (DefaultTableModel)tblTablaDetalle.getModel();
+        int codBarra = Integer.parseInt(producto.getPrd_cbarra());
+        String nomProducto = producto.getPrd_nombre();
+        double precio = producto.getPrd_precio();
+        int cantidad = Integer.parseInt(txtSpiner.getValue().toString());
+        total = cantidad * precio;
+        
+        double stock = Double.parseDouble(txtStock.getText());
+        ArrayList lista = new ArrayList();
+        
+        if(stock > 0){
+            lista.add(codBarra);
+            lista.add(nomProducto);
+            lista.add(cantidad);
+            lista.add(precio);
+            lista.add(total);
+            
+            Object[] ob = new Object[6];
+            ob[0] = lista.get(0);
+            ob[1] = lista.get(1);
+            ob[2] = lista.get(2);
+            ob[3] = lista.get(3);
+            ob[4] = lista.get(4);
+            modelo.addRow(ob);
+            tblTablaDetalle.setModel(modelo);
+        }else{
+            JOptionPane.showConfirmDialog(this, "Stock del producto no disponible");
+        }
+    }
     public void EnviarBuscarProducto() {
         String codigo = txtCodigo.getText();
       
@@ -577,10 +613,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnAgregarProd;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnProducto;
-    private javax.swing.JButton btnQuitarProducto;
+    private javax.swing.JButton btnQuitarProd;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
