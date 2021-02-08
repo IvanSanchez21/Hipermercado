@@ -5,7 +5,7 @@
  */
 package ec.edu.ups.vista;
 
-import ec.edu.ups.controlador.ControladorCliente;
+import ec.edu.ups.controlador.ControladorCliente1;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,13 +29,13 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
      * Creates new form VistaCliente1
      */
     private Date fechactual;
-    ControladorCliente ctCliente;
+    ControladorCliente1 ctCliente;
     DefaultTableModel dtm;
     Object[] o = new Object[9];
 
     public VistaCliente1() {
         initComponents();
-        ctCliente = new ControladorCliente();
+        ctCliente = new ControladorCliente1();
         ftFecha.setText(getFechaActual());
         //llenar Codigo
         jTextId.setText("" + ctCliente.llenarId());
@@ -214,6 +214,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jLabel8.setText("Telefono:");
 
         jTextTelefono.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jTextTelefono.setToolTipText("");
         jTextTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextTelefonoActionPerformed(evt);

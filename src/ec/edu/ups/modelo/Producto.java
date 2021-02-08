@@ -14,7 +14,7 @@ import java.util.Date;
 public class Producto {
 
     private int prd_id;
-    private int prd_cbarra;
+    private String prd_cbarra;
     private Date prd_fecha_registro;
     private String prd_nombre;
     private double prd_precio;
@@ -28,11 +28,10 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int prd_id, int prd_cbarra, Date prd_fecha_registro,
-            String prd_nombre, double prd_precio, double prd_stock,
-            char prd_estado, String prd_unidad, char prd_origen,
-            char prd_iva, Categoria categoria) {
+    public Producto(int prd_id, String prd_cbarra, Date prd_fecha_registro, String prd_nombre, double prd_precio, double prd_stock, char prd_estado, String prd_unidad, char prd_origen, char prd_iva, Categoria categoria) {
+        this.prd_id = prd_id;
         this.prd_cbarra = prd_cbarra;
+        this.prd_fecha_registro = prd_fecha_registro;
         this.prd_nombre = prd_nombre;
         this.prd_precio = prd_precio;
         this.prd_stock = prd_stock;
@@ -40,7 +39,7 @@ public class Producto {
         this.prd_unidad = prd_unidad;
         this.prd_origen = prd_origen;
         this.prd_iva = prd_iva;
-
+        this.categoria = categoria;
     }
 
     public int getPrd_id() {
@@ -51,11 +50,11 @@ public class Producto {
         this.prd_id = prd_id;
     }
 
-    public int getPrd_cbarra() {
+    public String getPrd_cbarra() {
         return prd_cbarra;
     }
 
-    public void setPrd_cbarra(int prd_cbarra) {
+    public void setPrd_cbarra(String prd_cbarra) {
         this.prd_cbarra = prd_cbarra;
     }
 
@@ -131,4 +130,5 @@ public class Producto {
         this.categoria = categoria;
     }
 
+    
 }
