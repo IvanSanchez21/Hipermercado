@@ -31,12 +31,19 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         initComponents();
         factura = new ControladorFactura();
         txtFecha.setText(getFechaActual());
+        IdVenta();
     }
 
     public String getFechaActual() {
         fechactual = new Date();
         String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
         return vFechaOK;
+    }
+    
+    public void IdVenta(){
+        factura = new ControladorFactura();
+        String id = String.valueOf(factura.IdFactura());
+        txtNumFactura.setText(id);
     }
 
     /**
@@ -53,7 +60,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtNumFactura = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
@@ -112,8 +119,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel1.setText("Factura Nro:");
         jLabel1.setToolTipText("");
 
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtNumFactura.setEditable(false);
+        txtNumFactura.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("Fecha emisión:");
@@ -130,7 +137,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
@@ -147,7 +154,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                         .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -557,6 +564,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarProdActionPerformed
 
+    
     public void agregarProducto() {
         double total = 0;
         double subtotal = 0;
@@ -743,7 +751,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tblTablaDetalle;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCelular;
@@ -754,6 +761,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIva;
     private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JTextField txtNumFactura;
     private javax.swing.JSpinner txtSpiner;
     private javax.swing.JTextField txtStock;
     private javax.swing.JTextField txtSubtotal;

@@ -33,6 +33,7 @@ public class ConexionBD {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conexion = DriverManager.getConnection(url, usuario, contrasena);
             conexion.setAutoCommit(false);
+            System.out.println("conectado...");
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -42,6 +43,7 @@ public class ConexionBD {
     public void desconectar() {
         try {
             conexion.close();
+            System.out.println("desconectado...");
            
         } catch (SQLException ex) {
 
