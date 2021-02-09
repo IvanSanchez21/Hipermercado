@@ -48,6 +48,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
+        txtTotalPagar2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -88,6 +90,16 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtTotalPagar = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtIva = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtSubtotal = new javax.swing.JTextField();
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Total a Pagar:");
+
+        txtTotalPagar2.setEditable(false);
+        txtTotalPagar2.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
 
         setClosable(true);
 
@@ -387,26 +399,29 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Producto", "Cantidad", "Valor Unitario", "Iva", "Total"
+                "Código", "Producto", "Cantidad", "Valor Unitario", "Subtotal", "Iva", "Total"
             }
         ));
         jScrollPane1.setViewportView(tblTablaDetalle);
         if (tblTablaDetalle.getColumnModel().getColumnCount() > 0) {
-            tblTablaDetalle.getColumnModel().getColumn(0).setMinWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(0).setMaxWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(2).setMinWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(2).setMaxWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(3).setMinWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(3).setMaxWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(4).setMinWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(4).setMaxWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(5).setMinWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(5).setPreferredWidth(150);
-            tblTablaDetalle.getColumnModel().getColumn(5).setMaxWidth(150);
+            tblTablaDetalle.getColumnModel().getColumn(0).setMinWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(0).setPreferredWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(0).setMaxWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(2).setMinWidth(80);
+            tblTablaDetalle.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tblTablaDetalle.getColumnModel().getColumn(2).setMaxWidth(80);
+            tblTablaDetalle.getColumnModel().getColumn(3).setMinWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(3).setPreferredWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(3).setMaxWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(4).setMinWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(4).setPreferredWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(4).setMaxWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(5).setMinWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(5).setPreferredWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(5).setMaxWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(6).setMinWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(6).setPreferredWidth(130);
+            tblTablaDetalle.getColumnModel().getColumn(6).setMaxWidth(130);
         }
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -417,11 +432,23 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton3.setText("Generar Venta");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Total a Pagar:");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Total a Pagar :");
 
         txtTotalPagar.setEditable(false);
-        txtTotalPagar.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        txtTotalPagar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setText("Iva 12 % :");
+
+        txtIva.setEditable(false);
+        txtIva.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setText("Subtotal :");
+
+        txtSubtotal.setEditable(false);
+        txtSubtotal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -432,28 +459,50 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel3)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(9, 9, 9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(9, 9, 9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(9, 9, 9)))
+                .addGap(65, 65, 65))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -510,6 +559,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     public void agregarProducto() {
         double total = 0;
+        double subtotal = 0;
 
         modelo = (DefaultTableModel) tblTablaDetalle.getModel();
         int codBarra = Integer.parseInt(producto.getPrd_cbarra());
@@ -519,16 +569,20 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         double stock = Double.parseDouble(txtStock.getText());
 
         total = cantidad * precio;
-        double iva = calcularIva(total);
+        subtotal = total;
+        double iva = calcularIvaPorProducto(total);
         total = total + iva;
 
-        float pIva;
-        float pTotal;
+        float pIva, pTotal, pSubtotal;
+
+        pSubtotal = Float.parseFloat(String.valueOf(subtotal));
+        //txtTotalPagar.setText(String.format(Locale.US, "%.2f", pIva));
+
         pIva = Float.parseFloat(String.valueOf(iva));
-        txtTotalPagar.setText(String.format(Locale.US, "%.2f", pIva));
-        
+        //txtTotalPagar.setText(String.format(Locale.US, "%.2f", pIva));
+
         pTotal = Float.parseFloat(String.valueOf(total));
-        txtTotalPagar.setText(String.format(Locale.US, "%.2f", pTotal));
+        //txtTotalPagar.setText(String.format(Locale.US, "%.2f", pTotal));
 
         ArrayList lista = new ArrayList();
 
@@ -537,19 +591,23 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             lista.add(nomProducto);
             lista.add(cantidad);
             lista.add(precio);
+            lista.add(pSubtotal);
             lista.add(pIva);
             lista.add(pTotal);
 
-            Object[] ob = new Object[6];
+            Object[] ob = new Object[7];
             ob[0] = lista.get(0);
             ob[1] = lista.get(1);
             ob[2] = lista.get(2);
             ob[3] = lista.get(3);
             ob[4] = lista.get(4);
             ob[5] = lista.get(5);
+            ob[6] = lista.get(6);
             modelo.addRow(ob);
             tblTablaDetalle.setModel(modelo);
-
+            
+            calcularSubtotal(modelo);
+            calcularIvaTotal(modelo);
             calcularTotalApagar(modelo);
 
         } else {
@@ -557,17 +615,41 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         }
     }
 
-    public void calcularTotalApagar(DefaultTableModel modelo) {
-        double t = 0;
-        double p = 0;
+    public void calcularIvaTotal(DefaultTableModel modelo) {
+        double iva = 0;
+        double filaTotal = 0;
         for (int i = 0; i < modelo.getRowCount(); i++) {
-            p = Double.parseDouble(modelo.getValueAt(i, 5).toString());
-            t = t + p;
+            filaTotal = Double.parseDouble(modelo.getValueAt(i, 5).toString());
+            iva = iva + filaTotal;
         }
-        txtTotalPagar.setText(String.valueOf(t));
-        float pv = 0;
-        pv = Float.parseFloat(txtTotalPagar.getText());
-        txtTotalPagar.setText(String.format(Locale.US, "%.2f", pv));
+        float pIva = 0;
+        pIva = Float.parseFloat(String.valueOf(iva));
+        txtIva.setText(String.format(Locale.US, "%.2f", pIva));
+    }
+    
+    public void calcularSubtotal(DefaultTableModel modelo) {
+        double sub = 0;
+        double filaTotal = 0;
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            filaTotal = Double.parseDouble(modelo.getValueAt(i, 4).toString());
+            sub = sub + filaTotal;
+        }
+        float pSubtotal = 0;
+        pSubtotal = Float.parseFloat(String.valueOf(sub));
+        txtSubtotal.setText(String.format(Locale.US, "%.2f", pSubtotal));
+    }
+    
+    
+    public void calcularTotalApagar(DefaultTableModel modelo) {
+        double total = 0;
+        double filaTotal = 0;
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            filaTotal = Double.parseDouble(modelo.getValueAt(i, 6).toString());
+            total = total + filaTotal;
+        }
+        float ptotal = 0;
+        ptotal = Float.parseFloat(String.valueOf(total));
+        txtTotalPagar.setText(String.format(Locale.US, "%.2f", ptotal));
     }
 
     public void borrarProducto() {
@@ -576,7 +658,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtNombreProducto.setText("");
     }
 
-    public double calcularIva(double tot) {
+    public double calcularIvaPorProducto(double tot) {
         double totalIva = 0;
         boolean iva = producto.getPrd_iva();
         if (iva == true) {
@@ -585,10 +667,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             totalIva = 0;
         }
         return totalIva;
-    }
-
-    public void calcularTotal() {
-
     }
 
     public void EnviarBuscarProducto() {
@@ -654,7 +732,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -671,10 +752,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtIva;
     private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JSpinner txtSpiner;
     private javax.swing.JTextField txtStock;
+    private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTotalPagar;
+    private javax.swing.JTextField txtTotalPagar2;
     // End of variables declaration//GEN-END:variables
 }

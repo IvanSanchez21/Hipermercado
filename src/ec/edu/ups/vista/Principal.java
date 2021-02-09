@@ -66,6 +66,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         jPanel4.setBackground(new java.awt.Color(23, 115, 189));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -80,6 +82,7 @@ public class Principal extends javax.swing.JFrame {
         btnClientes.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnClientes.setText("Clientes");
+        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClientes.setIconTextGap(45);
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +94,7 @@ public class Principal extends javax.swing.JFrame {
         btnProveedores.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnProveedores.setForeground(new java.awt.Color(255, 255, 255));
         btnProveedores.setText("Proveedores");
+        btnProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProveedores.setIconTextGap(40);
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +107,7 @@ public class Principal extends javax.swing.JFrame {
         btnFacturacion.setForeground(new java.awt.Color(255, 255, 255));
         btnFacturacion.setText("Facturación");
         btnFacturacion.setAlignmentX(0.1F);
-        btnFacturacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFacturacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFacturacion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnFacturacion.setIconTextGap(50);
         btnFacturacion.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +120,7 @@ public class Principal extends javax.swing.JFrame {
         btnProductos.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnProductos.setForeground(new java.awt.Color(255, 255, 255));
         btnProductos.setText("Productos");
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
@@ -126,6 +131,7 @@ public class Principal extends javax.swing.JFrame {
         btnCategorias.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnCategorias.setForeground(new java.awt.Color(255, 255, 255));
         btnCategorias.setText("Categorias");
+        btnCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategoriasActionPerformed(evt);
@@ -136,6 +142,7 @@ public class Principal extends javax.swing.JFrame {
         btnAnularfac.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnAnularfac.setForeground(new java.awt.Color(255, 255, 255));
         btnAnularfac.setText("Anular factura");
+        btnAnularfac.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAnularfac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnularfacActionPerformed(evt);
@@ -146,6 +153,7 @@ public class Principal extends javax.swing.JFrame {
         btnFacEmitidas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnFacEmitidas.setForeground(new java.awt.Color(255, 255, 255));
         btnFacEmitidas.setText("Facturas emitidas");
+        btnFacEmitidas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFacEmitidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFacEmitidasActionPerformed(evt);
@@ -156,6 +164,7 @@ public class Principal extends javax.swing.JFrame {
         btnDetalles.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnDetalles.setForeground(new java.awt.Color(255, 255, 255));
         btnDetalles.setText("Detalle ventas");
+        btnDetalles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetallesActionPerformed(evt);
@@ -288,9 +297,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDesktopPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
