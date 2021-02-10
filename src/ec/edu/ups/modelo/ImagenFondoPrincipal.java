@@ -22,7 +22,7 @@ public class ImagenFondoPrincipal implements Border{
 
     public ImagenFondoPrincipal() {
         try {
-            URL imagePath = new URL(getClass().getResource("/ec/edu/ups/imagenes/nierauto.jpg").toString());
+            URL imagePath = new URL(getClass().getResource("/ec/edu/ups/imagenes/FondoBlanco.jpg").toString());
             fondoPri = ImageIO.read(imagePath);
         } catch (Exception ex) {
 
