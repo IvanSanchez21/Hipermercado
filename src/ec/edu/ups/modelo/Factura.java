@@ -16,17 +16,17 @@ public class Factura {
     private int idCabecera;
     private String numFactura;
     private Date fechaEmision;
-    private int subTotal;
-    private int iva;
-    private int total;
-    private boolean anulado;
+    private double subTotal;
+    private double iva;
+    private double total;
+    private String anulado;
     private int idCliente;
     private int idUsuario;
 
     public Factura() {
     }
 
-    public Factura(int idCabecera, String numFactura, Date fechaEmision, int subTotal, int iva, int total, boolean anulado, int idCliente, int idUsuario) {
+    public Factura(int idCabecera, String numFactura, Date fechaEmision, double subTotal, double iva, double total, String anulado, int idCliente, int idUsuario) {
         this.idCabecera = idCabecera;
         this.numFactura = numFactura;
         this.fechaEmision = fechaEmision;
@@ -62,35 +62,35 @@ public class Factura {
         this.fechaEmision = fechaEmision;
     }
 
-    public int getSubTotal() {
+    public double getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(int subTotal) {
+    public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
 
-    public int getIva() {
+    public double getIva() {
         return iva;
     }
 
-    public void setIva(int iva) {
+    public void setIva(double iva) {
         this.iva = iva;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public boolean getAnulado() {
+    public String getAnulado() {
         return anulado;
     }
 
-    public void setAnulado(boolean anulado) {
+    public void setAnulado(String anulado) {
         this.anulado = anulado;
     }
 

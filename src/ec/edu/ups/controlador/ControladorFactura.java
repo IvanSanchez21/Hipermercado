@@ -30,57 +30,61 @@ public class ControladorFactura {
     private DetalleFactura detalle;
     int r = 0;
 
-    public int GuardarFacCabecera() {
+    
+    public int GuardarFacCabecera(Factura facCabecera) {
         PreparedStatement pre = null;
         conexion = new ConexionBD();
-        facCabecera = new Factura();
+        //facCabecera = new Factura();
 
         String sql = "";
-        sql += "INSERT INTO hip_factura_cabeceras VALUES (fac_cabeceras_seq.nextval,?,?,?,?,?,?,?,?)";
+        sql += "INSERT INTO hip_facturas VALUES (2,?,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
-
+            
             pre.setString(1, facCabecera.getNumFactura());
-            pre.setDate(2, (java.sql.Date) (Date) facCabecera.getFechaEmision());
-            pre.setInt(3, facCabecera.getSubTotal());
-            pre.setInt(4, facCabecera.getIva());
-            pre.setInt(5, facCabecera.getTotal());
-            pre.setBoolean(6, facCabecera.getAnulado());
+            pre.setDate(2, (java.sql.Date) (Date)facCabecera.getFechaEmision());
+            pre.setDouble(3, facCabecera.getSubTotal());
+            pre.setDouble(4, facCabecera.getIva());
+            pre.setDouble(5, facCabecera.getTotal());
+            pre.setString(6, facCabecera.getAnulado());
             pre.setInt(7, facCabecera.getIdCliente());
             pre.setInt(8, facCabecera.getIdUsuario());
             pre.executeUpdate();
 
             conexion.getConexion().commit();
-
+            conexion.desconectar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar factura " + e.getMessage());
         }
         return r;
     }
 
-    public int GuardarFacDetalle() {
+    public int GuardarFacDetalle(DetalleFactura detalle) {
+       // System.out.println("datlle... " + detalle.getTotal());
         PreparedStatement pre = null;
         conexion = new ConexionBD();
-        detalle = new DetalleFactura();
+        //detalle = new DetalleFactura();
 
         String sql = "";
-        sql += "INSERT INTO hip_factura_detalles VALUES (fac_detalles_seq.nextval,?,?,?,?,?,?)";
+        sql += "INSERT INTO detalles VALUES (1,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
 
             pre.setInt(1, detalle.getCantidad());
-            pre.setInt(2, detalle.getPrecio());
-            pre.setInt(3, detalle.getSubTotal());
-            pre.setInt(4, detalle.getIva());
-            pre.setInt(5, detalle.getIdCabecera());
-            pre.setInt(6, detalle.getIdProducto());
-
+            pre.setDouble(2, detalle.getPrecio());
+            pre.setDouble(3, detalle.getSubTotal());
+            pre.setDouble(4, detalle.getIva());
+            pre.setDouble(5, detalle.getTotal());
+            pre.setInt(6, detalle.getIdCabecera());
+            pre.setInt(7, detalle.getIdProducto());
+            pre.executeUpdate();
             conexion.getConexion().commit();
-
+            conexion.desconectar();
+            JOptionPane.showMessageDialog(null, "Detalle guardado ");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar detalle " + e.getMessage());
         }
@@ -88,7 +92,7 @@ public class ControladorFactura {
         return r;
     }
 
-    public int IdFactura() {
+    public int generarNunFactura() {
         conexion = new ConexionBD();
         int idVenta = 0;
 
@@ -135,12 +139,12 @@ public class ControladorFactura {
                 cliente.setCli_correo_electronico(respuesta.getString(9));
             }
             conexion.desconectar();
-            System.out.println("Persona: " + cliente.getCli_nombre());
+            //System.out.println("Persona: " + cliente.getCli_nombre());
             return cliente;
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo encontrar a la persona");
-            System.out.println("Error: " + ex);
+            //System.out.println("Error: " + ex);
         }
         return null;
     }
@@ -173,12 +177,12 @@ public class ControladorFactura {
 
             }
             conexion.desconectar();
-            System.out.println("nombre pro : " + producto.getPrd_nombre());
+            //System.out.println("nombre pro : " + producto.getPrd_nombre());
             return producto;
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Producto no encontrado");
-            System.out.println("Error: " + ex);
+            //System.out.println("Error: " + ex);
         }
         return null;
     }

@@ -30,10 +30,10 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        jDesktopPane1.setBorder(new ImagenFondoPrincipal());
+//        jDesktopPane1.setBorder(new ImagenFondoPrincipal());
         this.setExtendedState(Principal.MAXIMIZED_BOTH);
         jDesktopPane1.requestFocusInWindow();
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     public void menu() {
@@ -226,8 +226,8 @@ public class Principal extends javax.swing.JFrame {
 
         btnCategorias.getAccessibleContext().setAccessibleName("Categorías");
 
-        jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
-        jDesktopPane1.setForeground(new java.awt.Color(240, 240, 240));
+        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopPane1.setForeground(new java.awt.Color(255, 255, 255));
         jDesktopPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jDesktopPane1MouseEntered(evt);
@@ -314,6 +314,8 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jDesktopPane1))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jDesktopPane1.getAccessibleContext().setAccessibleParent(btnClientes);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

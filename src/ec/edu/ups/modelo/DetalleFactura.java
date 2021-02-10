@@ -15,21 +15,23 @@ public class DetalleFactura {
     
     private int idDetalle;
     private int cantidad;
-    private int precio;
-    private int subTotal;
-    private int iva;
+    private double precio;
+    private double subTotal;
+    private double iva;
+    private double total;
     private int idCabecera;
     private int idProducto;
 
     public DetalleFactura() {
     }
 
-    public DetalleFactura(int idDetalle, int cantidad, int precio, int subTotal, int iva, int idCabecera, int idProducto) {
+    public DetalleFactura(int idDetalle, int cantidad, double precio, double subTotal, double iva, double total, int idCabecera, int idProducto) {
         this.idDetalle = idDetalle;
         this.cantidad = cantidad;
         this.precio = precio;
         this.subTotal = subTotal;
         this.iva = iva;
+        this.total = total;
         this.idCabecera = idCabecera;
         this.idProducto = idProducto;
     }
@@ -50,28 +52,36 @@ public class DetalleFactura {
         this.cantidad = cantidad;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
-    public int getSubTotal() {
+    public double getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(int subTotal) {
+    public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
 
-    public int getIva() {
+    public double getIva() {
         return iva;
     }
 
-    public void setIva(int iva) {
+    public void setIva(double iva) {
         this.iva = iva;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public int getIdCabecera() {
