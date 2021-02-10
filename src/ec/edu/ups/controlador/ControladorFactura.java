@@ -27,17 +27,18 @@ public class ControladorFactura {
     private ConexionBD conexion;
     private Producto producto;
     private Factura facCabecera;
-    private DetalleFactura detalle;
-    int r = 0;
+    //private DetalleFactura detalle;
+    int idCap;
 
     
-    public int GuardarFacCabecera(Factura facCabecera) {
+    public void GuardarFacCabecera(Factura facCabecera) {
+        System.out.println("........"+ facCabecera.getIdCabecera());
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         //facCabecera = new Factura();
 
         String sql = "";
-        sql += "INSERT INTO hip_facturas VALUES (2,?,?,?,?,?,?,?,?)";
+        sql += "INSERT INTO hip_factura_cabeceras VALUES (fac_cabeceras_seq.nextval,?,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
@@ -52,47 +53,77 @@ public class ControladorFactura {
             pre.setInt(7, facCabecera.getIdCliente());
             pre.setInt(8, facCabecera.getIdUsuario());
             pre.executeUpdate();
-
             conexion.getConexion().commit();
             conexion.desconectar();
+            JOptionPane.showMessageDialog(null, "Factura registradas!! ");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar factura " + e.getMessage());
         }
-        return r;
+        
     }
 
-    public int GuardarFacDetalle(DetalleFactura detalle) {
-       // System.out.println("datlle... " + detalle.getTotal());
+    public void GuardarFacDetalle(DetalleFactura detalle) {
+       int idCap = recuperarNunFacturaCab();
+        System.out.println("id.........."  + idCap);
+       System.out.println("1..." + detalle.getCantidad());
+       System.out.println("2..." + detalle.getPrecio());
+        System.out.println("3..." + detalle.getSubTotal());
+        System.out.println("4..." + detalle.getIva());
+        System.out.println("5..." + detalle.getTotal());
+        System.out.println("6..." + facCabecera);
+        System.out.println("7..." + detalle.getIdProducto());
+//        System.out.println("7..." + detalle.getIdProducto());
+//       
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         //detalle = new DetalleFactura();
 
         String sql = "";
-        sql += "INSERT INTO detalles VALUES (1,?,?,?,?,?,?,?)";
+        sql += "INSERT INTO hip_factura_detalles VALUES (fac_detalles_seq.nextval,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
-
             pre.setInt(1, detalle.getCantidad());
             pre.setDouble(2, detalle.getPrecio());
             pre.setDouble(3, detalle.getSubTotal());
             pre.setDouble(4, detalle.getIva());
             pre.setDouble(5, detalle.getTotal());
-            pre.setInt(6, detalle.getIdCabecera());
+            pre.setInt(6, idCap);
             pre.setInt(7, detalle.getIdProducto());
             pre.executeUpdate();
+            
             conexion.getConexion().commit();
             conexion.desconectar();
-            JOptionPane.showMessageDialog(null, "Detalle guardado ");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar detalle " + e.getMessage());
         }
-
-        return r;
     }
 
-    public int generarNunFactura() {
+    public int recuperarNunFacturaCab() {
+        conexion = new ConexionBD();
+        int idVenta = 0;
+
+        String sql = "SELECT MAX(fac_cab_id) FROM HIP_FACTURA_CABECERAS";
+
+        try {
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet respuesta = sta.executeQuery(sql);
+
+            while (respuesta.next()) {
+                idVenta = respuesta.getInt(1);
+                System.out.println("id --- " + idVenta);
+            }
+            conexion.desconectar();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Fallo en la busqueda" + e.getMessage());
+        }
+        return idVenta;
+    }
+    
+    public int NunFacturaCab() {
         conexion = new ConexionBD();
         int idVenta = 0;
 
