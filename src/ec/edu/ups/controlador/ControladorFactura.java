@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.controlador;
 
+import ec.edu.ups.conexion.ConexionBD;
 import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.DetalleFactura;
 import ec.edu.ups.modelo.Factura;
@@ -28,16 +29,15 @@ public class ControladorFactura {
     private Factura facCabecera;
     private DetalleFactura detalle;
     int r = 0;
-    
-    
-    public int GuardarFacCabecera(){
+
+    public int GuardarFacCabecera() {
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         facCabecera = new Factura();
-        
+
         String sql = "";
         sql += "INSERT INTO hip_factura_cabeceras VALUES (fac_cabeceras_seq.nextval,?,?,?,?,?,?,?,?)";
-        
+
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
@@ -53,21 +53,21 @@ public class ControladorFactura {
             pre.executeUpdate();
 
             conexion.getConexion().commit();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar factura " + e.getMessage());
         }
         return r;
     }
-    
-    public int GuardarFacDetalle(){
+
+    public int GuardarFacDetalle() {
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         detalle = new DetalleFactura();
-        
+
         String sql = "";
         sql += "INSERT INTO hip_factura_detalles VALUES (fac_detalles_seq.nextval,?,?,?,?,?,?)";
-        
+
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
@@ -78,16 +78,16 @@ public class ControladorFactura {
             pre.setInt(4, detalle.getIva());
             pre.setInt(5, detalle.getIdCabecera());
             pre.setInt(6, detalle.getIdProducto());
-            
+
             conexion.getConexion().commit();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar detalle " + e.getMessage());
         }
-        
+
         return r;
     }
-    
+
     public int IdFactura() {
         conexion = new ConexionBD();
         int idVenta = 0;
@@ -101,10 +101,10 @@ public class ControladorFactura {
 
             while (respuesta.next()) {
                 idVenta = respuesta.getInt(1) + 1;
-                System.out.println("id --- " + idVenta) ;
+                System.out.println("id --- " + idVenta);
             }
             conexion.desconectar();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo en la busqueda" + e.getMessage());
         }
@@ -150,7 +150,8 @@ public class ControladorFactura {
 
         try {
             producto = new Producto();
-            String sql = "SELECT * FROM HIP_PRODUCTOS WHERE PRD_CBARRA = '" + codigo + "'";
+            String sql = "SELECT * FROM HIP_PRODUCTOS WHERE PRD_CBARRA = '"
+                    + codigo + "' OR UPPER(PRD_NOMBRE) LIKE UPPER('" + codigo + "%')";
             System.out.println(sql);
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();

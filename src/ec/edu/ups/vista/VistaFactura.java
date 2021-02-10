@@ -39,8 +39,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
         return vFechaOK;
     }
-    
-    public void IdVenta(){
+
+    public void IdVenta() {
         factura = new ControladorFactura();
         String id = String.valueOf(factura.IdFactura());
         txtNumFactura.setText(id);
@@ -564,7 +564,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarProdActionPerformed
 
-    
     public void agregarProducto() {
         double total = 0;
         double subtotal = 0;
@@ -613,7 +612,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             ob[6] = lista.get(6);
             modelo.addRow(ob);
             tblTablaDetalle.setModel(modelo);
-            
+
             calcularSubtotal(modelo);
             calcularIvaTotal(modelo);
             calcularTotalApagar(modelo);
@@ -634,7 +633,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         pIva = Float.parseFloat(String.valueOf(iva));
         txtIva.setText(String.format(Locale.US, "%.2f", pIva));
     }
-    
+
     public void calcularSubtotal(DefaultTableModel modelo) {
         double sub = 0;
         double filaTotal = 0;
@@ -646,8 +645,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         pSubtotal = Float.parseFloat(String.valueOf(sub));
         txtSubtotal.setText(String.format(Locale.US, "%.2f", pSubtotal));
     }
-    
-    
+
     public void calcularTotalApagar(DefaultTableModel modelo) {
         double total = 0;
         double filaTotal = 0;

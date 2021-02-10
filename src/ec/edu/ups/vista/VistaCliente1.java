@@ -93,7 +93,9 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
+        setForeground(new java.awt.Color(255, 255, 255));
         setTitle("Cliente");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -369,7 +371,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTable1.setBackground(new java.awt.Color(0, 153, 51));
+        jTable1.setBackground(java.awt.Color.white);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

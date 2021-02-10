@@ -5,7 +5,7 @@
  */
 package ec.edu.ups.controlador;
 
-import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.ConexionBD;
 import ec.edu.ups.modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +18,8 @@ import java.sql.SQLException;
  */
 public class ControladorProducto {
 
+    private ConexionBD conexion;
+
     public void buscarProducto() {
 
     }
@@ -29,8 +31,8 @@ public class ControladorProducto {
         String sql2 = "SELECT productos_seq.nextval FROM dual;";
         try {
 
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             PreparedStatement ps2 = con.prepareStatement(sql2);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -40,7 +42,7 @@ public class ControladorProducto {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
         return llena;
     }

@@ -5,7 +5,7 @@
  */
 package ec.edu.ups.controlador;
 
-import ec.edu.ups.conexion.Conexion;
+import ec.edu.ups.conexion.ConexionBD;
 import ec.edu.ups.modelo.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,17 +21,20 @@ import javax.swing.table.DefaultTableModel;
  * @author ASUS
  */
 public class ControladorCliente1 {
+
+    private ConexionBD conexion;
+
     public void buscarCliente() {
 
     }
 
     public boolean anadirCliente(Cliente cli) {
+        conexion = new ConexionBD();
         System.out.println(cli.getCli_id());
         System.out.println(cli.getCli_apellido());
         System.out.println(cli.getCli_cedula());
         System.out.println(cli.getCli_fecha_registro());
         boolean r = false;
-        Connection con = null;
         String t = "to_Date";
         String sql = "Insert Into hip_clientes (cli_id,cli_cedula,cli_nombre,cli_apellido,cli_fecha_registro,cli_direccion,"
                 + "cli_tel_convencional,cli_celular,cli_correo_electronico)"
@@ -47,8 +50,8 @@ public class ControladorCliente1 {
                                                     +"')";*/
 
         try {
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ps.setString(1, cli.getCli_cedula());
             ps.setString(2, cli.getCli_nombre());
             ps.setString(3, cli.getCli_apellido());
@@ -66,7 +69,7 @@ public class ControladorCliente1 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
 
         return r;
@@ -75,12 +78,12 @@ public class ControladorCliente1 {
     public int llenarId() {
         int llena = 0;
         boolean ban = false;
-        Connection con = null;
+        conexion = new ConexionBD();
         String sql = "SELECT MAX (cli_id) FROM hip_clientes";
         try {
 
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 llena = rs.getInt(1) + 1;
@@ -88,19 +91,19 @@ public class ControladorCliente1 {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
         return llena;
     }
 
     public void llenarTabla(DefaultTableModel dtm, Object[] o) {
-        Connection con = null;
+        conexion = new ConexionBD();
 
         String sql = " SELECT *"
                 + " FROM hip_clientes";
         try {
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -122,20 +125,20 @@ public class ControladorCliente1 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
     }
 
     public void filtro(DefaultTableModel dtm, Object[] o, Cliente cl) {
         System.out.println(cl);
 
-        Connection con = null;
+        conexion = new ConexionBD();
 
         String sql = " SELECT *"
                 + " FROM hip_clientes where cli_cedula=?";
         try {
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ps.setString(1, cl.getCli_cedula());
             ResultSet rs = ps.executeQuery();
 
@@ -159,7 +162,7 @@ public class ControladorCliente1 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
     }
 
@@ -170,14 +173,14 @@ public class ControladorCliente1 {
         System.out.println(cli.getCli_cedula());
         System.out.println(cli.getCli_fecha_registro());
         boolean r = false;
-        Connection con = null;
+        conexion = new ConexionBD();
 
         String sql = "UPDATE hip_clientes SET cli_cedula= ?, cli_nombre=?, cli_apellido=?, cli_fecha_registro=?, cli_direccion=?"
                 + ", cli_tel_convencional=?, cli_celular=?, cli_correo_electronico=?"
                 + " WHERE cli_id = ?";
         try {
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ps.setString(1, cli.getCli_cedula());
             ps.setString(2, cli.getCli_nombre());
             ps.setString(3, cli.getCli_apellido());
@@ -194,7 +197,7 @@ public class ControladorCliente1 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
 
         return r;
@@ -203,12 +206,12 @@ public class ControladorCliente1 {
 
     public boolean eliminarCliente(int id) {
         boolean r = false;
-        Connection con = null;
+        conexion = new ConexionBD();
 
         String sql = "DELETE FROM  hip_clientes WHERE cli_id = " + id;
         try {
-            con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             r = true;
@@ -216,7 +219,7 @@ public class ControladorCliente1 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Conexion.close(con);
+            conexion.desconectar();
         }
 
         return r;
