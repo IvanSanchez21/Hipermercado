@@ -474,13 +474,15 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             dispose();
         } else {
             actualizarDatos();
+            llenarTabla();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (ctCliente.eliminarCliente(Integer.parseInt(jTextId.getText())) == true) {
             JOptionPane.showMessageDialog(null, "Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+
+            llenarTabla();
         } else {
             JOptionPane.showMessageDialog(null, "Datos Ocupando Otras Tablas ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -496,7 +498,9 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
+            jTextId.setText("" + ctCliente.llenarId());
             llenarCasillas();
+            llenarTabla();
         }
     }//GEN-LAST:event_JButtonCrearActionPerformed
 
@@ -555,7 +559,6 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
                 if (ctCliente.actualizarCliente(cl) == true) {
                     JOptionPane.showMessageDialog(null, "Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -604,7 +607,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
                 if (ctCliente.anadirCliente(cl) == true) {
                     JOptionPane.showMessageDialog(null, "Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
+
                     jTextCedula.setText("");
                     jTextNombre.setText("");
                     jTextApellido.setText("");
@@ -635,6 +638,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     private void cargaraJtext() {
         jTable1.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent mouse_evt) {
                 JTable table = (JTable) mouse_evt.getSource();
                 Point point = mouse_evt.getPoint();
@@ -647,15 +651,15 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                     SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
                     String fecha = (jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
                     Date d = null;
+                    jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
+                    jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
+                    jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
+                    jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
                     try {
                         d = formato.parse(fecha);
                         formato.applyPattern("dd/mm/yyyy");
                         String nv = formato.format(d);
                         ftFecha.setText(nv);
-                        jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                        jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-                        jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
-                        jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
                     } catch (ParseException ex) {
                         Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
                     }

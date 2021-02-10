@@ -6,11 +6,15 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.conexion.ConexionBD;
+import ec.edu.ups.modelo.Categoria;
+import ec.edu.ups.modelo.Factura;
 import ec.edu.ups.modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +23,7 @@ import java.sql.SQLException;
 public class ControladorCategoria {
 
     private ConexionBD conexion;
+    private Categoria categoria;
 
     public void buscarCategoria() {
 
@@ -47,18 +52,76 @@ public class ControladorCategoria {
         return llena;
     }
 
-    public boolean crearCategoria(Producto prd) {
+    public boolean crearCategoria(Categoria ctg) {
         boolean ccb = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+        categoria = new Categoria();
+
+        String sql = "";
+        sql += "INSERT INTO hip_categorias VALUES (categorias_seq.nextval,?)";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            pre.setString(1, categoria.getCat_nombre());
+            pre.executeUpdate();
+
+            conexion.getConexion().commit();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al crear categoría:" + e.getMessage());
+        }
         return ccb;
     }
 
-    public boolean editarCategoria(Producto prd) {
+    public boolean editarCategoria(Categoria ctg) {
         boolean ecb = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+        categoria = new Categoria();
+
+        String sql = "";
+        sql += "UPDATE hip_categorias SET CAT_NOMBRE=? WHERE CAT_ID=?";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            pre.setString(1, categoria.getCat_nombre());
+            pre.setInt(2, categoria.getCat_id());
+            pre.executeUpdate();
+
+            conexion.getConexion().commit();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al editar categoría:" + e.getMessage());
+        }
         return ecb;
     }
 
-    public boolean eliminarCategoria(Producto prd) {
+    public boolean eliminarCategoria(Categoria ctg) {
         boolean bcb = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+        categoria = new Categoria();
+
+        String sql = "";
+        sql += "DELETE FROM hip_categorias WHERE CAT_ID=?";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            pre.setInt(1, categoria.getCat_id());
+            pre.executeUpdate();
+
+            conexion.getConexion().commit();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar categoría:" + e.getMessage());
+        }
         return bcb;
     }
 }

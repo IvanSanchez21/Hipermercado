@@ -130,5 +130,14 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Producto{" + "prd_id=" + prd_id + ", prd_cbarra=" + prd_cbarra
+                + ", prd_fecha_registro=" + prd_fecha_registro + ", prd_nombre="
+                + prd_nombre + ", prd_precio=" + prd_precio + ", prd_stock="
+                + prd_stock + ", prd_estado=" + prd_estado + ", prd_unidad="
+                + prd_unidad + ", prd_origen=" + prd_origen + ", prd_iva="
+                + prd_iva + ", categoria=" + categoria + '}';
+    }
+
 }
