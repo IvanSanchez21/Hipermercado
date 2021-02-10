@@ -5,9 +5,15 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorProducto;
+import ec.edu.ups.modelo.Producto;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,13 +22,22 @@ import java.util.Date;
 public class VistaProducto extends javax.swing.JInternalFrame {
 
     private Date fechactual;
+    ControladorProducto cp;
+    Producto producto;
+    DefaultTableModel dtm;
+    Object[] o = new Object[11];
 
     /**
      * Creates new form VistaProducto
      */
     public VistaProducto() {
         initComponents();
+        cp = new ControladorProducto();
+        tCodigo.setText("" + cp.llenarIdProducto());
         ftFechaRegistro.setText(getFechaActual());
+        dtm = (DefaultTableModel) tbProductos.getModel();
+        llenarTabla();
+        clickearTabla();
     }
 
     public String getFechaActual() {
@@ -31,6 +46,30 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         return vFechaOK;
     }
 
+    public void llenarTabla() {
+        dtm.setRowCount(0);
+        dtm = (DefaultTableModel) tbProductos.getModel();
+        cp.llenarTabla(dtm, o);
+    }
+
+    private void clickearTabla() {
+        tbProductos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent mouse_evt) {
+                Point point = mouse_evt.getPoint();
+                if (mouse_evt.getClickCount() == 2) {
+                    tCodigo.setText(tbProductos.getValueAt(tbProductos.getSelectedRow(), 0).toString());
+                    tNombre.setText(tbProductos.getValueAt(tbProductos.getSelectedRow(), 1).toString());
+                }
+            }
+        });
+    }
+
+    private void limpiarTexto() {
+        tCodigo.setText("");
+        tNombre.setText("");
+        tBuscar.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,12 +152,32 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         lOpciones.setText("Opciones");
 
         bGuardar.setText("Guardar");
+        bGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarActionPerformed(evt);
+            }
+        });
 
         bActualizar.setText("Actualizar");
+        bActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bActualizarActionPerformed(evt);
+            }
+        });
 
         bEstado.setText("Cambiar Estado");
+        bEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEstadoActionPerformed(evt);
+            }
+        });
 
         bEliminar.setText("Eliminar");
+        bEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pOpcionesLayout = new javax.swing.GroupLayout(pOpciones);
         pOpciones.setLayout(pOpcionesLayout);
@@ -161,8 +220,13 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
         bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/buscar.png"))); // NOI18N
         bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Activo", "Pasivo" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Pasivo", "Todos" }));
         cbEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbEstadoActionPerformed(evt);
@@ -381,6 +445,29 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private void ftFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftFechaRegistroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftFechaRegistroActionPerformed
+
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bGuardarActionPerformed
+
+    private void bActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bActualizarActionPerformed
+
+    private void bEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bEstadoActionPerformed
+
+    private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bEliminarActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        String palabra = tBuscar.getText();
+        dtm.setRowCount(0);
+        dtm = (DefaultTableModel) tbProductos.getModel();
+        cp.buscarProducto(dtm, o, palabra);
+    }//GEN-LAST:event_bBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

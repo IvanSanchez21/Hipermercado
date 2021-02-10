@@ -527,7 +527,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         Cliente cl = new Cliente();
 
         cl.setCli_id(Integer.parseInt(jTextId.getText()));
-        cl.setCli_id(Integer.parseInt(jTextId.getText()));
+
         boolean c = ctCliente.valida(jTextCedula.getText());
         boolean e = ctCliente.validarEmail(jTextEmail.getText());
         if (c == true) {

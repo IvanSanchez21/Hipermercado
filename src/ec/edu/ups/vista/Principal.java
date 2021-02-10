@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
+    private VistaCategoria vct;
     private VistaFactura vf;
     private VistaCliente1 vc;
     private InicioSesion isesi;
@@ -345,9 +346,18 @@ public class Principal extends javax.swing.JFrame {
         vp.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
         vp.toFront();
     }//GEN-LAST:event_btnProductosActionPerformed
-
+        
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
-        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        vct = new VistaCategoria();
+        vct.toFront();
+        vct.setVisible(true);
+        jDesktopPane1.add(vct);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = vct.getSize();
+        vct.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        vct.toFront();
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnAnularfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularfacActionPerformed
