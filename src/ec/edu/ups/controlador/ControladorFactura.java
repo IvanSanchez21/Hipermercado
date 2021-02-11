@@ -31,9 +31,42 @@ public class ControladorFactura {
     int idCap;
     int r;
 
+    public String numerarFactura() {
+        String numFac = "";
+        String numEst = "001";
+        String numFtrdor = "001";
+        String recolecto = "";
+        conexion = new ConexionBD();
+
+        String sql = "SELECT MAX(fac_cab_num) FROM HIP_FACTURA_CABECERAS";
+
+        try {
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet respuesta = sta.executeQuery(sql);
+
+            while (respuesta.next()) {
+                numFac = respuesta.getString(1);
+            }
+            conexion.desconectar();
+            for (int i = 6; i < numFac.length(); i++) {
+                if (numFac.charAt(i) != 0) {
+                    recolecto = recolecto + numFac.charAt(i);
+                }
+            }
+            int valorFain = Integer.parseInt(recolecto);
+            recolecto = String.format("%09d", valorFain + 1);
+            numFac = numEst + numFtrdor + recolecto;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Fallo en la numeración" + e.getMessage());
+        }
+        return numFac;
+    }
+
     /*
         * Método para actualizar el stock, una ves el empleado registe la factura.
-    */
+     */
     public int actualizarStock(double cant, int idProd) {
 
         PreparedStatement pre = null;
@@ -82,7 +115,7 @@ public class ControladorFactura {
             conexion.getConexion().commit();
             conexion.desconectar();
 
-            JOptionPane.showMessageDialog(null, "Factura registradas!! ");
+            JOptionPane.showMessageDialog(null, "Factura registrada", "Correcto", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar factura " + e.getMessage());
         }
@@ -102,7 +135,7 @@ public class ControladorFactura {
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
-            pre.setInt(1, detalle.getCantidad());
+            pre.setDouble(1, detalle.getCantidad());
             pre.setDouble(2, detalle.getPrecio());
             pre.setDouble(3, detalle.getSubTotal());
             pre.setDouble(4, detalle.getIva());
@@ -131,7 +164,6 @@ public class ControladorFactura {
 
             while (respuesta.next()) {
                 idVenta = respuesta.getInt(1);
-                System.out.println("id --- " + idVenta);
             }
             conexion.desconectar();
 
@@ -169,7 +201,6 @@ public class ControladorFactura {
         try {
             cliente = new Cliente();
             String sql = "SELECT * FROM HIP_CLIENTES WHERE CLI_CEDULA = '" + cedula + "'";
-            //System.out.println(sql);
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet respuesta = sta.executeQuery(sql);
@@ -198,14 +229,14 @@ public class ControladorFactura {
         return null;
     }
 
-    
     public Producto buscarProducto(String codigo) {
         conexion = new ConexionBD();
 
         try {
             producto = new Producto();
             String sql = "SELECT * FROM HIP_PRODUCTOS WHERE PRD_CBARRA = '"
-                    + codigo + "' OR UPPER(PRD_NOMBRE) LIKE UPPER('" + codigo + "%')";
+                    + codigo + "' OR UPPER(PRD_NOMBRE) LIKE UPPER('" + codigo + "%')"
+                    + " AND PRD_ESTADO = 'a'";
             System.out.println(sql);
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
@@ -227,12 +258,10 @@ public class ControladorFactura {
 
             }
             conexion.desconectar();
-            //System.out.println("nombre pro : " + producto.getPrd_nombre());
             return producto;
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Producto no encontrado");
-            //System.out.println("Error: " + ex);
         }
         return null;
     }
@@ -240,14 +269,14 @@ public class ControladorFactura {
     /*
         *Este método me sirve para poder actualizar el stock del producto al momento de 
         *registrar una factura.
-    */
+     */
     public Producto buscarIdProducto(int id) {
         conexion = new ConexionBD();
         try {
             producto = new Producto();
             String sql = "SELECT * FROM HIP_PRODUCTOS WHERE PRD_ID = '" + id + "'";
             //System.out.println(sql);
-            
+
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet respuesta = sta.executeQuery(sql);
@@ -279,5 +308,3 @@ public class ControladorFactura {
     }
 
 }
-
-

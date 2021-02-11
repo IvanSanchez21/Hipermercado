@@ -14,7 +14,7 @@ import java.util.Date;
 public class DetalleFactura {
     
     private int idDetalle;
-    private int cantidad;
+    private double cantidad;
     private double precio;
     private double subTotal;
     private double iva;
@@ -44,11 +44,11 @@ public class DetalleFactura {
         this.idDetalle = idDetalle;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 

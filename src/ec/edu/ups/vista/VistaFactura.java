@@ -10,7 +10,6 @@ import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.DetalleFactura;
 import ec.edu.ups.modelo.Factura;
 import ec.edu.ups.modelo.Producto;
-import static java.lang.Math.abs;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,8 +57,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     public void Idfactura() {
         conFactura = new ControladorFactura();
-        String id = String.valueOf(conFactura.NunFacturaCab());
-        txtNumFactura.setText(id);
+        txtNumFactura.setText(conFactura.numerarFactura());
     }
 
     public Date formatoFecha() {
@@ -143,6 +141,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtTotalPagar2.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
 
         setClosable(true);
+        setTitle("Generador de Facturas");
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -155,6 +154,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         txtNumFactura.setEditable(false);
         txtNumFactura.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtNumFactura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("Fecha emisión:");
@@ -162,6 +162,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         txtFecha.setEditable(false);
         txtFecha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblUsuario.setText("Usuario...");
@@ -174,10 +175,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(txtNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
+                .addComponent(txtNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +208,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel6.setText("Ruc/CI:");
 
         txtCedula.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtCedula.setText("0101506806");
 
         btnBuscarCliente.setText("Buscar cliente");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -220,7 +220,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel2.setText("Cod. Producto:");
 
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtCodigo.setText("101010001");
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
@@ -243,6 +242,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Cantidad:");
 
+        btnAgregarProd.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         btnAgregarProd.setText("Agregar");
         btnAgregarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -618,6 +618,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Solo números Positivos");
         } else {
             agregarProducto();
+            borrarProducto();
         }
 
 
@@ -651,6 +652,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 txtTotalPagar.setText(String.format(Locale.US, "%.2f", tot));
                 modelo.removeRow(tblTablaDetalle.getSelectedRow());
             }
+            borrarProducto();
         }
     }//GEN-LAST:event_btnQuitarProdActionPerformed
 
@@ -663,13 +665,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtClienteActionPerformed
 
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
-        // TODO add your handling code here:
-        actualizarStock();
         enviarDatosFacCab();
         enviarDatosFacDetalle();
         limpiarfactura();
-        txtFecha.setText(getFechaActual());
-        Idfactura();
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
@@ -677,10 +675,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        
         limpiarfactura();
-        txtFecha.setText(getFechaActual());
-        Idfactura();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     public void limpiarfactura() {
@@ -691,11 +687,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtCodigo.setText("");
         txtCorreo.setText("");
         txtDireccion.setText("");
-        txtDireccion.setText("");
-        txtFecha.setText("");
+        txtFecha.setText(getFechaActual());
         txtIva.setText("");
         txtNombreProducto.setText("");
-        txtNumFactura.setText("");
+        Idfactura();
         txtCantidad.setText("");
         txtStock.setText("");
         txtSubtotal.setText("");
@@ -730,7 +725,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         double subTotal = Double.parseDouble(txtSubtotal.getText());
         double iva = Double.parseDouble(txtIva.getText());
         double total = Double.parseDouble(txtTotalPagar.getText());
-        String anulado = "t";
+        String anulado = "f";
         int idCliente = cliente.getCli_id();
         int idUsuario = 1; // falta eseta parde del susuario.
         facCabecera = new Factura(idCabecera, numFactura, fecha, subTotal, iva, total, anulado, idCliente, idUsuario);
@@ -744,7 +739,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         for (int i = 0; i < tblTablaDetalle.getRowCount(); i++) {
 
             int fIdProd = Integer.parseInt(modelo.getValueAt(i, 0).toString());
-            int fcantidad = Integer.parseInt(modelo.getValueAt(i, 3).toString());
+            double fcantidad = Double.parseDouble(modelo.getValueAt(i, 3).toString());
             double fprecio = Double.parseDouble(modelo.getValueAt(i, 4).toString());
             double fsubtotal = Double.parseDouble(modelo.getValueAt(i, 5).toString());
             double fIva = Double.parseDouble(modelo.getValueAt(i, 6).toString());
@@ -799,9 +794,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Sin stock", "Advertencia", JOptionPane.ERROR_MESSAGE);
 
             } else {
-                
+
                 txtStock.setText(String.format(Locale.US, "%.2f", contStock));
-                
+
             }
 
             lista.add(idProd);
