@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
+    private VistaProveedor vpr;
+    private VistaEmpleado ve;
     private VistaCategoria vct;
     private VistaFactura vf;
     private VistaCliente1 vc;
@@ -69,6 +71,7 @@ public class Principal extends javax.swing.JFrame {
         btnAnularfac = new javax.swing.JButton();
         btnFacEmitidas = new javax.swing.JButton();
         btnDetalles = new javax.swing.JButton();
+        btnEmpleados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,7 +158,7 @@ public class Principal extends javax.swing.JFrame {
         btnFacturacion.setForeground(new java.awt.Color(255, 255, 255));
         btnFacturacion.setText("Facturación");
         btnFacturacion.setAlignmentX(0.1F);
-        btnFacturacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFacturacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnFacturacion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnFacturacion.setIconTextGap(50);
         btnFacturacion.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +171,7 @@ public class Principal extends javax.swing.JFrame {
         btnClientes.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnClientes.setText("Clientes");
-        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnClientes.setIconTextGap(45);
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +183,7 @@ public class Principal extends javax.swing.JFrame {
         btnProveedores.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnProveedores.setForeground(new java.awt.Color(255, 255, 255));
         btnProveedores.setText("Proveedores");
-        btnProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnProveedores.setIconTextGap(40);
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +195,7 @@ public class Principal extends javax.swing.JFrame {
         btnProductos.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnProductos.setForeground(new java.awt.Color(255, 255, 255));
         btnProductos.setText("Productos");
-        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
@@ -203,7 +206,7 @@ public class Principal extends javax.swing.JFrame {
         btnCategorias.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnCategorias.setForeground(new java.awt.Color(255, 255, 255));
         btnCategorias.setText("Categorias");
-        btnCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategoriasActionPerformed(evt);
@@ -214,7 +217,7 @@ public class Principal extends javax.swing.JFrame {
         btnAnularfac.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnAnularfac.setForeground(new java.awt.Color(255, 255, 255));
         btnAnularfac.setText("Anular factura");
-        btnAnularfac.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAnularfac.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAnularfac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnularfacActionPerformed(evt);
@@ -225,7 +228,7 @@ public class Principal extends javax.swing.JFrame {
         btnFacEmitidas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnFacEmitidas.setForeground(new java.awt.Color(255, 255, 255));
         btnFacEmitidas.setText("Facturas emitidas");
-        btnFacEmitidas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFacEmitidas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnFacEmitidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFacEmitidasActionPerformed(evt);
@@ -236,10 +239,21 @@ public class Principal extends javax.swing.JFrame {
         btnDetalles.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnDetalles.setForeground(new java.awt.Color(255, 255, 255));
         btnDetalles.setText("Detalle ventas");
-        btnDetalles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDetalles.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetallesActionPerformed(evt);
+            }
+        });
+
+        btnEmpleados.setBackground(new java.awt.Color(23, 115, 189));
+        btnEmpleados.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnEmpleados.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmpleados.setText("Empleados");
+        btnEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadosActionPerformed(evt);
             }
         });
 
@@ -257,7 +271,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAnularfac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFacEmitidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +293,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnFacEmitidas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         btnCategorias.getAccessibleContext().setAccessibleName("Categorías");
@@ -343,6 +360,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
         // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        vpr = new VistaProveedor();
+        vpr.toFront();
+        vpr.setVisible(true);
+        jDesktopPane1.add(vpr);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = vpr.getSize();
+        vpr.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        vpr.toFront();
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
@@ -431,6 +458,20 @@ public class Principal extends javax.swing.JFrame {
         jDesktopPane1.requestFocusInWindow();
     }//GEN-LAST:event_jDesktopPane1MouseEntered
 
+    private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        ve = new VistaEmpleado();
+        ve.toFront();
+        ve.setVisible(true);
+        jDesktopPane1.add(ve);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = ve.getSize();
+        ve.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        ve.toFront();
+    }//GEN-LAST:event_btnEmpleadosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -474,6 +515,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnDetalles;
+    private javax.swing.JButton btnEmpleados;
     private javax.swing.JButton btnFacEmitidas;
     private javax.swing.JButton btnFacturacion;
     private javax.swing.JButton btnProductos;
