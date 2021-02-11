@@ -25,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaFactura extends javax.swing.JInternalFrame {
 
-    
     private Date fechactual;
     private ControladorFactura conFactura;
     private Cliente cliente;
@@ -36,8 +35,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     int cantidad;
     double precio;
     int idProd;
-    float sub,iv,tot;
-    
+    float sub, iv, tot;
+
     private DetalleFactura detallefac = new DetalleFactura();
 
     public VistaFactura() {
@@ -626,32 +625,32 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     private void btnQuitarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarProdActionPerformed
         // TODO add your handling code here:
-        int r ;
-        if( tblTablaDetalle.getSelectedRow() == -1){
+        int r;
+        if (tblTablaDetalle.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else{
-            
+        } else {
+
             r = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar este producto?", "Eliminar", JOptionPane.YES_NO_OPTION);
-            if(r == JOptionPane.YES_OPTION){                
-                double subtotal=0, iva=0, total=0;          
-                
-                subtotal=Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 5).toString());                                             
-                iva =Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 6).toString());
-                total=Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 7).toString());
-                    
-                iva=Double.parseDouble(txtIva.getText()) - iva;
-                total=Double.parseDouble(txtTotalPagar.getText()) - total;
-                subtotal=Double.parseDouble(txtSubtotal.getText()) - subtotal;
-                
-                sub=Float.parseFloat(String.valueOf(subtotal));
-                iv=Float.parseFloat(String.valueOf(iva));
-                tot=Float.parseFloat(String.valueOf(total));
-                
-                txtSubtotal.setText(String.format(Locale.US, "%.2f",sub));
-                txtIva.setText(String.format(Locale.US, "%.2f",iv));
-                txtTotalPagar.setText(String.format(Locale.US, "%.2f",tot));
+            if (r == JOptionPane.YES_OPTION) {
+                double subtotal = 0, iva = 0, total = 0;
+
+                subtotal = Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 5).toString());
+                iva = Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 6).toString());
+                total = Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 7).toString());
+
+                iva = Double.parseDouble(txtIva.getText()) - iva;
+                total = Double.parseDouble(txtTotalPagar.getText()) - total;
+                subtotal = Double.parseDouble(txtSubtotal.getText()) - subtotal;
+
+                sub = Float.parseFloat(String.valueOf(subtotal));
+                iv = Float.parseFloat(String.valueOf(iva));
+                tot = Float.parseFloat(String.valueOf(total));
+
+                txtSubtotal.setText(String.format(Locale.US, "%.2f", sub));
+                txtIva.setText(String.format(Locale.US, "%.2f", iv));
+                txtTotalPagar.setText(String.format(Locale.US, "%.2f", tot));
                 modelo.removeRow(tblTablaDetalle.getSelectedRow());
-            }     
+            }
         }
     }//GEN-LAST:event_btnQuitarProdActionPerformed
 
@@ -762,14 +761,12 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             conFactura.GuardarFacDetalle(detallefac);
         }
     }
-    
-
 
     public void agregarProducto() {
 
         double total = 0;
         double subtotal = 0;
-        
+
         modelo = (DefaultTableModel) tblTablaDetalle.getModel();
         int codBarra = Integer.parseInt(producto.getPrd_cbarra());
         String nomProducto = producto.getPrd_nombre();
@@ -777,7 +774,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         cantidad = Integer.parseInt((txtCantidad.getText()));
         validarNumeroNegativo(String.valueOf(cantidad));
         double stock = Double.parseDouble(txtStock.getText());
-       
+
         total = cantidad * precio;
         subtotal = total;
         double iva = calcularIvaPorProducto(total);
@@ -794,7 +791,17 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         ArrayList lista = new ArrayList();
 
-        if (stock > 0) {
+        if (stock >= 0 && stock > cantidad) {
+
+            double s = Double.parseDouble(txtStock.getText());
+            double contStock = s - cantidad;
+            if (cantidad > s) {
+                JOptionPane.showMessageDialog(null, "Sin stock", "Advertencia", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                txtStock.setText(String.valueOf(contStock));
+            }
+
             lista.add(idProd);
             lista.add(codBarra);
             lista.add(nomProducto);
@@ -821,7 +828,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             calcularTotalApagar(modelo);
 
         } else {
-            JOptionPane.showConfirmDialog(this, "Stock del producto no disponible");
+            JOptionPane.showMessageDialog(this, "Stock del producto no disponible");
         }
     }
 
