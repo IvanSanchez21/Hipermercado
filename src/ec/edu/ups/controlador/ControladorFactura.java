@@ -65,7 +65,7 @@ public class ControladorFactura {
     }
 
     /*
-        * Método para actualizar el stock, una ves el empleado registe la factura.
+        * Método para actualizar el stock, una vez que el empleado registre la factura.
      */
     public int actualizarStock(double cant, int idProd) {
 
