@@ -20,11 +20,11 @@ import javax.swing.table.DefaultTableModel;
  * @author ronal
  */
 public class controladorProveedor {
+
     private ConexionBD conexion;
-    private String sent;
-    
+
     public boolean crearProveedor(Proveedor pro) {
-         PreparedStatement ps = null;
+        PreparedStatement ps = null;
         conexion = new ConexionBD();
         System.out.println(pro.getCodigo());
         System.out.println(pro.getRuc());
@@ -54,8 +54,8 @@ public class controladorProveedor {
 
         return r;
     }
-    
-     public int llenarId() {
+
+    public int llenarId() {
         int llena = 0;
         boolean ban = false;
         conexion = new ConexionBD();
@@ -75,38 +75,12 @@ public class controladorProveedor {
         }
         return llena;
     }
-     
+
     public void llenarTabla(DefaultTableModel dtm, Object[] o) {
         conexion = new ConexionBD();
-
         String sql = "SELECT * FROM HIP_PROVEEDORES ORDER BY PRO_ID ASC";
         try {
-            conexion.conectar();
-            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-
-                o[0] = rs.getInt("pro_id");
-                o[1] = rs.getString("pro_ruc");
-                o[2] = rs.getDate("pro_fecha_registro");
-                o[3] = rs.getString("pro_razon_social");
-                o[4] = rs.getDouble("pro_correo_electronico");
-                dtm.addRow(o);
-
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de llenado");
-        } finally {
-            conexion.desconectar();
-        }
-    }
-    
-    public void filtroTabla(DefaultTableModel dtm, Object[] o) {
-        conexion = new ConexionBD();
-
-        try {
-            String sql = "SELECT * FROM HIP_PROVEEDORES "+ " ORDER BY PRO_ID ASC";
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet rs = sta.executeQuery(sql);
@@ -117,7 +91,34 @@ public class controladorProveedor {
                 o[1] = rs.getString("pro_ruc");
                 o[2] = rs.getDate("pro_fecha_registro");
                 o[3] = rs.getString("pro_razon_social");
-                o[4] = rs.getDouble("pro_correo_electronico");
+                o[4] = rs.getString("pro_correo_electronico");
+                dtm.addRow(o);
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de llenado:" + ex.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+    }
+
+    public void filtroTabla(DefaultTableModel dtm, Object[] o, String nombre) {
+        conexion = new ConexionBD();
+
+        try {
+            String sql = "SELECT * FROM HIP_PROVEEDORES WHERE UPPER(PRO_RAZON_SOCIAL) LIKE"
+                    + " UPPER('" + nombre + "%')" + " ORDER BY PRO_ID ASC";
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet rs = sta.executeQuery(sql);
+
+            while (rs.next()) {
+
+                o[0] = rs.getInt("pro_id");
+                o[1] = rs.getString("pro_ruc");
+                o[2] = rs.getDate("pro_fecha_registro");
+                o[3] = rs.getString("pro_razon_social");
+                o[4] = rs.getString("pro_correo_electronico");
                 dtm.addRow(o);
             }
         } catch (SQLException ex) {
@@ -126,7 +127,7 @@ public class controladorProveedor {
             conexion.desconectar();
         }
     }
-    
+
     public boolean actualizarProveedor(Proveedor pro) {
 
         System.out.println(pro.getCodigo());
@@ -135,7 +136,7 @@ public class controladorProveedor {
         System.out.println(pro.getCorreo());
         boolean r = false;
         conexion = new ConexionBD();
-        
+
         String sql = "";
         sql += "UPDATE hip_proveedores SET PRO_RUC=?, PRO_FECHA_REGISTRO=?, "
                 + "PRO_RAZON_SOCIAL=?, PRO_CORREO_ELECTRONICO=? WHERE PRO_ID=?";
@@ -146,20 +147,21 @@ public class controladorProveedor {
             ps.setDate(2, (java.sql.Date) (Date) pro.getFecha_registro());
             ps.setString(3, pro.getRazon_social());
             ps.setString(4, pro.getCorreo());
+            ps.setInt(5, pro.getCodigo());
             ps.executeUpdate();
 
             r = true;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar Proveedor"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar Proveedor" + e.getMessage());
         } finally {
             conexion.desconectar();
         }
 
         return r;
     }
-    
-     public boolean eliminarProveedor(int prd) {
+
+    public boolean eliminarProveedor(int prd) {
         boolean bpb = false;
         PreparedStatement pre = null;
         conexion = new ConexionBD();
@@ -183,38 +185,5 @@ public class controladorProveedor {
         }
         return bpb;
     }
-     
-     public void buscarProveedor(DefaultTableModel dtm, Object[] o, String pro) {
-        conexion = new ConexionBD();
-        try {
-            String sql = "SELECT * FROM HIP_PROVEEDORES ";
-            String sql2 = " UPPER(PRO_RAZON_SOCIAL) LIKE"
-                    + " UPPER('" + pro + "%') ORDER BY PRD_ID ASC";
-            if (sent.isEmpty()) {
-                sql = sql + sent + " WHERE " + sql2;
-            } else {
-                sql = sql + sent + " AND " + sql2;
-            }
 
-            conexion.conectar();
-            Statement sta = conexion.getConexion().createStatement();
-            ResultSet rs = sta.executeQuery(sql);
-
-            while (rs.next()) {
-
-                o[0] = rs.getInt("pro_id");
-                o[1] = rs.getString("pro_ruc");
-                o[2] = rs.getDate("pro_fecha_registro");
-                o[3] = rs.getString("pro_razon_social");
-                o[4] = rs.getString("pro_correo_electronico");
-
-                dtm.addRow(o);
-
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Proveedor no encontrado");
-        } finally {
-            conexion.desconectar();
-        }
-    }
 }

@@ -23,9 +23,9 @@ public class Principal extends javax.swing.JFrame {
     private VistaCategoria vct;
     private VistaFactura vf;
     private VistaCliente1 vc;
-    private InicioSesion isesi;
     private AnularFactura af;
     private BuscarFactura bf;
+    private InicioSesion is;
 
     /**
      * Creates new form VentanaUsuario
@@ -345,85 +345,101 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        vc = new VistaCliente1();
-        vc.toFront();
-        vc.setVisible(true);
-        jDesktopPane1.add(vc);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = vc.getSize();
-        vc.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        vc.toFront();
+        if (vc == null || vc.isVisible() == false) {
+            vc = new VistaCliente1();
+            vc.toFront();
+            vc.setVisible(true);
+            jDesktopPane1.add(vc);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vc.getSize();
+            vc.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vc.toFront();
+        } else {
+            vc.toFront();
+        }
+
+
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-        // TODO add your handling code here:
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        vpr = new VistaProveedor();
-        vpr.toFront();
-        vpr.setVisible(true);
-        jDesktopPane1.add(vpr);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = vpr.getSize();
-        vpr.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        vpr.toFront();
+        if (vpr == null || vpr.isVisible() == false) {
+            vpr = new VistaProveedor();
+            vpr.toFront();
+            vpr.setVisible(true);
+            jDesktopPane1.add(vpr);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vpr.getSize();
+            vpr.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vpr.toFront();
+        } else {
+            vpr.toFront();
+        }
+
+
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        vp = new VistaProducto();
-        vp.toFront();
-        vp.setVisible(true);
-        jDesktopPane1.add(vp);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = vp.getSize();
-        vp.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        vp.toFront();
+        if (vp == null || vp.isVisible() == false) {
+            vp = new VistaProducto();
+            vp.toFront();
+            vp.setVisible(true);
+            jDesktopPane1.add(vp);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vp.getSize();
+            vp.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vp.toFront();
+        } else {
+            vp.toFront();
+        }
+
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        vct = new VistaCategoria();
-        vct.toFront();
-        vct.setVisible(true);
-        jDesktopPane1.add(vct);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = vct.getSize();
-        vct.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        vct.toFront();
+        if (vct == null || vct.isVisible() == false) {
+            vct = new VistaCategoria();
+            vct.toFront();
+            vct.setVisible(true);
+            jDesktopPane1.add(vct);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vct.getSize();
+            vct.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vct.toFront();
+        } else {
+            vct.toFront();
+        }
+
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnAnularfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularfacActionPerformed
-        // TODO add your handling code here:
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        af = new AnularFactura();
-        af.toFront();
-        af.setVisible(true);
-        jDesktopPane1.add(af);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = af.getSize();
-        af.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        af.toFront();
+        if (af == null || af.isVisible() == false) {
+            af = new AnularFactura();
+            af.toFront();
+            af.setVisible(true);
+            jDesktopPane1.add(af);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = af.getSize();
+            af.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            af.toFront();
+        } else {
+            af.toFront();
+        }
+
     }//GEN-LAST:event_btnAnularfacActionPerformed
 
     private void btnFacEmitidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacEmitidasActionPerformed
-        // TODO add your handling code here:
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        bf = new BuscarFactura();
-        bf.toFront();
-        bf.setVisible(true);
-        jDesktopPane1.add(bf);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = bf.getSize();
-        bf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        bf.toFront();
+        if (bf == null || bf.isVisible() == false) {
+            bf = new BuscarFactura();
+            bf.toFront();
+            bf.setVisible(true);
+            jDesktopPane1.add(bf);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = bf.getSize();
+            bf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            bf.toFront();
+        } else {
+            bf.toFront();
+        }
+
     }//GEN-LAST:event_btnFacEmitidasActionPerformed
 
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
@@ -431,17 +447,19 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDetallesActionPerformed
 
     private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
-        // TODO add your handling code here:
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        vf = new VistaFactura();
-        vf.toFront();
-        vf.setVisible(true);
-        jDesktopPane1.add(vf);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = vf.getSize();
-        vf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        vf.toFront();
+        if (vf == null || vf.isVisible() == false) {
+            vf = new VistaFactura();
+            vf.toFront();
+            vf.setVisible(true);
+            jDesktopPane1.add(vf);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vf.getSize();
+            vf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vf.toFront();
+        } else {
+            vf.toFront();
+        }
+
     }//GEN-LAST:event_btnFacturacionActionPerformed
 
     private void jDesktopPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDesktopPane1KeyPressed
@@ -450,6 +468,9 @@ public class Principal extends javax.swing.JFrame {
             int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que quiere salir del programa?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (opcion == JOptionPane.YES_OPTION || (char) evt.getKeyCode() == KeyEvent.VK_S) {
                 this.dispose();
+                is = new InicioSesion();
+                is.setVisible(true);
+                is.toFront();
             }
         }
     }//GEN-LAST:event_jDesktopPane1KeyPressed
@@ -459,17 +480,19 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jDesktopPane1MouseEntered
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        // TODO add your handling code here:
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        ve = new VistaEmpleado();
-        ve.toFront();
-        ve.setVisible(true);
-        jDesktopPane1.add(ve);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension frameSize = ve.getSize();
-        ve.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-        ve.toFront();
+        if (ve == null || ve.isVisible() == false) {
+            ve = new VistaEmpleado();
+            ve.toFront();
+            ve.setVisible(true);
+            jDesktopPane1.add(ve);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = ve.getSize();
+            ve.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            ve.toFront();
+        } else {
+            ve.toFront();
+        }
+
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     /**

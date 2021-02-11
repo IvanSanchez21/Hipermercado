@@ -71,12 +71,6 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
     }
 
-    public void llenarTabla() {
-        dtm.setRowCount(0);
-        dtm = (DefaultTableModel) tbProductos.getModel();
-        cp.llenarTabla(dtm, o);
-    }
-
     public void filtrarTabla() {
         dtm.setRowCount(0);
         dtm = (DefaultTableModel) tbProductos.getModel();
@@ -199,6 +193,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbProductos.setShowVerticalLines(true);
         jScrollPane1.setViewportView(tbProductos);
         if (tbProductos.getColumnModel().getColumnCount() > 0) {
             tbProductos.getColumnModel().getColumn(0).setResizable(false);

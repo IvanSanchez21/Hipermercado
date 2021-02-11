@@ -5,7 +5,12 @@
  */
 package ec.edu.ups.vista;
 
-import ec.edu.ups.controlador.ControladorFactura;
+import ec.edu.ups.controlador.ControladorAnulada;
+import ec.edu.ups.modelo.Cliente;
+import ec.edu.ups.modelo.Factura;
+import ec.edu.ups.modelo.Usuario;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,14 +18,65 @@ import ec.edu.ups.controlador.ControladorFactura;
  */
 public class AnularFactura extends javax.swing.JInternalFrame {
 
-    private ControladorFactura factura;
+    private ControladorAnulada ca;
+    private Factura factura;
+    private Cliente cliente;
+    private Usuario usuario;
+    private DefaultTableModel modelo;
 
     /**
      * Creates new form AnularFactura
      */
     public AnularFactura() {
         initComponents();
-        factura = new ControladorFactura();
+        modelo = (DefaultTableModel) tabAnuladas.getModel();
+        ca = new ControladorAnulada();
+    }
+
+    public void buscarFactura() {
+        String numFac = tNumEst.getText() + tNumFtrero.getText() + tNumFac.getText();
+        factura = ca.buscarFactura(numFac);
+        if (factura.getIdCabecera() != 0) {
+            cliente = ca.buscarCliente(factura.getIdCliente());
+            usuario = ca.buscarUsuario(factura.getIdUsuario());
+
+            tNum.setText(factura.getNumFactura());
+            tFecha.setText(factura.getFechaEmision().toString());
+            tSubtotal.setText(String.valueOf(factura.getSubTotal()));
+            tIva.setText(String.valueOf(factura.getIva()));
+            tTotal.setText(String.valueOf(factura.getTotal()));
+            tCI.setText(cliente.getCli_cedula());
+            tCliente.setText(cliente.getCli_nombre() + " " + cliente.getCli_apellido());
+            tDireccion.setText(cliente.getCli_direccion());
+            tTelefono.setText(cliente.getCli_tel_convencional() + " " + cliente.getCli_celular());
+            tUsuario.setText(usuario.getUsu_usuario());
+
+        } else {
+            JOptionPane.showMessageDialog(this, "El número de factura no existe"
+                    + " o ya se encuentra anulado", "Sin Resultados",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void vaciarTodo() {
+        limpiarTabla();
+        tCI.setText("");
+        tCliente.setText("");
+        tDireccion.setText("");
+        tFecha.setText("");
+        tIva.setText("");
+        tNum.setText("");
+        tTelefono.setText("");
+        tUsuario.setText("");
+        tSubtotal.setText("");
+        tTotal.setText("");
+    }
+
+    public void limpiarTabla() {
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
     }
 
     /**
@@ -289,6 +345,11 @@ public class AnularFactura extends javax.swing.JInternalFrame {
 
         bCancelar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
 
         bAnular.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bAnular.setText("Anular Factura");
@@ -421,23 +482,30 @@ public class AnularFactura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bBuscarjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarjButton3ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_bBuscarjButton3ActionPerformed
 
     private void tNumEstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tNumEstFocusLost
-        int numEst = Integer.parseInt(tNumEst.getText());
+        int numEst = 0;
+        numEst = Integer.parseInt(tNumEst.getText());
         tNumEst.setText(String.format("%03d", numEst));
     }//GEN-LAST:event_tNumEstFocusLost
 
     private void tNumFtreroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tNumFtreroFocusLost
-        int numFtrero = Integer.parseInt(tNumFtrero.getText());
+        int numFtrero = 0;
+        numFtrero = Integer.parseInt(tNumFtrero.getText());
         tNumFtrero.setText(String.format("%03d", numFtrero));
     }//GEN-LAST:event_tNumFtreroFocusLost
 
     private void tNumFacFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tNumFacFocusLost
-        int numFac = Integer.parseInt(tNumFac.getText());
+        int numFac = 0;
+        numFac = Integer.parseInt(tNumFac.getText());
         tNumFac.setText(String.format("%09d", numFac));
     }//GEN-LAST:event_tNumFacFocusLost
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        vaciarTodo();
+    }//GEN-LAST:event_bCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

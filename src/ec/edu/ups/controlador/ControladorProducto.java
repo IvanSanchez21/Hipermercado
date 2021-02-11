@@ -198,57 +198,56 @@ public class ControladorProducto {
 
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+            JOptionPane.showMessageDialog(null, "Productos no encontrados");
         } finally {
             conexion.desconectar();
         }
     }
 
-    public void llenarTabla(DefaultTableModel dtm, Object[] o) {
-        conexion = new ConexionBD();
-
-        String sql = "SELECT * FROM HIP_PRODUCTOS ORDER BY PRD_ID ASC";
-        try {
-            conexion.conectar();
-            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-
-                o[0] = rs.getInt("prd_id");
-                o[1] = rs.getString("prd_cbarra");
-                o[2] = rs.getDate("prd_fecha_registro");
-                o[3] = rs.getString("prd_nombre");
-                o[4] = rs.getDouble("prd_precio");
-                o[5] = rs.getDouble("prd_stock");
-                if (rs.getString("prd_estado").equals("a")) {
-                    o[6] = "Activo";
-                } else {
-                    o[6] = "Pasivo";
-                }
-                o[7] = rs.getString("prd_unidad");
-                if (rs.getString("prd_origen").equals("n")) {
-                    o[8] = "Nacional";
-                } else {
-                    o[8] = "Extranjero";
-                }
-                if (rs.getString("prd_iva").equals("t")) {
-                    o[9] = "Si";
-                } else {
-                    o[9] = "No";
-                }
-                o[10] = rs.getInt("hip_categorias_cat_id");
-
-                dtm.addRow(o);
-
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de llenado");
-        } finally {
-            conexion.desconectar();
-        }
-    }
-
+//    public void llenarTabla(DefaultTableModel dtm, Object[] o) {
+//        conexion = new ConexionBD();
+//
+//        String sql = "SELECT * FROM HIP_PRODUCTOS ORDER BY PRD_ID ASC";
+//        try {
+//            conexion.conectar();
+//            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//
+//                o[0] = rs.getInt("prd_id");
+//                o[1] = rs.getString("prd_cbarra");
+//                o[2] = rs.getDate("prd_fecha_registro");
+//                o[3] = rs.getString("prd_nombre");
+//                o[4] = rs.getDouble("prd_precio");
+//                o[5] = rs.getDouble("prd_stock");
+//                if (rs.getString("prd_estado").equals("a")) {
+//                    o[6] = "Activo";
+//                } else {
+//                    o[6] = "Pasivo";
+//                }
+//                o[7] = rs.getString("prd_unidad");
+//                if (rs.getString("prd_origen").equals("n")) {
+//                    o[8] = "Nacional";
+//                } else {
+//                    o[8] = "Extranjero";
+//                }
+//                if (rs.getString("prd_iva").equals("t")) {
+//                    o[9] = "Si";
+//                } else {
+//                    o[9] = "No";
+//                }
+//                o[10] = rs.getInt("hip_categorias_cat_id");
+//
+//                dtm.addRow(o);
+//
+//            }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error de llenado");
+//        } finally {
+//            conexion.desconectar();
+//        }
+//    }
     public int llenarIdProducto() {
         int llena = 0;
         conexion = new ConexionBD();

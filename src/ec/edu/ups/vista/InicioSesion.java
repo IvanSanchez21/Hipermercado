@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class InicioSesion extends javax.swing.JFrame {
 
     private ControladorUsuario contUs;
+
     /**
      * Creates new form InicioSesion
      */
@@ -24,6 +25,29 @@ public class InicioSesion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jPanel4.requestFocusInWindow();
         contUs = new ControladorUsuario();
+    }
+
+    private void logear() {
+        String nombre = txtUsername.getText();
+        String contrasena = txtContrasenia.getText();
+        String ingreso = contUs.VerificarUsuario(nombre, contrasena);
+        try {
+            if (ingreso.equals("t")) {
+                Principal p = new Principal();
+                p.setVisible(true);
+                dispose();
+                JOptionPane.showMessageDialog(this, "Ingresó un Administrador");
+            } else if (ingreso.equals("f")) {
+                Principal p = new Principal();
+                p.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(this, "Ingresó un Empleado");
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+        }
     }
 
     /**
@@ -95,6 +119,12 @@ public class InicioSesion extends javax.swing.JFrame {
         txtUsername.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtUsername.setForeground(new java.awt.Color(23, 115, 189));
 
+        txtContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraseniaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -160,27 +190,8 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
-        String nombre = txtUsername.getText();
-        String contrasena = txtContrasenia.getText();
-        String ingreso=contUs.VerificarUsuario(nombre, contrasena);    
-        try {
-            if(ingreso.equals("t")){
-                Principal p = new Principal();
-                p.setVisible(true);
-                dispose();
-                JOptionPane.showMessageDialog(this, "Ingresó un Administrador");               
-            }else if (ingreso.equals("f")){
-                Principal p = new Principal();
-                p.setVisible(true);
-                dispose();
-                JOptionPane.showMessageDialog(this, "Ingresó un Empleado");                
-            }else{
-                JOptionPane.showMessageDialog(this, "Usuario no encontrado");
-            }                
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado");
-        }        
+        logear();
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void jPanel4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel4KeyPressed
@@ -193,6 +204,13 @@ public class InicioSesion extends javax.swing.JFrame {
     private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
         jPanel4.requestFocusInWindow();
     }//GEN-LAST:event_jPanel4MouseEntered
+
+    private void txtContraseniaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseniaKeyPressed
+        char car = (char) evt.getKeyCode();
+        if (car == (char) KeyEvent.VK_ENTER) {
+            logear();
+        }
+    }//GEN-LAST:event_txtContraseniaKeyPressed
 
     /**
      * @param args the command line arguments

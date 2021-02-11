@@ -452,6 +452,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 "Id", "Código", "Producto", "Cantidad", "Valor Unitario", "Subtotal", "Iva", "Total"
             }
         ));
+        tblTablaDetalle.setShowVerticalLines(true);
         jScrollPane1.setViewportView(tblTablaDetalle);
         if (tblTablaDetalle.getColumnModel().getColumnCount() > 0) {
             tblTablaDetalle.getColumnModel().getColumn(0).setMinWidth(50);
@@ -701,17 +702,17 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         }
     }
 
-    public void actualizarStock() {
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            Producto pro = new Producto();
-            idProd = Integer.parseInt(tblTablaDetalle.getValueAt(i, 0).toString());
-            cantidad = Integer.parseInt(tblTablaDetalle.getValueAt(i, 3).toString());
-
-            pro = conFactura.buscarIdProducto(idProd);
-            double stockAct = pro.getPrd_stock() - cantidad;
-            conFactura.actualizarStock(stockAct, idProd);
-        }
-    }
+//    public void actualizarStock() {
+//        for (int i = 0; i < modelo.getRowCount(); i++) {
+//            Producto pro = new Producto();
+//            idProd = Integer.parseInt(tblTablaDetalle.getValueAt(i, 0).toString());
+//            cantidad = Integer.parseInt(tblTablaDetalle.getValueAt(i, 3).toString());
+//
+//            pro = conFactura.buscarIdProducto(idProd);
+//            double stockAct = pro.getPrd_stock() - cantidad;
+//            conFactura.actualizarStock(stockAct, idProd);
+//        }
+//    }
 
     public void enviarDatosFacCab() {
         int idCabecera = 0; // esto va en el controlador con la secuencia.
