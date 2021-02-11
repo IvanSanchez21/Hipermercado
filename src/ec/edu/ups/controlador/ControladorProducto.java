@@ -119,9 +119,9 @@ public class ControladorProducto {
             } else if (est.equalsIgnoreCase("ACTIVO") && iva.equalsIgnoreCase("CON IVA")) {
                 sent = " WHERE PRD_ESTADO = 'a' AND PRD_IVA = 't' ";
             } else if (est.equalsIgnoreCase("PASIVO") && iva.equalsIgnoreCase("CON IVA")) {
-                sent = " WHERE PRD_ESTADO = 'P' AND PRD_IVA = 't' ";
+                sent = " WHERE PRD_ESTADO = 'p' AND PRD_IVA = 't' ";
             } else if (est.equalsIgnoreCase("TODOS") && iva.equalsIgnoreCase("CON IVA")) {
-                sent = " WHERE PRD_IVA = 'T' ";
+                sent = " WHERE PRD_IVA = 't' ";
             } else if (est.equalsIgnoreCase("ACTIVO") && iva.equalsIgnoreCase("SIN IVA")) {
                 sent = " WHERE PRD_ESTADO = 'a' AND PRD_IVA = 'f' ";
             } else if (est.equalsIgnoreCase("PASIVO") && iva.equalsIgnoreCase("SIN IVA")) {
@@ -365,7 +365,8 @@ public class ControladorProducto {
 
             bpb = true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar producto:" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar producto:"
+                    + e.getMessage());
         }
         return bpb;
     }

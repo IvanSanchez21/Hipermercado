@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,15 +39,6 @@ public class ControladorCliente1 {
         String sql = "Insert Into hip_clientes (cli_id,cli_cedula,cli_nombre,cli_apellido,cli_fecha_registro,cli_direccion,"
                 + "cli_tel_convencional,cli_celular,cli_correo_electronico)"
                 + " VALUES(clientes_seq.nextval,?,?,?,?,?,?,?,?)";
-        /*      + "Values("+fac.getFac_id()
-                                                    +",'"+fin2
-                                                    +"',"+fac.getFac_subTotal()
-                                                    +","+fac.getFac_iva()
-                                                    +","+fac.getFac_subTotal()
-                                                    +","+fac.getSuc_id()
-                                                    +",'"+fac.getCli_id()
-                                                    +"','"+fac.getFac_estado()
-                                                    +"')";*/
 
         try {
             conexion.conectar();
@@ -60,9 +52,9 @@ public class ControladorCliente1 {
             ps.setString(7, cli.getCli_celular());
             ps.setString(8, cli.getCli_correo_electronico());
 
-            //ResultSet rs=ps.executeQuery();
             ps.executeQuery();
-            //actualizarAuto(form.getAut_id(),nomSuc);
+            conexion.getConexion().commit();
+
             r = true;
 
         } catch (Exception e) {
@@ -76,7 +68,6 @@ public class ControladorCliente1 {
 
     public int llenarId() {
         int llena = 0;
-        boolean ban = false;
         conexion = new ConexionBD();
         String sql = "SELECT MAX (cli_id) FROM hip_clientes";
         try {
@@ -189,12 +180,14 @@ public class ControladorCliente1 {
             ps.setString(7, cli.getCli_celular());
             ps.setString(8, cli.getCli_correo_electronico());
             ps.setInt(9, cli.getCli_id());
-            ResultSet rs = ps.executeQuery();
+            ps.executeQuery();
 
+            conexion.getConexion().commit();
             r = true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al editar cliente:"
+                    + e.getMessage());
         } finally {
             conexion.desconectar();
         }
@@ -211,12 +204,14 @@ public class ControladorCliente1 {
         try {
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeQuery();
 
+            conexion.getConexion().commit();
             r = true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al eliminar cliente:"
+                    + e.getMessage());
         } finally {
             conexion.desconectar();
         }

@@ -9,8 +9,6 @@ import ec.edu.ups.controlador.ControladorCliente1;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import ec.edu.ups.modelo.Cliente;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -36,8 +34,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     public VistaCliente1() {
         initComponents();
         ctCliente = new ControladorCliente1();
-        ftFecha.setText(getFechaActual());
-        //llenar Codigo
+        tFecha.setText(getFechaActual());
         jTextId.setText("" + ctCliente.llenarId());
         dtm = (DefaultTableModel) jTable1.getModel();
 
@@ -47,7 +44,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     public String getFechaActual() {
         fechactual = new Date();
-        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
+        String vFechaOK = new SimpleDateFormat("yyyy-MM-dd").format(this.fechactual);
         return vFechaOK;
     }
 
@@ -65,8 +62,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         JButtonCrear = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        bCancelar = new javax.swing.JButton();
+        bSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jTextId = new javax.swing.JTextField();
         jTextCedula = new javax.swing.JTextField();
@@ -77,7 +74,6 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        ftFecha = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextTelefono = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -86,6 +82,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jTextEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextDireccion = new javax.swing.JTextField();
+        tFecha = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jTextFiltro = new javax.swing.JTextField();
@@ -94,7 +91,6 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setClosable(true);
         setForeground(new java.awt.Color(255, 255, 255));
         setTitle("Cliente");
 
@@ -133,9 +129,20 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton3.setText("Cancelar");
+        bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Salir");
+        bSalir.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        bSalir.setText("Salir");
+        bSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -148,51 +155,33 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 210, Short.MAX_VALUE))
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(JButtonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTextId.setEditable(false);
         jTextId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextIdActionPerformed(evt);
-            }
-        });
 
         jTextCedula.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextCedulaActionPerformed(evt);
-            }
-        });
 
         jTextApellido.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextApellidoActionPerformed(evt);
-            }
-        });
 
         jTextNombre.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextNombreActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setText("Código:");
@@ -209,49 +198,29 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel6.setText("Fecha de Registro:");
 
-        ftFecha.setEditable(false);
-        ftFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel8.setText("Telefono:");
 
         jTextTelefono.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jTextTelefono.setToolTipText("");
-        jTextTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextTelefonoActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel9.setText("Celular:");
 
         jTextCelular.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextCelular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextCelularActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel10.setText("E-mail:");
 
         jTextEmail.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextEmailActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel7.setText("Direccion:");
 
         jTextDireccion.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jTextDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextDireccionActionPerformed(evt);
-            }
-        });
+
+        tFecha.setEditable(false);
+        tFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -276,7 +245,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                             .addComponent(jTextApellido)
                             .addComponent(jTextCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(jTextId))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
@@ -287,8 +256,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                             .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jTextCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ftFecha, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(tFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
@@ -300,7 +269,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jLabel6)
-                        .addComponent(ftFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -371,7 +340,6 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTable1.setBackground(java.awt.Color.white);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -432,85 +400,44 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextIdActionPerformed
-
-    private void jTextCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextCedulaActionPerformed
-
-    private void jTextApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextApellidoActionPerformed
-
-    private void jTextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextNombreActionPerformed
-
-    private void jTextDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextDireccionActionPerformed
-
-    private void jTextTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextTelefonoActionPerformed
-
-    private void jTextCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCelularActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextCelularActionPerformed
-
-    private void jTextEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextEmailActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTextId.getText().isEmpty() || jTextCedula.getText().isEmpty()
                 || jTextNombre.getText().isEmpty() || jTextApellido.getText().isEmpty()
-                || ftFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
-                || jTextTelefono.getText().isEmpty()
-                || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                || tFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
+                || jTextEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese datos", "Información", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             actualizarDatos();
-            llenarTabla();
         }
+        llenarTabla();
+        limpiarD();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (ctCliente.eliminarCliente(Integer.parseInt(jTextId.getText())) == true) {
-            JOptionPane.showMessageDialog(null, "Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
-            llenarTabla();
-              jTextCedula.setText("");
-                    jTextNombre.setText("");
-                    jTextApellido.setText("");
-                    ftFecha.setText("");
-                    jTextDireccion.setText("");
-                    jTextTelefono.setText("");
-                    jTextCelular.setText("");
-                    jTextEmail.setText("");
+            JOptionPane.showMessageDialog(null, "Eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Datos Ocupando Otras Tablas ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos Ocupando Otras Tablas ", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
+        llenarTabla();
+        limpiarD();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void JButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCrearActionPerformed
 
         if (jTextId.getText().isEmpty() || jTextCedula.getText().isEmpty()
                 || jTextNombre.getText().isEmpty() || jTextApellido.getText().isEmpty()
-                || ftFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
-                || jTextTelefono.getText().isEmpty()
-                || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                || tFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
+                || jTextEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese datos", "Información", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             jTextId.setText("" + ctCliente.llenarId());
             llenarCasillas();
-            llenarTabla();
-            
         }
+        llenarTabla();
+        limpiarD();
     }//GEN-LAST:event_JButtonCrearActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -522,15 +449,22 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             cl.setCli_cedula(jTextFiltro.getText());
             dtm.setRowCount(0);
             dtm = (DefaultTableModel) jTable1.getModel();
-            String ObjetoS[] = new String[6];
             ctCliente.filtro(dtm, o, cl);
 
         } else {
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         }
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        limpiarD();
+    }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bSalirActionPerformed
 
     private void actualizarDatos() {
         Cliente cl = new Cliente();
@@ -546,8 +480,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 cl.setCli_nombre(jTextNombre.getText());
                 cl.setCli_apellido(jTextApellido.getText());
 
-                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
-                String strFecha = ftFecha.getText();
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                String strFecha = tFecha.getText();
                 Date fecha = null;
                 try {
 
@@ -567,20 +501,20 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 cl.setCli_celular(jTextCelular.getText());
 
                 if (ctCliente.actualizarCliente(cl) == true) {
-                    JOptionPane.showMessageDialog(null, "Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Actualización Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                     limpiarD();
                     llenarTabla();
-                     jTextId.setText("" + ctCliente.llenarId());
+                    jTextId.setText("" + ctCliente.llenarId());
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Datos Erróneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Email invalido", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Email inválido", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
@@ -598,8 +532,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 cl.setCli_nombre(jTextNombre.getText());
                 cl.setCli_apellido(jTextApellido.getText());
 
-                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/mm/yyyy");
-                String strFecha = ftFecha.getText();
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                String strFecha = tFecha.getText();
                 Date fecha = null;
                 try {
 
@@ -618,29 +552,30 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 cl.setCli_celular(jTextCelular.getText());
 
                 if (ctCliente.anadirCliente(cl) == true) {
-                    JOptionPane.showMessageDialog(null, "Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                     limpiarD();
-                     llenarTabla();
-                      jTextId.setText("" + ctCliente.llenarId());
-                   
+                    JOptionPane.showMessageDialog(null, "Creación Correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    limpiarD();
+                    llenarTabla();
+                    jTextId.setText("" + ctCliente.llenarId());
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Datos Duplicados", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Email invalido", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Email inválido", "Información", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
 
     public void limpiarD() {
+        tFecha.setText(getFechaActual());
+        jTextId.setText("" + ctCliente.llenarId());
         jTextCedula.setText("");
         jTextNombre.setText("");
         jTextApellido.setText("");
-        ftFecha.setText("");
         jTextDireccion.setText("");
         jTextTelefono.setText("");
         jTextCelular.setText("");
@@ -666,21 +601,19 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                     jTextCedula.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
                     jTextNombre.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
                     jTextApellido.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
-                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
-                    String fecha = (jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
-                    Date d = null;
+                    tFecha.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
                     jTextDireccion.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString());
-                    jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-                    jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
-                    jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
-                    try {
-                        d = formato.parse(fecha);
-                        formato.applyPattern("dd/mm/yyyy");
-                        String nv = formato.format(d);
-                        ftFecha.setText(nv);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(VistaCliente1.class.getName()).log(Level.SEVERE, null, ex);
+                    if ((jTable1.getValueAt(jTable1.getSelectedRow(), 6)) == null) {
+                        jTextTelefono.setText("");
+                    } else {
+                        jTextTelefono.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
                     }
+                    if ((jTable1.getValueAt(jTable1.getSelectedRow(), 7)) == null) {
+                        jTextCelular.setText("");
+                    } else {
+                        jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
+                    }
+                    jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
 
                 }
 
@@ -691,11 +624,10 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonCrear;
-    private javax.swing.JFormattedTextField ftFecha;
+    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bSalir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -722,6 +654,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextId;
     private javax.swing.JTextField jTextNombre;
     private javax.swing.JTextField jTextTelefono;
+    private javax.swing.JTextField tFecha;
     // End of variables declaration//GEN-END:variables
 
 }

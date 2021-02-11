@@ -13,8 +13,8 @@ import java.sql.Statement;
 public class ConexionBD {
 
     private Connection conexion = null;
-    private String usuario = "hipermercado";
-    private String contrasena = "1234";
+    private String usuario = "hiperadmin";
+    private String contrasena = "hiperadmin";
     private String url = "jdbc:oracle:thin:@localhost:1521:xe";
 
     public ConexionBD() {
