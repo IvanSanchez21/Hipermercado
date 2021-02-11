@@ -53,13 +53,20 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jPanel4" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="1066" max="-2" attributes="0"/>
+                      </Group>
                       <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -68,9 +75,9 @@
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="157" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -99,7 +106,7 @@
                       <Component id="btnCancelar" min="-2" pref="134" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSalir" min="-2" pref="137" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -205,32 +212,42 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtNombre" alignment="0" pref="300" max="32767" attributes="0"/>
                                   <Component id="txtApellido" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtCedula" alignment="0" pref="150" max="32767" attributes="0"/>
+                                  <Component id="txtCedula" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtId" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                              <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="txtUsuario" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblContrasenia" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblUsuario" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblContrasenia" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipo" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="txtContrasenia" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtUsuario" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtContrasenia" max="32767" attributes="0"/>
-                          <Component id="txtTipo" pref="150" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
+                      <EmptySpace pref="164" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -242,23 +259,21 @@
                           <Component id="txtId" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="lblCodigo" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblCedula" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCedula" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtUsuario" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="txtUsuario" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombre" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="lblContrasenia" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtContrasenia" pref="36" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNombre" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblContrasenia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtContrasenia" alignment="3" pref="36" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblApellido" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtApellido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -269,8 +284,11 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDireccion" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -396,6 +414,16 @@
             <Component class="javax.swing.JTextField" name="txtContrasenia">
             </Component>
             <Component class="javax.swing.JTextField" name="txtTipo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="En el campo de tipo de empleado ingresar T si el empleado es administrador "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value=" F si es solo empleado"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
