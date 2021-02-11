@@ -799,7 +799,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Sin stock", "Advertencia", JOptionPane.ERROR_MESSAGE);
 
             } else {
-                txtStock.setText(String.valueOf(contStock));
+                
+                txtStock.setText(String.format(Locale.US, "%.2f", contStock));
+                
             }
 
             lista.add(idProd);
