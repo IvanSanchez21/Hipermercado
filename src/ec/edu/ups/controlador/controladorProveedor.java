@@ -23,6 +23,7 @@ public class controladorProveedor {
     private ConexionBD conexion;
     
     public boolean crearProveedor(Proveedor pro) {
+         PreparedStatement ps = null;
         conexion = new ConexionBD();
         System.out.println(pro.getCodigo());
         System.out.println(pro.getRuc());
@@ -31,17 +32,16 @@ public class controladorProveedor {
         boolean r = false;
         String sql = "";
         sql += "INSERT INTO hip_proveedores VALUES (proveedores_seq.nextval,?,?,?,?)";
-
         try {
             conexion.conectar();
-            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
+            ps = conexion.getConexion().prepareStatement(sql);
             ps.setString(1, pro.getRuc());
             ps.setDate(2, (java.sql.Date) (Date) pro.getFecha_registro());
             ps.setString(3, pro.getRazon_social());
             ps.setString(4, pro.getCorreo());
 
             //ResultSet rs=ps.executeQuery();
-            ps.executeQuery();
+            ps.executeUpdate();
             //actualizarAuto(form.getAut_id(),nomSuc);
             r = true;
 

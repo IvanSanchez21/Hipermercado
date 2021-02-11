@@ -24,17 +24,18 @@ public class ControladorEmpleado {
     
     public boolean crearEmpleado(Empleado emp) {
         conexion = new ConexionBD();
+        PreparedStatement ps = null;
         System.out.println(emp.getCodigo());
         System.out.println(emp.getNombres());
         System.out.println(emp.getApellidos());
         System.out.println(emp.getUsuario());
         boolean r = false;
         String sql = "";
-        sql += "INSERT INTO hip_usuarios VALUES (clientes_seq.nextval,?,?,?,?,?,?,?)";
+        sql += "INSERT INTO hip_usuarios VALUES (usuarios_seq.nextval,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
-            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
+            ps = conexion.getConexion().prepareStatement(sql);
             ps.setString(1, emp.getCedula());
             ps.setString(2, emp.getNombres());
             ps.setString(3, emp.getApellidos());
@@ -44,7 +45,7 @@ public class ControladorEmpleado {
             ps.setString(7, emp.getTipo());
 
             //ResultSet rs=ps.executeQuery();
-            ps.executeQuery();
+            ps.executeUpdate();
             //actualizarAuto(form.getAut_id(),nomSuc);
             r = true;
 
