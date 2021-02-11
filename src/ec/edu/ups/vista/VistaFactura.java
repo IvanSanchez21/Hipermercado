@@ -32,7 +32,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     private Factura facCabecera;
     float pIva, pTotal, pSubtotal;
-    int cantidad;
+    double cantidad;
     double precio;
     int idProd;
     float sub, iv, tot;
@@ -771,7 +771,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         int codBarra = Integer.parseInt(producto.getPrd_cbarra());
         String nomProducto = producto.getPrd_nombre();
         precio = producto.getPrd_precio();
-        cantidad = Integer.parseInt((txtCantidad.getText()));
+        cantidad = Double.parseDouble((txtCantidad.getText()));
         validarNumeroNegativo(String.valueOf(cantidad));
         double stock = Double.parseDouble(txtStock.getText());
 
