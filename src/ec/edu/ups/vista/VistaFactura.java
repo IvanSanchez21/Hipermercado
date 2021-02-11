@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaFactura extends javax.swing.JInternalFrame {
 
+    
     private Date fechactual;
     private ControladorFactura conFactura;
     private Cliente cliente;
