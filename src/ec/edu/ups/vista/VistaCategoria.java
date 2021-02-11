@@ -286,12 +286,15 @@ public class VistaCategoria extends javax.swing.JInternalFrame {
             categoria.setCat_id(Integer.parseInt(tCodigo.getText()));
             categoria.setCat_nombre(tNombre.getText());
             if (cc.crearCategoria(categoria) == true) {
-                JOptionPane.showMessageDialog(this, "Se ha creado la categoría", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Se ha creado la categoría",
+                        "Correcto", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Error al crear la categoría", "Incorrecto", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al crear la categoría",
+                        "Incorrecto", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
         }
         limpiarTexto();
         llenarTabla();
@@ -303,12 +306,15 @@ public class VistaCategoria extends javax.swing.JInternalFrame {
             categoria.setCat_id(Integer.parseInt(tCodigo.getText()));
             categoria.setCat_nombre(tNombre.getText());
             if (cc.editarCategoria(categoria) == true) {
-                JOptionPane.showMessageDialog(this, "Se ha editado la categoría", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Se ha editado la categoría",
+                        "Correcto", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Error al editar la categoría", "Incorrecto", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al editar la categoría",
+                        "Incorrecto", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
         }
         limpiarTexto();
         llenarTabla();
@@ -316,9 +322,11 @@ public class VistaCategoria extends javax.swing.JInternalFrame {
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
         if (cc.eliminarCategoria(Integer.parseInt(tCodigo.getText())) == true) {
-            JOptionPane.showMessageDialog(this, "Se ha eliminado la categoría", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se ha eliminado la categoría",
+                    "Correcto", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Categoría ocupada en otros datos", "Incorrecto", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Categoría ocupada en otros datos",
+                    "Incorrecto", JOptionPane.WARNING_MESSAGE);
         }
         limpiarTexto();
         llenarTabla();

@@ -6,13 +6,17 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.conexion.ConexionBD;
+import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +27,39 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorProducto {
 
     private ConexionBD conexion;
+
+    public ArrayList<Categoria> llenarCombo() {
+
+        conexion = new ConexionBD();
+
+        try {
+            String sql = "SELECT * FROM HIP_CATEGORIAS ORDER BY CAT_ID ASC";
+
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet rs = sta.executeQuery(sql);
+            ArrayList<Categoria> dato = new ArrayList<>();
+
+            if (rs.next()) {
+                do {
+                    Categoria listaTemp = new Categoria(rs.getInt(1), rs.getString(2));
+
+                    dato.add(listaTemp);
+
+                } while (rs.next());
+                return dato;
+
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar categorías");
+            return null;
+        } finally {
+            conexion.desconectar();
+        }
+
+    }
 
     public void buscarProducto(DefaultTableModel dtm, Object[] o, String prd) {
         conexion = new ConexionBD();
@@ -42,10 +79,88 @@ public class ControladorProducto {
                 o[3] = rs.getString("prd_nombre");
                 o[4] = rs.getDouble("prd_precio");
                 o[5] = rs.getDouble("prd_stock");
-                o[6] = rs.getString("prd_estado");
+                if (rs.getString("prd_estado").equals("a")) {
+                    o[6] = "Activo";
+                } else {
+                    o[6] = "Pasivo";
+                }
                 o[7] = rs.getString("prd_unidad");
-                o[8] = rs.getString("prd_origen");
-                o[9] = rs.getString("prd_iva");
+                if (rs.getString("prd_origen").equals("n")) {
+                    o[8] = "Nacional";
+                } else {
+                    o[8] = "Extranjero";
+                }
+                if (rs.getString("prd_iva").equals("t")) {
+                    o[9] = "Si";
+                } else {
+                    o[9] = "No";
+                }
+                o[10] = rs.getInt("hip_categorias_cat_id");
+
+                dtm.addRow(o);
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+        } finally {
+            conexion.desconectar();
+        }
+    }
+
+    public void filtroTabla(DefaultTableModel dtm, Object[] o, String est, String iva) {
+        conexion = new ConexionBD();
+        String sent;
+
+        try {
+            if (est.equalsIgnoreCase("activo") && iva.equalsIgnoreCase("todos")) {
+                sent = " WHERE PRD_ESTADO = 'a' ";
+            } else if (est.equalsIgnoreCase("PASIVO") && iva.equalsIgnoreCase("todos")) {
+                sent = " WHERE PRD_ESTADO = 'p' ";
+            } else if (est.equalsIgnoreCase("ACTIVO") && iva.equalsIgnoreCase("CON IVA")) {
+                sent = " WHERE PRD_ESTADO = 'a' AND PRD_IVA = 't' ";
+            } else if (est.equalsIgnoreCase("PASIVO") && iva.equalsIgnoreCase("CON IVA")) {
+                sent = " WHERE PRD_ESTADO = 'P' AND PRD_IVA = 't' ";
+            } else if (est.equalsIgnoreCase("TODOS") && iva.equalsIgnoreCase("CON IVA")) {
+                sent = " WHERE PRD_IVA = 'T' ";
+            } else if (est.equalsIgnoreCase("ACTIVO") && iva.equalsIgnoreCase("SIN IVA")) {
+                sent = " WHERE PRD_ESTADO = 'a' AND PRD_IVA = 'f' ";
+            } else if (est.equalsIgnoreCase("PASIVO") && iva.equalsIgnoreCase("SIN IVA")) {
+                sent = " WHERE PRD_ESTADO = 'p' AND PRD_IVA = 'f' ";
+            } else if (est.equalsIgnoreCase("TODOS") && iva.equalsIgnoreCase("SIN IVA")) {
+                sent = " WHERE PRD_IVA = 'f' ";
+            } else {
+                sent = " ";
+            }
+
+            String sql = "SELECT * FROM HIP_PRODUCTOS " + sent + " ORDER BY PRD_ID ASC";
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet rs = sta.executeQuery(sql);
+
+            while (rs.next()) {
+
+                o[0] = rs.getInt("prd_id");
+                o[1] = rs.getString("prd_cbarra");
+                o[2] = rs.getDate("prd_fecha_registro");
+                o[3] = rs.getString("prd_nombre");
+                o[4] = rs.getDouble("prd_precio");
+                o[5] = rs.getDouble("prd_stock");
+                if (rs.getString("prd_estado").equals("a")) {
+                    o[6] = "Activo";
+                } else {
+                    o[6] = "Pasivo";
+                }
+                o[7] = rs.getString("prd_unidad");
+                if (rs.getString("prd_origen").equals("n")) {
+                    o[8] = "Nacional";
+                } else {
+                    o[8] = "Extranjero";
+                }
+                if (rs.getString("prd_iva").equals("t")) {
+                    o[9] = "Si";
+                } else {
+                    o[9] = "No";
+                }
                 o[10] = rs.getInt("hip_categorias_cat_id");
 
                 dtm.addRow(o);
@@ -75,10 +190,22 @@ public class ControladorProducto {
                 o[3] = rs.getString("prd_nombre");
                 o[4] = rs.getDouble("prd_precio");
                 o[5] = rs.getDouble("prd_stock");
-                o[6] = rs.getString("prd_estado");
+                if (rs.getString("prd_estado").equals("a")) {
+                    o[6] = "Activo";
+                } else {
+                    o[6] = "Pasivo";
+                }
                 o[7] = rs.getString("prd_unidad");
-                o[8] = rs.getString("prd_origen");
-                o[9] = rs.getString("prd_iva");
+                if (rs.getString("prd_origen").equals("n")) {
+                    o[8] = "Nacional";
+                } else {
+                    o[8] = "Extranjero";
+                }
+                if (rs.getString("prd_iva").equals("t")) {
+                    o[9] = "Si";
+                } else {
+                    o[9] = "No";
+                }
                 o[10] = rs.getInt("hip_categorias_cat_id");
 
                 dtm.addRow(o);
@@ -132,12 +259,17 @@ public class ControladorProducto {
             pre.setString(6, prd.getPrd_estado());
             pre.setString(7, prd.getPrd_unidad());
             pre.setString(8, prd.getPrd_origen());
-            pre.setBoolean(9, prd.getPrd_iva());
+            if (prd.getPrd_iva() == true) {
+                pre.setString(9, "t");
+            } else {
+                pre.setString(9, "f");
+            }
             pre.setInt(10, prd.getCategoria().getCat_id());
             pre.executeUpdate();
 
             conexion.getConexion().commit();
 
+            cpb = true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al crear producto:"
                     + e.getMessage());
@@ -164,13 +296,17 @@ public class ControladorProducto {
             pre.setDouble(4, prd.getPrd_stock());
             pre.setString(5, prd.getPrd_unidad());
             pre.setString(6, prd.getPrd_origen());
-            pre.setBoolean(7, prd.getPrd_iva());
+            if (prd.getPrd_iva() == true) {
+                pre.setString(7, "t");
+            } else {
+                pre.setString(7, "f");
+            }
             pre.setInt(8, prd.getCategoria().getCat_id());
             pre.setInt(9, prd.getPrd_id());
             pre.executeUpdate();
 
             conexion.getConexion().commit();
-
+            epb = true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al editar producto:"
                     + e.getMessage());
@@ -178,8 +314,8 @@ public class ControladorProducto {
         return epb;
     }
 
-    public boolean cambiarEstadoProducto(int prd) {
-        boolean bpb = false;
+    public boolean cambiarEstadoProducto(Producto prd) {
+        boolean cepb = false;
         PreparedStatement pre = null;
         conexion = new ConexionBD();
 
@@ -190,15 +326,46 @@ public class ControladorProducto {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
 
-            pre.setString(1, "p");
-            pre.setInt(2, prd);
+            if (prd.getPrd_estado().equalsIgnoreCase("activo")) {
+                pre.setString(1, "p");
+                pre.setInt(2, prd.getPrd_id());
+                pre.executeUpdate();
+            } else if (prd.getPrd_estado().equalsIgnoreCase("pasivo")) {
+                pre.setString(1, "a");
+                pre.setInt(2, prd.getPrd_id());
+                pre.executeUpdate();
+            }
+
+            conexion.getConexion().commit();
+
+            cepb = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cambiar estado del"
+                    + " producto:" + e.getMessage());
+        }
+        return cepb;
+    }
+
+    public boolean eliminarProducto(int prd) {
+        boolean bpb = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+
+        String sql = "";
+        sql += "DELETE FROM hip_productos WHERE PRD_ID=?";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            pre.setInt(1, prd);
             pre.executeUpdate();
 
             conexion.getConexion().commit();
 
+            bpb = true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cambiar estado del"
-                    + " producto:" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar producto:" + e.getMessage());
         }
         return bpb;
     }

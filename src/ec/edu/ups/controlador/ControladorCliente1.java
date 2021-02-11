@@ -7,7 +7,6 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.conexion.ConexionBD;
 import ec.edu.ups.modelo.Cliente;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

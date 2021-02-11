@@ -33,6 +33,12 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="pOpciones" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="pAgregarProducto" max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="tBuscar" min="-2" pref="150" max="-2" attributes="0"/>
@@ -46,20 +52,10 @@
                       <Component id="lIVA" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cbIVA" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="pOpciones" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="pAgregarProducto" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,7 +77,7 @@
                   <Component id="cbIVA" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="227" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="203" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,14 +93,17 @@
         <Component class="javax.swing.JTable" name="tbProductos">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="8" rowCount="0">
+              <Table columnCount="11" rowCount="0">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                 <Column editable="false" title="Cod. Barras" type="java.lang.Object"/>
+                <Column editable="false" title="Fecha Registro" type="java.lang.Object"/>
                 <Column editable="false" title="Nombre" type="java.lang.Object"/>
                 <Column editable="false" title="Precio" type="java.lang.Object"/>
-                <Column editable="false" title="Stock" type="java.lang.Object"/>
+                <Column editable="false" title="Cantidad" type="java.lang.Object"/>
+                <Column editable="false" title="Estado" type="java.lang.Object"/>
                 <Column editable="false" title="Unidad" type="java.lang.Object"/>
                 <Column editable="false" title="Nacionalidad" type="java.lang.Object"/>
+                <Column editable="false" title="IVA" type="java.lang.Object"/>
                 <Column editable="false" title="Categor&#xed;a" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -141,6 +140,21 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="35" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -307,6 +321,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbIVAActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -336,33 +353,56 @@
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tCodBarras" min="-2" max="-2" attributes="0"/>
-                                      <Component id="ftFechaRegistro" min="-2" pref="75" max="-2" attributes="0"/>
-                                      <Component id="tNombre" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <Component id="tCantidad" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                      <Component id="ftPrecio" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="52" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="rbIVA" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="rbSinIVA" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="tFechaRegistro" min="-2" pref="80" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="lCodigo" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="tCodBarras" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="tNombre" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="tCantidad" pref="75" max="32767" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="237" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="lCategoria" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lOrigen" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lUnidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lCodigo" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                  <Component id="lOrigen" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lUnidad" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="cbOrigen" pref="134" max="32767" attributes="0"/>
-                                              <Component id="tUnidad" max="32767" attributes="0"/>
-                                              <Component id="jComboBox1" max="32767" attributes="0"/>
-                                              <Component id="tCodigo" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="tPrecio" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="lTipo" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="cbCategoria" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="tUnidad" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="cbOrigen" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="tCodigo" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="rbIVA" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="rbSinIVA" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="ltEstado" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -381,11 +421,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lFechaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ftFechaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lFechaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tFechaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                          <Component id="tCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -402,29 +446,18 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lUnidad" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="tUnidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lUnidad" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="rbIVA" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="rbSinIVA" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -433,11 +466,28 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ftPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="rbIVA" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rbSinIVA" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="7" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ltEstado" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -486,19 +536,17 @@
             <Property name="text" type="java.lang.String" value="Categor&#xed;a:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="cbCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCategoriaActionPerformed"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Categoria&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lUnidad">
@@ -522,6 +570,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbOrigenActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -536,6 +587,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="bgIVA"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="con IVA"/>
           </Properties>
         </Component>
@@ -552,18 +604,6 @@
             <Property name="text" type="java.lang.String" value="Fecha de Registro:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ftFechaRegistro">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="columns" type="int" value="6"/>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="0" type="1"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ftFechaRegistroActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="lCodigo">
           <Properties>
             <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
@@ -574,12 +614,19 @@
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ftPrecio">
+        <Component class="javax.swing.JLabel" name="lTipo">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
-            </Property>
+            <Property name="text" type="java.lang.String" value="Estado:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ltEstado">
+        </Component>
+        <Component class="javax.swing.JTextField" name="tFechaRegistro">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tPrecio">
         </Component>
       </SubComponents>
     </Container>

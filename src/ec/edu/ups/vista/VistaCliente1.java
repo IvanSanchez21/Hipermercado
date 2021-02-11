@@ -465,11 +465,11 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextEmailActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTextId.equals("") || jTextCedula.equals("")
-                || jTextNombre.equals("") || jTextApellido.equals("")
-                || ftFecha.equals("") || jTextDireccion.equals("")
-                || jTextTelefono.equals("")
-                || jTextCelular.equals("") || jTextEmail.equals("")) {
+        if (jTextId.getText().isEmpty() || jTextCedula.getText().isEmpty()
+                || jTextNombre.getText().isEmpty() || jTextApellido.getText().isEmpty()
+                || ftFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
+                || jTextTelefono.getText().isEmpty()
+                || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
@@ -490,11 +490,11 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     private void JButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCrearActionPerformed
 
-        if (jTextId.equals("") || jTextCedula.equals("")
-                || jTextNombre.equals("") || jTextApellido.equals("")
-                || ftFecha.equals("") || jTextDireccion.equals("")
-                || jTextTelefono.equals("")
-                || jTextCelular.equals("") || jTextEmail.equals("")) {
+        if (jTextId.getText().isEmpty() || jTextCedula.getText().isEmpty()
+                || jTextNombre.getText().isEmpty() || jTextApellido.getText().isEmpty()
+                || ftFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
+                || jTextTelefono.getText().isEmpty()
+                || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
