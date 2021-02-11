@@ -13,7 +13,7 @@ public class ConexionBD {
 
     private Connection conexion = null;
     private String usuario = "hipermercado";
-    private String contrasena = "1234";
+    private String contrasena = "hipermercado";
     private String url = "jdbc:oracle:thin:@localhost:1521:xe";
 
     public ConexionBD() {

@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorUsuario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class InicioSesion extends javax.swing.JFrame {
 
+    private ControladorUsuario contUs;
     /**
      * Creates new form InicioSesion
      */
@@ -21,7 +23,7 @@ public class InicioSesion extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jPanel4.requestFocusInWindow();
-        
+        contUs = new ControladorUsuario();
     }
 
     /**
@@ -40,9 +42,9 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        btnIngresar = new javax.swing.JButton();
+        txtUsername = new javax.swing.JTextField();
+        txtContrasenia = new javax.swing.JTextField();
 
         jMenu1.setText("jMenu1");
 
@@ -80,21 +82,18 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel1.setText("Login");
         jLabel1.setToolTipText("");
 
-        jButton1.setBackground(new java.awt.Color(23, 115, 189));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setBackground(new java.awt.Color(23, 115, 189));
+        btnIngresar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(23, 115, 189));
-
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(23, 115, 189));
+        txtUsername.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(23, 115, 189));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -102,12 +101,11 @@ public class InicioSesion extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                        .addComponent(jTextField1)
-                        .addComponent(jPasswordField1)))
+                    .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(37, 37, 37))
         );
         jPanel4Layout.setVerticalGroup(
@@ -116,11 +114,11 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(jLabel1)
                 .addGap(73, 73, 73)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -161,16 +159,29 @@ public class InicioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        String nombre = "admin";
-        String contrasena = "admin";
-        if(nombre.equals("admin") && contrasena.equals("admin")){
-            Principal p = new Principal();
-            p.setVisible(true);
-        }
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String nombre = txtUsername.getText();
+        String contrasena = txtContrasenia.getText();
+        String ingreso=contUs.VerificarUsuario(nombre, contrasena);    
+        try {
+            if(ingreso.equals("t")){
+                Principal p = new Principal();
+                p.setVisible(true);
+                dispose();
+                JOptionPane.showMessageDialog(this, "Ingresó un Administrador");               
+            }else if (ingreso.equals("f")){
+                Principal p = new Principal();
+                p.setVisible(true);
+                dispose();
+                JOptionPane.showMessageDialog(this, "Ingresó un Empleado");                
+            }else{
+                JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+            }                
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+        }        
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void jPanel4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel4KeyPressed
         char car = (char) evt.getKeyCode();
@@ -220,15 +231,15 @@ public class InicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
