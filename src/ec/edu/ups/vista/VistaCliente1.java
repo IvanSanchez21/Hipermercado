@@ -471,7 +471,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 || jTextTelefono.getText().isEmpty()
                 || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+
         } else {
             actualizarDatos();
             llenarTabla();
@@ -483,6 +483,14 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
             llenarTabla();
+              jTextCedula.setText("");
+                    jTextNombre.setText("");
+                    jTextApellido.setText("");
+                    ftFecha.setText("");
+                    jTextDireccion.setText("");
+                    jTextTelefono.setText("");
+                    jTextCelular.setText("");
+                    jTextEmail.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Datos Ocupando Otras Tablas ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -496,11 +504,12 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 || jTextTelefono.getText().isEmpty()
                 || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-           
+
         } else {
             jTextId.setText("" + ctCliente.llenarId());
             llenarCasillas();
             llenarTabla();
+            
         }
     }//GEN-LAST:event_JButtonCrearActionPerformed
 
@@ -559,6 +568,9 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
                 if (ctCliente.actualizarCliente(cl) == true) {
                     JOptionPane.showMessageDialog(null, "Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    limpiarD();
+                    llenarTabla();
+                     jTextId.setText("" + ctCliente.llenarId());
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -607,15 +619,10 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
                 if (ctCliente.anadirCliente(cl) == true) {
                     JOptionPane.showMessageDialog(null, "Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
-                    jTextCedula.setText("");
-                    jTextNombre.setText("");
-                    jTextApellido.setText("");
-                    ftFecha.setText("");
-                    jTextDireccion.setText("");
-                    jTextTelefono.setText("");
-                    jTextCelular.setText("");
-                    jTextEmail.setText("");
+                     limpiarD();
+                     llenarTabla();
+                      jTextId.setText("" + ctCliente.llenarId());
+                   
                 } else {
                     JOptionPane.showMessageDialog(null, "Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -627,6 +634,17 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
 
+    }
+
+    public void limpiarD() {
+        jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        ftFecha.setText("");
+        jTextDireccion.setText("");
+        jTextTelefono.setText("");
+        jTextCelular.setText("");
+        jTextEmail.setText("");
     }
 
     public void llenarTabla() {
