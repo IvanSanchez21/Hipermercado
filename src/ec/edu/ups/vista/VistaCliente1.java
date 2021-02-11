@@ -496,7 +496,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 || jTextTelefono.getText().isEmpty()
                 || jTextCelular.getText().isEmpty() || jTextEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+           
         } else {
             jTextId.setText("" + ctCliente.llenarId());
             llenarCasillas();
