@@ -10,6 +10,7 @@ import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.DetalleFactura;
 import ec.edu.ups.modelo.Factura;
 import ec.edu.ups.modelo.Producto;
+import static java.lang.Math.abs;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,9 +32,11 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     private Factura facCabecera;
     float pIva, pTotal, pSubtotal;
-    double cantidad;
+    int cantidad;
     double precio;
     int idProd;
+    float sub,iv,tot;
+    
     private DetalleFactura detallefac = new DetalleFactura();
 
     public VistaFactura() {
@@ -124,7 +127,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTablaDetalle = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         btnGenerarVenta = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtTotalPagar = new javax.swing.JTextField();
@@ -300,7 +303,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtDireccion.setEditable(false);
         txtDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        txtCantidad.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtCantidad.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -397,9 +400,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnQuitarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8))
+                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(btnAgregarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -409,7 +410,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                                 .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel16))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel12)))
                 .addGap(62, 62, 62))
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -477,8 +480,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnGenerarVenta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnGenerarVenta.setText("Generar Venta");
@@ -512,7 +520,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGenerarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
@@ -536,7 +544,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGenerarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(91, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -607,7 +615,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         boolean r = validarNumeroNegativo(txtCantidad.getText());
         if (r == true) {
-            JOptionPane.showMessageDialog(this, "Solo números negativos");
+            JOptionPane.showMessageDialog(this, "Solo números Positivos");
         } else {
             agregarProducto();
         }
@@ -623,11 +631,27 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         }else{
             
             r = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar este producto?", "Eliminar", JOptionPane.YES_NO_OPTION);
-            if(r == JOptionPane.YES_OPTION){
+            if(r == JOptionPane.YES_OPTION){                
+                double subtotal=0, iva=0, total=0;          
+                
+                subtotal=Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 5).toString());                                             
+                iva =Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 6).toString());
+                total=Double.parseDouble(modelo.getValueAt(tblTablaDetalle.getSelectedRow(), 7).toString());
+                    
+                iva=Double.parseDouble(txtIva.getText()) - iva;
+                total=Double.parseDouble(txtTotalPagar.getText()) - total;
+                subtotal=Double.parseDouble(txtSubtotal.getText()) - subtotal;
+                
+                sub=Float.parseFloat(String.valueOf(subtotal));
+                iv=Float.parseFloat(String.valueOf(iva));
+                tot=Float.parseFloat(String.valueOf(total));
+                
+                txtSubtotal.setText(String.format(Locale.US, "%.2f",sub));
+                txtIva.setText(String.format(Locale.US, "%.2f",iv));
+                txtTotalPagar.setText(String.format(Locale.US, "%.2f",tot));
                 modelo.removeRow(tblTablaDetalle.getSelectedRow());
             }     
         }
-       
     }//GEN-LAST:event_btnQuitarProdActionPerformed
 
     private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
@@ -644,11 +668,20 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         enviarDatosFacCab();
         enviarDatosFacDetalle();
         limpiarfactura();
+        txtFecha.setText(getFechaActual());
+        Idfactura();
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiarfactura();
+        txtFecha.setText(getFechaActual());
+        Idfactura();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     public void limpiarfactura() {
         limpiarTabla();
@@ -728,20 +761,22 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             conFactura.GuardarFacDetalle(detallefac);
         }
     }
+    
+
 
     public void agregarProducto() {
 
         double total = 0;
         double subtotal = 0;
-
+        
         modelo = (DefaultTableModel) tblTablaDetalle.getModel();
         int codBarra = Integer.parseInt(producto.getPrd_cbarra());
         String nomProducto = producto.getPrd_nombre();
         precio = producto.getPrd_precio();
-        cantidad = Double.parseDouble(txtCantidad.getText());
+        cantidad = Integer.parseInt((txtCantidad.getText()));
         validarNumeroNegativo(String.valueOf(cantidad));
         double stock = Double.parseDouble(txtStock.getText());
-
+       
         total = cantidad * precio;
         subtotal = total;
         double iva = calcularIvaPorProducto(total);
@@ -882,10 +917,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProd;
     private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarVenta;
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton btnQuitarProd;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
