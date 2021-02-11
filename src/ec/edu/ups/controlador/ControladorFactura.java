@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,10 +30,36 @@ public class ControladorFactura {
     private Factura facCabecera;
     //private DetalleFactura detalle;
     int idCap;
+    int r;
 
-    
+    /*
+        * Método para actualizar el stock, una ves el empleado registe la factura.
+    */
+    public int actualizarStock(double cant, int idProd) {
+
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+
+        String sql = "";
+        sql += "UPDATE hip_productos SET prd_stock = ? ";
+        sql += "WHERE prd_id = " + idProd;
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+            pre.setDouble(1, cant);
+            pre.executeUpdate();
+            conexion.getConexion().commit();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Problemas al actualizar Stock!! " + e.getMessage());
+        }
+        conexion.desconectar();
+
+        return r;
+    }
+
     public void GuardarFacCabecera(Factura facCabecera) {
-        System.out.println("........"+ facCabecera.getIdCabecera());
+        System.out.println("........" + facCabecera.getIdCabecera());
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         //facCabecera = new Factura();
@@ -43,9 +70,9 @@ public class ControladorFactura {
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
-            
+
             pre.setString(1, facCabecera.getNumFactura());
-            pre.setDate(2, (java.sql.Date) (Date)facCabecera.getFechaEmision());
+            pre.setDate(2, (java.sql.Date) (Date) facCabecera.getFechaEmision());
             pre.setDouble(3, facCabecera.getSubTotal());
             pre.setDouble(4, facCabecera.getIva());
             pre.setDouble(5, facCabecera.getTotal());
@@ -55,25 +82,17 @@ public class ControladorFactura {
             pre.executeUpdate();
             conexion.getConexion().commit();
             conexion.desconectar();
+
             JOptionPane.showMessageDialog(null, "Factura registradas!! ");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Fallo al guardar factura " + e.getMessage());
         }
-        
+
     }
 
     public void GuardarFacDetalle(DetalleFactura detalle) {
-       int idCap = recuperarNunFacturaCab();
-        System.out.println("id.........."  + idCap);
-       System.out.println("1..." + detalle.getCantidad());
-       System.out.println("2..." + detalle.getPrecio());
-        System.out.println("3..." + detalle.getSubTotal());
-        System.out.println("4..." + detalle.getIva());
-        System.out.println("5..." + detalle.getTotal());
-        System.out.println("6..." + facCabecera);
-        System.out.println("7..." + detalle.getIdProducto());
-//        System.out.println("7..." + detalle.getIdProducto());
-//       
+        int idCap = recuperarNunFacturaCab();
+
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         //detalle = new DetalleFactura();
@@ -92,7 +111,7 @@ public class ControladorFactura {
             pre.setInt(6, idCap);
             pre.setInt(7, detalle.getIdProducto());
             pre.executeUpdate();
-            
+
             conexion.getConexion().commit();
             conexion.desconectar();
         } catch (Exception e) {
@@ -122,7 +141,7 @@ public class ControladorFactura {
         }
         return idVenta;
     }
-    
+
     public int NunFacturaCab() {
         conexion = new ConexionBD();
         int idVenta = 0;
@@ -180,6 +199,7 @@ public class ControladorFactura {
         return null;
     }
 
+    
     public Producto buscarProducto(String codigo) {
         conexion = new ConexionBD();
 
@@ -218,4 +238,47 @@ public class ControladorFactura {
         return null;
     }
 
+    /*
+        *Este método me sirve para poder actualizar el stock del producto al momento de 
+        *registrar una factura.
+    */
+    public Producto buscarIdProducto(int id) {
+        conexion = new ConexionBD();
+        try {
+            producto = new Producto();
+            String sql = "SELECT * FROM HIP_PRODUCTOS WHERE PRD_ID = '" + id + "'";
+            //System.out.println(sql);
+            
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet respuesta = sta.executeQuery(sql);
+            System.out.println(respuesta);
+
+            while (respuesta.next()) {
+
+                producto.setPrd_id(respuesta.getInt(1));
+                producto.setPrd_cbarra(respuesta.getString(2));
+                producto.setPrd_fecha_registro(respuesta.getDate(3));
+                producto.setPrd_nombre(respuesta.getString(4));
+                producto.setPrd_precio(respuesta.getDouble(5));
+                producto.setPrd_stock(respuesta.getDouble(6));
+                producto.setPrd_estado(respuesta.getString(7));
+                producto.setPrd_unidad(respuesta.getString(8));
+                producto.setPrd_origen(respuesta.getString(9));
+                producto.setPrd_iva(respuesta.getBoolean(10));
+
+            }
+            conexion.desconectar();
+            //System.out.println("nombre pro : " + producto.getPrd_nombre());
+            return producto;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+            //System.out.println("Error: " + ex);
+        }
+        return null;
+    }
+
 }
+
+

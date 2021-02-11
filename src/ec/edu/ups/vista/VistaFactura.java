@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,8 +43,15 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         conFactura = new ControladorFactura();
         txtFecha.setText(getFechaActual());
         Idfactura();
+        //Spinner();
     }
 
+    public void Spinner(){
+        SpinnerNumberModel esp = new SpinnerNumberModel();
+        esp.setMaximum(100);
+        esp.setMinimum(0);
+        txtSpiner.setModel(esp);
+    }
     public String getFechaActual() {
         fechactual = new Date();
         String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
@@ -620,14 +629,59 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
         // TODO add your handling code here:
+        actualizarStock();
         enviarDatosFacCab();
         enviarDatosFacDetalle();
+        limpiarfactura();
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
 
+     public void limpiarfactura(){
+         limpiarTabla();
+         txtCedula.setText("");
+         txtCelular.setText("");
+         txtCliente.setText("");
+         txtCodigo.setText("");
+         txtCorreo.setText("");
+         txtDireccion.setText("");
+         txtDireccion.setText("");
+         txtFecha.setText("");
+         txtIva.setText("");
+         txtNombreProducto.setText("");
+         txtNumFactura.setText("");
+         txtSpiner.setToolTipText("");
+         txtStock.setText("");
+         txtSubtotal.setText("");
+         txtTelefono.setText("");
+         txtTotalPagar.setText("");
+//         txtSpiner.set("");
+     }
+    
+    
+    public void limpiarTabla(){
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
+    }
+    
+    
+    public void actualizarStock(){
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Producto pro = new Producto();
+            idProd = Integer.parseInt(tblTablaDetalle.getValueAt(i, 0).toString());
+            cantidad = Integer.parseInt(tblTablaDetalle.getValueAt(i, 3).toString());
+            
+            pro = conFactura.buscarIdProducto(idProd);
+            double stockAct = pro.getPrd_stock() - cantidad;
+            conFactura.actualizarStock(stockAct, idProd);
+        }
+    }
+    
+    
     public void enviarDatosFacCab() {
         int idCabecera = 0; // esto va en el controlador con la secuencia.
         String numFactura = txtNumFactura.getText();
@@ -668,6 +722,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     }
 
     public void agregarProducto() {
+        
+        
+        
         double total = 0;
         double subtotal = 0;
 
