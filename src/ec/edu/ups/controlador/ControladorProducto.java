@@ -8,15 +8,12 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.conexion.ConexionBD;
 import ec.edu.ups.modelo.Categoria;
 import ec.edu.ups.modelo.Producto;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +24,35 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorProducto {
 
     private ConexionBD conexion;
+    private String sent;
+
+    public String llenarCodBarras(Categoria categoria) {
+        String cBarra = "";
+        String inicio = "101";
+        String numCat = String.format("%02d", categoria.getCat_id());
+        int llena = 0;
+        conexion = new ConexionBD();
+        String sql = "SELECT COUNT (prd_id) FROM hip_productos"
+                + " WHERE HIP_CATEGORIAS_CAT_ID = '" + categoria.getCat_id() + "'";
+        try {
+
+            conexion.conectar();
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                llena = rs.getInt(1) + 1;
+                String cantPro = String.format("%04d", llena);
+
+                cBarra = inicio + numCat + cantPro;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Fallo en el autoCodBarras:" + ex.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+
+        return cBarra;
+    }
 
     public ArrayList<Categoria> llenarCombo() {
 
@@ -64,8 +90,14 @@ public class ControladorProducto {
     public void buscarProducto(DefaultTableModel dtm, Object[] o, String prd) {
         conexion = new ConexionBD();
         try {
-            String sql = "SELECT * FROM HIP_PRODUCTOS WHERE UPPER(PRD_NOMBRE) LIKE"
+            String sql = "SELECT * FROM HIP_PRODUCTOS ";
+            String sql2 = " UPPER(PRD_NOMBRE) LIKE"
                     + " UPPER('" + prd + "%') ORDER BY PRD_ID ASC";
+            if (sent.isEmpty()) {
+                sql = sql + sent + " WHERE " + sql2;
+            } else {
+                sql = sql + sent + " AND " + sql2;
+            }
 
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
@@ -109,8 +141,7 @@ public class ControladorProducto {
 
     public void filtroTabla(DefaultTableModel dtm, Object[] o, String est, String iva) {
         conexion = new ConexionBD();
-        String sent;
-
+        sent = "";
         try {
             if (est.equalsIgnoreCase("activo") && iva.equalsIgnoreCase("todos")) {
                 sent = " WHERE PRD_ESTADO = 'a' ";
@@ -129,7 +160,7 @@ public class ControladorProducto {
             } else if (est.equalsIgnoreCase("TODOS") && iva.equalsIgnoreCase("SIN IVA")) {
                 sent = " WHERE PRD_IVA = 'f' ";
             } else {
-                sent = " ";
+                sent = "";
             }
 
             String sql = "SELECT * FROM HIP_PRODUCTOS " + sent + " ORDER BY PRD_ID ASC";

@@ -29,6 +29,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private String origenPr;
     private String estadoPr;
     private String ivaPr;
+    private String cbarra;
     ControladorProducto cp;
     Producto producto;
     DefaultTableModel dtm;
@@ -122,7 +123,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         tNombre.setText("");
         tBuscar.setText("");
         tCantidad.setText("");
-        tCodBarras.setText("");
+        tCodBarras.setText(cbarra);
         tUnidad.setText("");
         tPrecio.setText("");
     }
@@ -313,6 +314,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
         lCodBarras.setText("Código de Barras:");
 
+        tCodBarras.setEditable(false);
         tCodBarras.setColumns(10);
         tCodBarras.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
@@ -535,12 +537,15 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         } else if (cbEstado.getSelectedIndex() == 2) {
             estadoPr = "todos";
         }
+        limpiarTexto();
         filtrarTabla();
     }//GEN-LAST:event_cbEstadoActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         tCodigo.setText("" + cp.llenarIdProducto());
         tFechaRegistro.setText(getFechaActual());
+
+        tCodBarras.setText(cbarra);
         if (tCodBarras.getText().isEmpty() || tNombre.getText().isEmpty() || tCantidad.getText().isEmpty()
                 || tPrecio.getText().isEmpty() || tUnidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia",
@@ -658,6 +663,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bEliminarActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        filtrarTabla();
         String palabra = tBuscar.getText();
         dtm.setRowCount(0);
         dtm = (DefaultTableModel) tbProductos.getModel();
@@ -666,6 +672,8 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
         categoriaCombo = (Categoria) cbCategoria.getSelectedItem();
+        cbarra = cp.llenarCodBarras(categoriaCombo);
+
     }//GEN-LAST:event_cbCategoriaActionPerformed
 
     private void cbOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrigenActionPerformed
