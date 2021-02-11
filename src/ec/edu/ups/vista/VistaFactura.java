@@ -791,7 +791,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
 
         ArrayList lista = new ArrayList();
 
-        if (stock >= 0 && stock > cantidad) {
+        if (stock > 0 && stock >= cantidad) {
 
             double s = Double.parseDouble(txtStock.getText());
             double contStock = s - cantidad;
