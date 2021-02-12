@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b666e70b-d4d4-4100-971d-1076be78e58c">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select fac_cab_num, fac_cab_fecha_emision,cli_cedula,cli_nombre, cli_apellido, cli_direccion, cli_tel_convencional,cli_celular, cli_correo_electronico,
+fac_det_cantidad,fac_det_precio,fac_det_subtotal,fac_det_iva,fac_det_total, prd_nombre, prd_nombre,prd_cbarra
+from hip_factura_cabeceras,hip_clientes,hip_factura_detalles,hip_productos
+where fac_cab_id =$P{codigo}  and hip_clientes_cli_id = cli_id and hip_fac_cab_id=fac_cab_id and prd_id=hip_productos_prd_id]]>
+	</queryString>
+	<field name="FAC_CAB_NUM" class="java.lang.String"/>
+	<field name="FAC_CAB_FECHA_EMISION" class="java.sql.Timestamp"/>
+	<field name="CLI_CEDULA" class="java.lang.String"/>
+	<field name="CLI_NOMBRE" class="java.lang.String"/>
+	<field name="CLI_APELLIDO" class="java.lang.String"/>
+	<field name="CLI_DIRECCION" class="java.lang.String"/>
+	<field name="CLI_TEL_CONVENCIONAL" class="java.lang.String"/>
+	<field name="CLI_CELULAR" class="java.lang.String"/>
+	<field name="CLI_CORREO_ELECTRONICO" class="java.lang.String"/>
+	<field name="FAC_DET_CANTIDAD" class="java.math.BigDecimal"/>
+	<field name="FAC_DET_PRECIO" class="java.math.BigDecimal"/>
+	<field name="FAC_DET_SUBTOTAL" class="java.math.BigDecimal"/>
+	<field name="FAC_DET_IVA" class="java.math.BigDecimal"/>
+	<field name="FAC_DET_TOTAL" class="java.math.BigDecimal"/>
+	<field name="PRD_NOMBRE" class="java.lang.String"/>
+	<field name="PRD_CBARRA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="-43" y="14" width="280" height="49" uuid="4bad8a4c-c2b1-4b0b-9fc2-449d47061ca3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="20"/>
+				</textElement>
+				<text><![CDATA[FACTURACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="28" width="100" height="20" uuid="ab3d7b97-2c73-4070-872b-54a0c64f15dc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="28" width="100" height="20" uuid="e3294562-4685-4dd1-af86-29e68735ecff"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="308" y="28" width="100" height="20" uuid="29d12a26-2265-4e03-b1a0-1cdecb298721"/>
+				<textFieldExpression><![CDATA[$F{FAC_CAB_NUM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="28" width="89" height="20" uuid="83d96c71-974f-4917-8665-789e54b5b8dc"/>
+				<textFieldExpression><![CDATA[$F{FAC_CAB_FECHA_EMISION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="229" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="55" width="100" height="20" uuid="f832ce2f-2d87-440c-917a-f5a925714d8e"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="18" width="100" height="20" uuid="39e96662-3443-40eb-9f80-90535343629b"/>
+				<text><![CDATA[Cedula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="92" width="100" height="20" uuid="2a1ec059-4617-4221-884f-f6544fbf62a2"/>
+				<text><![CDATA[Apellido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="129" width="100" height="20" uuid="f318c7d2-52ce-4a80-b3bb-d4e72b141cb9"/>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="18" width="100" height="20" uuid="15691cb9-eed7-454b-9749-3d68634320bb"/>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="55" width="100" height="20" uuid="c65f9cd5-232b-47ca-b2ee-dc58d58cce28"/>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="92" width="100" height="20" uuid="32ac1481-eca1-401f-8759-c4f36d4d102f"/>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="180" width="38" height="20" uuid="119a559b-e1c2-45bb-a69f-e090b2d4b4b9"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="180" width="127" height="20" uuid="0d074bb8-b287-40dd-acd6-189df43bf5f8"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="180" width="54" height="20" uuid="e03967d0-f66c-44ea-863f-64451532867a"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="180" width="71" height="20" uuid="105b078f-3e78-4473-9879-39796ba0cc3d"/>
+				<text><![CDATA[P: Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="180" width="71" height="20" uuid="43d0cecf-5b61-4710-ab0c-52a5183e9191"/>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="180" width="69" height="20" uuid="ce263357-ab9d-45a7-8944-fc1b9869c76f"/>
+				<text><![CDATA[iva]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="180" width="92" height="20" uuid="de4712d6-7968-4cd4-bd50-4c3841159205"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="56" y="18" width="100" height="20" uuid="d4c47935-64b9-427c-ae8f-0fc3816bcdc1"/>
+				<textFieldExpression><![CDATA[$F{CLI_CEDULA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="55" width="100" height="20" uuid="d9d598cc-dfe4-46d2-8fab-207822f07787"/>
+				<textFieldExpression><![CDATA[$F{CLI_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="92" width="100" height="20" uuid="6f146bac-e871-47e3-97d7-77ac7c73361c"/>
+				<textFieldExpression><![CDATA[$F{CLI_APELLIDO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="129" width="100" height="20" uuid="27b3f8b7-1713-4cf9-92a9-626ca5d55718"/>
+				<textFieldExpression><![CDATA[$F{CLI_DIRECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="18" width="100" height="20" uuid="f85488f2-30d7-43f0-aa06-dd0f8ab1d25d"/>
+				<textFieldExpression><![CDATA[$F{CLI_TEL_CONVENCIONAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="55" width="100" height="20" uuid="8f147980-474f-4256-a488-779dcc15834c"/>
+				<textFieldExpression><![CDATA[$F{CLI_CELULAR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="92" width="100" height="20" uuid="b00f9f7d-965d-44a3-aced-94aa4b720bbf"/>
+				<textFieldExpression><![CDATA[$F{CLI_CORREO_ELECTRONICO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="261" y="137" width="100" height="20" uuid="f192eb36-80b2-4763-94e1-f0384a177fbb"/>
+				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="11" width="56" height="20" uuid="0782a234-7646-46c8-9415-e50fc05e5e01"/>
+				<textFieldExpression><![CDATA[$F{PRD_CBARRA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="11" width="127" height="20" uuid="7a3c3c15-8ad8-4bf3-86d5-bbb97c06fc6b"/>
+				<textFieldExpression><![CDATA[$F{PRD_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="11" width="54" height="20" uuid="6ff4a16e-f94f-42ef-adea-b75f68b68081"/>
+				<textFieldExpression><![CDATA[$F{FAC_DET_CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="11" width="71" height="20" uuid="01273244-e5f3-4daf-9982-6f96d1e8ad35"/>
+				<textFieldExpression><![CDATA[$F{FAC_DET_PRECIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="11" width="68" height="20" uuid="ec67b660-b63d-4b94-8c16-21fc30ff7bff"/>
+				<textFieldExpression><![CDATA[$F{FAC_DET_SUBTOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="11" width="69" height="20" uuid="5f6b6882-096a-48db-8a29-c21915cbc5b8"/>
+				<textFieldExpression><![CDATA[$F{FAC_DET_IVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="11" width="100" height="20" uuid="a6b52ff5-1c03-4a1e-bfa4-3f49d384fe60"/>
+				<textFieldExpression><![CDATA[$F{FAC_DET_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
