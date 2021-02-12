@@ -20,8 +20,14 @@ public class VistaAnuladora extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaAnuladora
      */
-    public VistaAnuladora() {
-        initComponents();
+    public VistaAnuladora(String tipo) {
+        if (tipo.equalsIgnoreCase("f")) {
+            initComponents();
+            bAnulacion.setVisible(false);
+        } else {
+            initComponents();
+
+        }
     }
 
     /**

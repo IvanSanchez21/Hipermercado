@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ec.edu.ups.controlador;
+
 import ec.edu.ups.conexion.ConexionBD;
 import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.CompraDetalle;
@@ -24,14 +25,15 @@ import javax.swing.JOptionPane;
  * @author ronal
  */
 public class ControladorCompraProveedor {
-     private Proveedor proveedor;
+
+    private Proveedor proveedor;
     private ConexionBD conexion;
     private Producto producto;
     private CompraProveedor facCabecera;
     private CompraDetalle facDetalle;
     int idCap;
     int r;
-    
+
     public String numerarFactura() {
         String numFac = "";
         String numEst = "001";
@@ -64,7 +66,7 @@ public class ControladorCompraProveedor {
         }
         return numFac;
     }
-    
+
     public int actualizarStock(double cant, int idProd) {
 
         PreparedStatement pre = null;
@@ -87,7 +89,7 @@ public class ControladorCompraProveedor {
 
         return r;
     }
-    
+
     public void GuardarFacCabecera(CompraProveedor facCabecera) {
         System.out.println("codigo........" + facCabecera.getCodigo());
         PreparedStatement pre = null;
@@ -112,8 +114,8 @@ public class ControladorCompraProveedor {
             JOptionPane.showMessageDialog(null, "Fallo al guardar Compra " + e.getMessage());
         }
     }
-        
-        public void GuardarFacDetalle(CompraDetalle detalle) {
+
+    public void GuardarFacDetalle(CompraDetalle detalle) {
         int idCap = recuperarNunFacturaCab();
 
         PreparedStatement pre = null;
@@ -126,7 +128,7 @@ public class ControladorCompraProveedor {
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
-            pre.setInt(1, detalle.getCantidad());
+            pre.setDouble(1, detalle.getCantidad());
             pre.setInt(2, detalle.getProductos());
             pre.setInt(3, detalle.getCompraProveedor());
             pre.executeUpdate();
@@ -137,8 +139,8 @@ public class ControladorCompraProveedor {
             JOptionPane.showMessageDialog(null, "Fallo al guardar detalle " + e.getMessage());
         }
     }
-        
-        public int recuperarNunFacturaCab() {
+
+    public int recuperarNunFacturaCab() {
         conexion = new ConexionBD();
         int idVenta = 0;
 
@@ -159,8 +161,8 @@ public class ControladorCompraProveedor {
         }
         return idVenta;
     }
-        
-        public int NunFacturaCab() {
+
+    public int NunFacturaCab() {
         conexion = new ConexionBD();
         int idVenta = 0;
 
@@ -181,9 +183,9 @@ public class ControladorCompraProveedor {
             JOptionPane.showMessageDialog(null, "Fallo en la busqueda" + e.getMessage());
         }
         return idVenta;
-        }
-        
-        public Proveedor buscarProveedor(String cedula) {
+    }
+
+    public Proveedor buscarProveedor(String cedula) {
         conexion = new ConexionBD();
         try {
             proveedor = new Proveedor();
@@ -211,8 +213,8 @@ public class ControladorCompraProveedor {
         }
         return null;
     }
-        
-        public Producto buscarProducto(String codigo) {
+
+    public Producto buscarProducto(String codigo) {
         conexion = new ConexionBD();
 
         try {
@@ -248,8 +250,8 @@ public class ControladorCompraProveedor {
         }
         return null;
     }
-        
-        public Producto buscarIdProducto(int id) {
+
+    public Producto buscarIdProducto(int id) {
         conexion = new ConexionBD();
         try {
             producto = new Producto();

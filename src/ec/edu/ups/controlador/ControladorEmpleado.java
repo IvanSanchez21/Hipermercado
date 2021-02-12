@@ -6,12 +6,10 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.conexion.ConexionBD;
-import ec.edu.ups.modelo.Cliente;
-import ec.edu.ups.modelo.Empleado;
+import ec.edu.ups.modelo.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,29 +18,33 @@ import javax.swing.table.DefaultTableModel;
  * @author ronal
  */
 public class ControladorEmpleado {
+
     private ConexionBD conexion;
-    
-    public boolean crearEmpleado(Empleado emp) {
+    private String sent;
+
+    public boolean crearUsuario(Usuario emp) {
         conexion = new ConexionBD();
         PreparedStatement ps = null;
-        System.out.println(emp.getCodigo());
-        System.out.println(emp.getNombres());
-        System.out.println(emp.getApellidos());
-        System.out.println(emp.getUsuario());
+
         boolean r = false;
         String sql = "";
-        sql += "INSERT INTO hip_usuarios VALUES (usuarios_seq.nextval,?,?,?,?,?,?,?)";
+        sql += "INSERT INTO hip_usuarios VALUES (usuarios_seq.nextval,?,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
             ps = conexion.getConexion().prepareStatement(sql);
-            ps.setString(1, emp.getCedula());
-            ps.setString(2, emp.getNombres());
-            ps.setString(3, emp.getApellidos());
-            ps.setString(4, emp.getDireccion());
-            ps.setString(5, emp.getUsuario());
-            ps.setString(6, emp.getContrasenia());
-            ps.setString(7, emp.getTipo());
+            ps.setString(1, emp.getUsu_cedula());
+            ps.setString(2, emp.getUsu_nombre());
+            ps.setString(3, emp.getUsu_apellido());
+            ps.setString(4, emp.getUsu_direccion());
+            ps.setString(5, emp.getUsu_usuario());
+            ps.setString(6, emp.getUsu_contrasenia());
+            if (emp.getUsu_admin().equalsIgnoreCase("administrador")) {
+                ps.setString(7, "t");
+            } else {
+                ps.setString(7, "f");
+            }
+            ps.setString(8, "f");
 
             //ResultSet rs=ps.executeQuery();
             ps.executeUpdate();
@@ -57,8 +59,8 @@ public class ControladorEmpleado {
 
         return r;
     }
-    
-     public int llenarId() {
+
+    public int llenarId() {
         int llena = 0;
         boolean ban = false;
         conexion = new ConexionBD();
@@ -78,12 +80,20 @@ public class ControladorEmpleado {
         }
         return llena;
     }
-     
-    public void llenarTabla(DefaultTableModel dtm, Object[] o) {
+
+    public void llenarTabla(DefaultTableModel dtm, Object[] o, String est) {
         conexion = new ConexionBD();
 
-        String sql = "SELECT * FROM HIP_USUARIOS ORDER BY USU_ID ASC";;
         try {
+            if (est.equalsIgnoreCase("activo")) {
+                sent = " WHERE usu_estado = 'f' ";
+            } else if (est.equalsIgnoreCase("PASIVO")) {
+                sent = " WHERE usu_estado = 't' ";
+            } else {
+                sent = "";
+            }
+
+            String sql = " SELECT * FROM hip_usuarios " + sent + " order by usu_id asc";
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -91,13 +101,22 @@ public class ControladorEmpleado {
             while (rs.next()) {
 
                 //String ObjetoS[]=new String [8];
-                o[0] = rs.getString("usu_id");
-                o[1] = rs.getString("usu_cedula");
-                o[2] = rs.getString("usu_nombre");
-                o[3] = rs.getString("usu_apellido");
-                o[4] = rs.getString("usu_direccion");
-                o[5] = rs.getString("usu_usuario");
-                o[6] = rs.getString("usu_tipo");
+                o[0] = rs.getString(1);
+                o[1] = rs.getString(2);
+                o[2] = rs.getString(3);
+                o[3] = rs.getString(4);
+                o[4] = rs.getString(5);
+                o[5] = rs.getString(6);
+                if (rs.getString(8).equals("f")) {
+                    o[6] = "Empleado";
+                } else {
+                    o[6] = "Administrador";
+                }
+                if (rs.getString(9).equals("f")) {
+                    o[7] = "Activo";
+                } else {
+                    o[7] = "Pasivo";
+                }
 
                 dtm.addRow(o);
             }
@@ -108,31 +127,44 @@ public class ControladorEmpleado {
             conexion.desconectar();
         }
     }
-    
-    public void filtro(DefaultTableModel dtm, Object[] o, Empleado emp) {
+
+    public void filtro(DefaultTableModel dtm, Object[] o, String emp) {
         System.out.println(emp);
 
         conexion = new ConexionBD();
 
-        String sql = " SELECT *"
-                + " FROM hip_usuarios where usu_cedula=?";
         try {
+            String sql = " SELECT * FROM hip_usuarios ";
+            String sql2 = " UPPER(usu_cedula) LIKE"
+                    + " UPPER('" + emp + "%') ORDER BY usu_id ASC";
+            if (sent.isEmpty()) {
+                sql = sql + sent + " WHERE " + sql2;
+            } else {
+                sql = sql + sent + " AND " + sql2;
+            }
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
-            ps.setString(1, emp.getCedula());
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 //String ObjetoS[]=new String [8];
-                o[0] = rs.getString("codigo");
-                o[1] = rs.getString("cedula");
-                o[2] = rs.getString("nombres");
-                o[3] = rs.getString("apellidos");
-                o[4] = rs.getString("direccion");
-                o[5] = rs.getString("usuario");
-                o[6] = rs.getString("contrasenia");
-                o[7] = rs.getString("tipo");
+                o[0] = rs.getString(1);
+                o[1] = rs.getString(2);
+                o[2] = rs.getString(3);
+                o[3] = rs.getString(4);
+                o[4] = rs.getString(5);
+                o[5] = rs.getString(6);
+                if (rs.getString(8).equals("f")) {
+                    o[6] = "Empleado";
+                } else {
+                    o[6] = "Administrador";
+                }
+                if (rs.getString(9).equals("f")) {
+                    o[7] = "Activo";
+                } else {
+                    o[7] = "Pasivo";
+                }
 
                 dtm.addRow(o);
 
@@ -144,16 +176,44 @@ public class ControladorEmpleado {
             conexion.desconectar();
         }
     }
-    
-    public boolean actualizarEmpleado(Empleado emp) {
 
-        System.out.println(emp.getCodigo());
-        System.out.println(emp.getApellidos());
-        System.out.println(emp.getCedula());
-        System.out.println(emp.getNombres());
+    public boolean cambiarEstadoUsu(Usuario usu) {
+        boolean cepb = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+
+        String sql = "";
+        sql += "UPDATE hip_usuarios SET USU_ESTADO=? WHERE USU_ID=?";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            if (usu.getUsu_estado().equalsIgnoreCase("activo")) {
+                pre.setString(1, "t");
+                pre.setInt(2, usu.getUsu_id());
+                pre.executeUpdate();
+            } else if (usu.getUsu_estado().equalsIgnoreCase("pasivo")) {
+                pre.setString(1, "f");
+                pre.setInt(2, usu.getUsu_id());
+                pre.executeUpdate();
+            }
+
+            conexion.getConexion().commit();
+
+            cepb = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cambiar estado del"
+                    + " cliente:" + e.getMessage());
+        }
+        return cepb;
+    }
+
+    public boolean actualizarEmpleado(Usuario emp) {
+
         boolean r = false;
         conexion = new ConexionBD();
-        
+
         String sql = "";
         sql += "UPDATE hip_usuarios SET USU_CEDULA=?, USU_NOMBRE=?, "
                 + "USU_APELLIDO=?, USU_DIRECCION=?, USU_USUARIO=?, USU_CONTRASENIA=?,"
@@ -161,13 +221,17 @@ public class ControladorEmpleado {
         try {
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
-            ps.setString(1, emp.getCedula());
-            ps.setString(2, emp.getNombres());
-            ps.setString(3, emp.getApellidos());
-            ps.setString(4, emp.getDireccion());
-            ps.setString(5, emp.getUsuario());
-            ps.setString(6, emp.getContrasenia());
-            ps.setString(7, emp.getTipo());
+            ps.setString(1, emp.getUsu_cedula());
+            ps.setString(2, emp.getUsu_nombre());
+            ps.setString(3, emp.getUsu_apellido());
+            ps.setString(4, emp.getUsu_direccion());
+            ps.setString(5, emp.getUsu_usuario());
+            ps.setString(6, emp.getUsu_contrasenia());
+            if (emp.getUsu_admin().equalsIgnoreCase("Administrador")) {
+                ps.setString(7, "t");
+            } else if (emp.getUsu_admin().equalsIgnoreCase("Empleado")){
+                ps.setString(7, "f");
+            }
             ResultSet rs = ps.executeQuery();
 
             r = true;
@@ -181,7 +245,7 @@ public class ControladorEmpleado {
         return r;
 
     }
-    
+
     public boolean eliminarEmpleado(int prd) {
         boolean bpb = false;
         PreparedStatement pre = null;
@@ -206,7 +270,7 @@ public class ControladorEmpleado {
         }
         return bpb;
     }
-    
+
     public static boolean valida(String x) {
         System.out.println(x);
         int suma = 0;

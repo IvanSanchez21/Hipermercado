@@ -22,6 +22,7 @@ public class Cliente {
     private String cli_tel_convencional;
     private String cli_celular;
     private String cli_correo_electronico;
+    private String estado;
 
     public Cliente() {
     }
@@ -96,6 +97,14 @@ public class Cliente {
 
     public void setCli_correo_electronico(String cli_correo_electronico) {
         this.cli_correo_electronico = cli_correo_electronico;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }

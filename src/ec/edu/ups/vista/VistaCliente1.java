@@ -28,16 +28,23 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
      */
     private Date fechactual;
     ControladorCliente1 ctCliente;
+    private Cliente cliente;
+    private String estadoCl;
     DefaultTableModel dtm;
-    Object[] o = new Object[9];
+    Object[] o = new Object[10];
 
-    public VistaCliente1() {
-        initComponents();
+    public VistaCliente1(String tipo) {
+        if (tipo.equalsIgnoreCase("f")) {
+            initComponents();
+            bEliminar.setVisible(false);
+        } else {
+            initComponents();
+        }
         ctCliente = new ControladorCliente1();
         tFecha.setText(getFechaActual());
         jTextId.setText("" + ctCliente.llenarId());
         dtm = (DefaultTableModel) jTable1.getModel();
-
+        estadoCl = "activo";
         llenarTabla();
         cargaraJtext();
     }
@@ -61,8 +68,8 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         JButtonCrear = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        bCancelar = new javax.swing.JButton();
+        bEliminar = new javax.swing.JButton();
+        bCambioEstado = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jTextId = new javax.swing.JTextField();
@@ -83,15 +90,20 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextDireccion = new javax.swing.JTextField();
         tFecha = new javax.swing.JTextField();
+        lEstado = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jTextFiltro = new javax.swing.JTextField();
         jButtonBuscar = new javax.swing.JButton();
+        cbEstado = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setClosable(true);
         setForeground(new java.awt.Color(255, 255, 255));
+        setIconifiable(true);
         setTitle("Cliente");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -120,19 +132,19 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/eliminar.png"))); // NOI18N
-        jButton1.setText("Eliminar");
-        jButton1.setIconTextGap(5);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/eliminar.png"))); // NOI18N
+        bEliminar.setText("Eliminar");
+        bEliminar.setIconTextGap(5);
+        bEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bEliminarActionPerformed(evt);
             }
         });
 
-        bCancelar.setText("Cancelar");
-        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+        bCambioEstado.setText("Cambiar Estado");
+        bCambioEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelarActionPerformed(evt);
+                bCambioEstadoActionPerformed(evt);
             }
         });
 
@@ -153,9 +165,9 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(bCambioEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -166,9 +178,9 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(JButtonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bCambioEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -246,7 +258,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                             .addComponent(jTextApellido)
                             .addComponent(jTextCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
@@ -254,12 +266,18 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(tFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(39, 39, 39))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(jTextTelefono, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,10 +285,12 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel6)
-                        .addComponent(tFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(tFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -317,6 +337,16 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
             }
         });
 
+        cbEstado.setMaximumRowCount(3);
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Pasivo", "Todos" }));
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstadoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Estado:");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -328,6 +358,10 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addComponent(jTextFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -337,39 +371,41 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Cedula", "Nombre", "Apellido", "Fecha", "Direccion", "Telefono", "Celular", "Email"
+                "Id", "Cedula", "Nombre", "Apellido", "Fecha", "Direccion", "Telefono", "Celular", "Email", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -379,8 +415,9 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jTable1.setShowVerticalLines(true);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(30);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(9).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -435,7 +472,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         limpiarD();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
         if (ctCliente.eliminarCliente(Integer.parseInt(jTextId.getText())) == true) {
             JOptionPane.showMessageDialog(null, "Eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -443,7 +480,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         }
         llenarTabla();
         limpiarD();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bEliminarActionPerformed
 
     private void JButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCrearActionPerformed
 
@@ -470,27 +507,58 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+    private void bCambioEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCambioEstadoActionPerformed
+        if (jTextId.getText().isEmpty() || jTextCedula.getText().isEmpty()
+                || jTextNombre.getText().isEmpty() || jTextApellido.getText().isEmpty()
+                || tFecha.getText().isEmpty() || jTextDireccion.getText().isEmpty()
+                || jTextEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            cliente = new Cliente();
+            cliente.setCli_id(Integer.parseInt(jTextId.getText()));
+            cliente.setEstado(lEstado.getText());
+            if (ctCliente.cambiarEstadoCliente(cliente) == true) {
+                JOptionPane.showMessageDialog(this, "Se ha cambiado el estado del cliente",
+                        "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo cambiar el estado",
+                        "Incorrecto", JOptionPane.WARNING_MESSAGE);
+            }
+        }
         limpiarD();
-    }//GEN-LAST:event_bCancelarActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_bCambioEstadoActionPerformed
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_bSalirActionPerformed
 
-    private void actualizarDatos() {
-        Cliente cl = new Cliente();
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
+        if (cbEstado.getSelectedIndex() == 0) {
+            estadoCl = "activo";
+        } else if (cbEstado.getSelectedIndex() == 1) {
+            estadoCl = "pasivo";
+        } else if (cbEstado.getSelectedIndex() == 2) {
+            estadoCl = "todos";
+        }
+        limpiarD();
+        llenarTabla();
+    }//GEN-LAST:event_cbEstadoActionPerformed
 
-        cl.setCli_id(Integer.parseInt(jTextId.getText()));
+    private void actualizarDatos() {
+        cliente = new Cliente();
+
+        cliente.setCli_id(Integer.parseInt(jTextId.getText()));
 
         boolean c = ctCliente.valida(jTextCedula.getText());
         boolean e = ctCliente.validarEmail(jTextEmail.getText());
         if (c == true) {
             if (e = true) {
-                cl.setCli_correo_electronico(jTextEmail.getText());
-                cl.setCli_cedula(jTextCedula.getText());
-                cl.setCli_nombre(jTextNombre.getText());
-                cl.setCli_apellido(jTextApellido.getText());
+                cliente.setCli_correo_electronico(jTextEmail.getText());
+                cliente.setCli_cedula(jTextCedula.getText());
+                cliente.setCli_nombre(jTextNombre.getText());
+                cliente.setCli_apellido(jTextApellido.getText());
 
                 SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
                 String strFecha = tFecha.getText();
@@ -506,13 +574,13 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 }
 
                 java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
-                cl.setCli_fecha_registro(fin2);
+                cliente.setCli_fecha_registro(fin2);
                 System.out.println(fin2);
-                cl.setCli_direccion(jTextDireccion.getText());
-                cl.setCli_tel_convencional(jTextTelefono.getText());
-                cl.setCli_celular(jTextCelular.getText());
+                cliente.setCli_direccion(jTextDireccion.getText());
+                cliente.setCli_tel_convencional(jTextTelefono.getText());
+                cliente.setCli_celular(jTextCelular.getText());
 
-                if (ctCliente.actualizarCliente(cl) == true) {
+                if (ctCliente.actualizarCliente(cliente) == true) {
                     JOptionPane.showMessageDialog(null, "Actualización Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                     limpiarD();
                     llenarTabla();
@@ -532,17 +600,17 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     }
 
     private void llenarCasillas() {
-        Cliente cl = new Cliente();
+        cliente = new Cliente();
 
-        cl.setCli_id(Integer.parseInt(jTextId.getText()));
+        cliente.setCli_id(Integer.parseInt(jTextId.getText()));
         boolean c = ctCliente.valida(jTextCedula.getText());
         boolean e = ctCliente.validarEmail(jTextEmail.getText());
         if (c == true) {
             if (e == true) {
-                cl.setCli_correo_electronico(jTextEmail.getText());
-                cl.setCli_cedula(jTextCedula.getText());
-                cl.setCli_nombre(jTextNombre.getText());
-                cl.setCli_apellido(jTextApellido.getText());
+                cliente.setCli_correo_electronico(jTextEmail.getText());
+                cliente.setCli_cedula(jTextCedula.getText());
+                cliente.setCli_nombre(jTextNombre.getText());
+                cliente.setCli_apellido(jTextApellido.getText());
 
                 SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
                 String strFecha = tFecha.getText();
@@ -558,12 +626,13 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                 }
 
                 java.sql.Date fin2 = new java.sql.Date(fecha.getTime());
-                cl.setCli_fecha_registro(fin2);
-                cl.setCli_direccion(jTextDireccion.getText());
-                cl.setCli_tel_convencional(jTextTelefono.getText());
-                cl.setCli_celular(jTextCelular.getText());
+                cliente.setCli_fecha_registro(fin2);
+                cliente.setCli_direccion(jTextDireccion.getText());
+                cliente.setCli_tel_convencional(jTextTelefono.getText());
+                cliente.setCli_celular(jTextCelular.getText());
+                cliente.setEstado("f");
 
-                if (ctCliente.anadirCliente(cl) == true) {
+                if (ctCliente.anadirCliente(cliente) == true) {
                     JOptionPane.showMessageDialog(null, "Creación Correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
                     limpiarD();
                     llenarTabla();
@@ -592,13 +661,14 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
         jTextTelefono.setText("");
         jTextCelular.setText("");
         jTextEmail.setText("");
+        lEstado.setText("");
     }
 
     public void llenarTabla() {
         dtm.setRowCount(0);
         dtm = (DefaultTableModel) jTable1.getModel();
         String ObjetoS[] = new String[6];
-        ctCliente.llenarTabla(dtm, o);
+        ctCliente.llenarTabla(dtm, o, estadoCl);
     }
 
     private void cargaraJtext() {
@@ -626,6 +696,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
                         jTextCelular.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString());
                     }
                     jTextEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString());
+                    lEstado.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 9).toString());
 
                 }
 
@@ -636,11 +707,13 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonCrear;
-    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bCambioEstado;
+    private javax.swing.JButton bEliminar;
     private javax.swing.JButton bSalir;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -666,6 +739,7 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextId;
     private javax.swing.JTextField jTextNombre;
     private javax.swing.JTextField jTextTelefono;
+    private javax.swing.JLabel lEstado;
     private javax.swing.JTextField tFecha;
     // End of variables declaration//GEN-END:variables
 

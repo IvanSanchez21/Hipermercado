@@ -10,6 +10,7 @@ package ec.edu.ups.modelo;
  * @author José
  */
 public class Usuario {
+
     private int usu_id;
     private String usu_cedula;
     private String usu_nombre;
@@ -18,6 +19,7 @@ public class Usuario {
     private String usu_usuario;
     private String usu_contrasenia;
     private String usu_admin;
+    private String usu_estado;
 
     public Usuario() {
     }
@@ -65,6 +67,14 @@ public class Usuario {
         return usu_admin;
     }
 
+    public String getUsu_estado() {
+        return usu_estado;
+    }
+
+    public void setUsu_estado(String usu_estado) {
+        this.usu_estado = usu_estado;
+    }
+
     public void setUsu_id(int usu_id) {
         this.usu_id = usu_id;
     }
@@ -95,6 +105,6 @@ public class Usuario {
 
     public void setUsu_admin(String usu_admin) {
         this.usu_admin = usu_admin;
-    }        
-    
+    }
+
 }

@@ -27,7 +27,9 @@ public class ControladorUsuario {
         usuario = new Usuario();
         try {
 
-            String sql = "SELECT * FROM HIP_USUARIOS WHERE USU_USUARIO='" + usernam + "' AND USU_CONTRASENIA='" + contraseña + "'";
+            String sql = "SELECT * FROM HIP_USUARIOS WHERE USU_USUARIO='"
+                    + usernam + "' AND USU_CONTRASENIA='" + contraseña
+                    + "' AND USU_ESTADO = 'f'";
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet rs = sta.executeQuery(sql);
@@ -50,7 +52,9 @@ public class ControladorUsuario {
         try {
 
             String sql = "SELECT * FROM HIP_USUARIOS WHERE USU_USUARIO='"
-                    + usernam + "' AND USU_CONTRASENIA='" + contraseña + "'";
+                    + usernam + "' AND USU_CONTRASENIA='" + contraseña
+                    + "' AND USU_ESTADO = 'f'";
+
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet rs = sta.executeQuery(sql);

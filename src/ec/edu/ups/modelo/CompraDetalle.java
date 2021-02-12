@@ -10,16 +10,17 @@ package ec.edu.ups.modelo;
  * @author ronal
  */
 public class CompraDetalle {
+
     private int codigo;
-    private int cantidad;
+    private double cantidad;
     private int productos;
     private int compraProveedor;
-    
-    public CompraDetalle(){
-        this.codigo=codigo;
-        this.cantidad=cantidad;
-        this.productos=productos;
-        this.compraProveedor=compraProveedor;
+
+    public CompraDetalle() {
+        this.codigo = codigo;
+        this.cantidad = cantidad;
+        this.productos = productos;
+        this.compraProveedor = compraProveedor;
     }
 
     public CompraDetalle(int codigo, int cantidad, int productos, int compraProveedor) {
@@ -37,11 +38,11 @@ public class CompraDetalle {
         this.codigo = codigo;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -63,9 +64,8 @@ public class CompraDetalle {
 
     @Override
     public String toString() {
-        return "CompraDetalle{" + "codigo=" + codigo + ", cantidad=" +
-                cantidad + ", productos=" + productos + ", compraProveedor=" + compraProveedor + '}';
+        return "CompraDetalle{" + "codigo=" + codigo + ", cantidad="
+                + cantidad + ", productos=" + productos + ", compraProveedor=" + compraProveedor + '}';
     }
-    
-    
+
 }

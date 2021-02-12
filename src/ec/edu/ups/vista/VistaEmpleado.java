@@ -5,15 +5,8 @@
  */
 package ec.edu.ups.vista;
 
-import ec.edu.ups.controlador.ControladorCliente1;
 import ec.edu.ups.controlador.ControladorEmpleado;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import ec.edu.ups.modelo.Cliente;
-import ec.edu.ups.modelo.Empleado;
+import ec.edu.ups.modelo.Usuario;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,25 +23,20 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaCliente1
      */
-    private Date fechactual;
+    private String estadoUs;
+    private Usuario usuario;
     ControladorEmpleado ctEmpleado;
     DefaultTableModel dtm;
-    Object[] o = new Object[9];
+    Object[] o = new Object[8];
 
     public VistaEmpleado() {
         initComponents();
         ctEmpleado = new ControladorEmpleado();
-        //llenar Codigo
+        estadoUs = "Activo";
         txtId.setText("" + ctEmpleado.llenarId());
         dtm = (DefaultTableModel) tblEmpleado.getModel();
         llenarTabla();
         cargaraJtext();
-    }
-
-    public String getFechaActual() {
-        fechactual = new Date();
-        String vFechaOK = new SimpleDateFormat("dd/MM/yyyy").format(this.fechactual);
-        return vFechaOK;
     }
 
     /**
@@ -65,7 +53,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
         btnCrear = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnCambiarEstado = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtId = new javax.swing.JTextField();
@@ -82,16 +70,17 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
         lblContrasenia = new javax.swing.JLabel();
         lblTipo = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtContrasenia = new javax.swing.JTextField();
         txtTipo = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lEstado = new javax.swing.JLabel();
+        txtContrasenia = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmpleado = new javax.swing.JTable();
+        cbEstado = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -133,7 +122,12 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
+        btnCambiarEstado.setText("Cambiar Estado");
+        btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarEstadoActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
 
@@ -148,10 +142,10 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCambiarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 253, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +153,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                 .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCambiarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -167,6 +161,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
 
         txtId.setEditable(false);
         txtId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
@@ -225,9 +220,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
         lblTipo.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         lblTipo.setText("Tipo:");
 
-        jLabel1.setText("En el campo de tipo de empleado ingresar T si el empleado es administrador ");
-
-        jLabel2.setText(" F si es solo empleado");
+        lEstado.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,7 +232,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblDireccion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
+                        .addComponent(txtDireccion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblApellido)
@@ -251,30 +244,29 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(txtApellido)
                             .addComponent(txtCedula)
-                            .addComponent(txtId))))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTipo)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblUsuario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblContrasenia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(143, 143, 143)
+                                .addComponent(lblUsuario))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblTipo)))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(132, 132, 132)))
-                .addContainerGap(164, Short.MAX_VALUE))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblContrasenia)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,26 +281,26 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUsuario)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblContrasenia)
-                    .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNombre)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblContrasenia))
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblApellido)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTipo)
                     .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDireccion)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblDireccion)
+                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -353,11 +345,11 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Cedula", "Nombre", "Apellido", "Direccion", "Usuario", "Tipo"
+                "Id", "Cedula", "Nombre", "Apellido", "Direccion", "Usuario", "Tipo", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -370,22 +362,36 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
             tblEmpleado.getColumnModel().getColumn(0).setPreferredWidth(30);
         }
 
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Pasivo", "Todos" }));
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstadoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Estado:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1066, 1066, 1066))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,8 +400,15 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(20, 20, 20)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
         );
 
@@ -414,19 +427,15 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Empleado em = new Empleado();
         boolean c = ctEmpleado.valida(txtFiltro.getText());
-        System.out.println(txtFiltro.getText());
 
         if (c == true) {
-            em.setCedula(txtFiltro.getText());
             dtm.setRowCount(0);
             dtm = (DefaultTableModel) tblEmpleado.getModel();
-            String ObjetoS[] = new String[6];
-            ctEmpleado.filtro(dtm, o, em);
+            ctEmpleado.filtro(dtm, o, txtFiltro.getText());
 
         } else {
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -453,112 +462,148 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (ctEmpleado.eliminarEmpleado(Integer.parseInt(txtId.getText())) == true) {
-            JOptionPane.showMessageDialog(null, "Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "Eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
             llenarTabla();
+            vaciarTodo();
+
         } else {
-            JOptionPane.showMessageDialog(null, "Error al eliminar ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al eliminar ", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (txtId.equals("") || txtCedula.equals("")
-            || txtNombre.equals("") || txtApellido.equals("")
-            || txtUsuario.equals("") || txtDireccion.equals("") || txtContrasenia.equals("")
-            || txtTipo.equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        if (txtId.getText().isEmpty() || txtCedula.getText().isEmpty()
+                || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()
+                || txtUsuario.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContrasenia.getText().isEmpty()
+                || txtTipo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese datos", "Información", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
             actualizarDatos();
-            llenarTabla();
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
 
-        if (txtId.equals("") || txtCedula.equals("")
-            || txtNombre.equals("") || txtApellido.equals("")
-            || txtUsuario.equals("") || txtDireccion.equals("") || txtContrasenia.equals("")
-            || txtTipo.equals("")) {
+        if (txtId.getText().isEmpty() || txtCedula.getText().isEmpty()
+                || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()
+                || txtUsuario.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContrasenia.getText().isEmpty()
+                || txtTipo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese datos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
             txtId.setText("" + ctEmpleado.llenarId());
             llenarCasillas();
-            llenarTabla();
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void actualizarDatos() {
-        Empleado empl = new Empleado();
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
+        if (cbEstado.getSelectedIndex() == 0) {
+            estadoUs = "activo";
+        } else if (cbEstado.getSelectedIndex() == 1) {
+            estadoUs = "pasivo";
+        } else if (cbEstado.getSelectedIndex() == 2) {
+            estadoUs = "todos";
+        }
+        llenarTabla();
+    }//GEN-LAST:event_cbEstadoActionPerformed
 
-        empl.setCodigo(Integer.parseInt(txtId.getText()));
-        empl.setCodigo(Integer.parseInt(txtId.getText()));
+    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
+        if (txtId.getText().isEmpty() || txtCedula.getText().isEmpty()
+                || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()
+                || txtUsuario.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContrasenia.getText().isEmpty()
+                || txtTipo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            usuario = new Usuario();
+            usuario.setUsu_id(Integer.parseInt(txtId.getText()));
+            usuario.setUsu_estado(lEstado.getText());
+            if (ctEmpleado.cambiarEstadoUsu(usuario) == true) {
+                JOptionPane.showMessageDialog(this, "Se ha cambiado el estado del usuario",
+                        "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo cambiar el estado",
+                        "Incorrecto", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
+
+    private void actualizarDatos() {
+        usuario = new Usuario();
+
+        usuario.setUsu_id(Integer.parseInt(txtId.getText()));
         boolean c = ctEmpleado.valida(txtCedula.getText());
         //boolean e = ctCliente.validarEmail(jTextEmail.getText());
         if (c == true) {
             //if (e = true) {
-                
-                empl.setCedula(txtCedula.getText());
-                empl.setNombres(txtNombre.getText());
-                empl.setApellidos(txtApellido.getText());
-                empl.setDireccion(txtDireccion.getText());
-                empl.setUsuario(txtUsuario.getText());
-                empl.setContrasenia(txtContrasenia.getText());
-                empl.setTipo(txtTipo.getText());
 
-                if (ctEmpleado.actualizarEmpleado(empl) == true) {
-                    JOptionPane.showMessageDialog(null, "Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            usuario.setUsu_cedula(txtCedula.getText());
+            usuario.setUsu_nombre(txtNombre.getText());
+            usuario.setUsu_apellido(txtApellido.getText());
+            usuario.setUsu_direccion(txtDireccion.getText());
+            usuario.setUsu_usuario(txtUsuario.getText());
+            usuario.setUsu_contrasenia(txtContrasenia.getText());
+            usuario.setUsu_admin(txtTipo.getText());
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datos Erroneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }else {
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            if (ctEmpleado.actualizarEmpleado(usuario) == true) {
+                JOptionPane.showMessageDialog(null, "Actualizacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos Erróneos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
+        llenarTabla();
+        vaciarTodo();
+    }
+
+    private void vaciarTodo() {
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtUsuario.setText("");
+        txtDireccion.setText("");
+        txtContrasenia.setText("");
+        txtTipo.setText("");
+        txtId.setText("");
     }
 
     private void llenarCasillas() {
-        Empleado el = new Empleado();
+        usuario = new Usuario();
 
-        el.setCodigo(Integer.parseInt(txtId.getText()));
+        usuario.setUsu_id(Integer.parseInt(txtId.getText()));
         boolean c = ctEmpleado.valida(txtCedula.getText());
         if (c == true) {
-                el.setCedula(txtCedula.getText());
-                el.setNombres(txtNombre.getText());
-                el.setApellidos(txtApellido.getText());
-                el.setDireccion(txtDireccion.getText());
-                el.setUsuario(txtUsuario.getText());
-                el.setContrasenia(txtContrasenia.getText());
-                el.setTipo(txtTipo.getText());
+            usuario.setUsu_cedula(txtCedula.getText());
+            usuario.setUsu_nombre(txtNombre.getText());
+            usuario.setUsu_apellido(txtApellido.getText());
+            usuario.setUsu_direccion(txtDireccion.getText());
+            usuario.setUsu_usuario(txtUsuario.getText());
+            usuario.setUsu_contrasenia(txtContrasenia.getText());
+            usuario.setUsu_admin(txtTipo.getText());
 
-                if (ctEmpleado.crearEmpleado(el) == true) {
-                    JOptionPane.showMessageDialog(null, "Creacion Correcta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            if (ctEmpleado.crearUsuario(usuario) == true) {
+                JOptionPane.showMessageDialog(null, "Creación Correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
 
-                    txtCedula.setText("");
-                    txtNombre.setText("");
-                    txtApellido.setText("");
-                    txtUsuario.setText("");
-                    txtDireccion.setText("");
-                    txtContrasenia.setText("");
-                    txtTipo.setText("");
-                    txtId.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                }
-        }else {
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos Duplicados", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
-
+        llenarTabla();
+        vaciarTodo();
     }
 
     public void llenarTabla() {
         dtm.setRowCount(0);
         dtm = (DefaultTableModel) tblEmpleado.getModel();
         String ObjetoS[] = new String[6];
-        ctEmpleado.llenarTabla(dtm, o);
+        ctEmpleado.llenarTabla(dtm, o, estadoUs);
     }
-    
+
     private void cargaraJtext() {
         tblEmpleado.addMouseListener(new MouseAdapter() {
             @Override
@@ -571,9 +616,10 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                     txtCedula.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 1).toString());
                     txtNombre.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 2).toString());
                     txtApellido.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 3).toString());
-                    txtDireccion.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 5).toString());
-                    txtUsuario.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 6).toString());
-                    txtTipo.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 7).toString());
+                    txtDireccion.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 4).toString());
+                    txtUsuario.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 5).toString());
+                    txtTipo.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 6).toString());
+                    lEstado.setText(tblEmpleado.getValueAt(tblEmpleado.getSelectedRow(), 7).toString());
                 }
 
             }
@@ -584,18 +630,19 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCambiarEstado;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lEstado;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCedula;
     private javax.swing.JLabel lblCodigo;
@@ -607,7 +654,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblEmpleado;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtId;

@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorCliente1 {
 
     private ConexionBD conexion;
+    private String sent;
 
     public void buscarCliente() {
 
@@ -37,8 +38,8 @@ public class ControladorCliente1 {
         boolean r = false;
         String t = "to_Date";
         String sql = "Insert Into hip_clientes (cli_id,cli_cedula,cli_nombre,cli_apellido,cli_fecha_registro,cli_direccion,"
-                + "cli_tel_convencional,cli_celular,cli_correo_electronico)"
-                + " VALUES(clientes_seq.nextval,?,?,?,?,?,?,?,?)";
+                + "cli_tel_convencional,cli_celular,cli_correo_electronico,cli_estado)"
+                + " VALUES(clientes_seq.nextval,?,?,?,?,?,?,?,?,?)";
 
         try {
             conexion.conectar();
@@ -51,6 +52,7 @@ public class ControladorCliente1 {
             ps.setString(6, cli.getCli_tel_convencional());
             ps.setString(7, cli.getCli_celular());
             ps.setString(8, cli.getCli_correo_electronico());
+            ps.setString(9, "f");
 
             ps.executeQuery();
             conexion.getConexion().commit();
@@ -86,12 +88,19 @@ public class ControladorCliente1 {
         return llena;
     }
 
-    public void llenarTabla(DefaultTableModel dtm, Object[] o) {
+    public void llenarTabla(DefaultTableModel dtm, Object[] o, String est) {
         conexion = new ConexionBD();
 
-        String sql = " SELECT *"
-                + " FROM hip_clientes";
         try {
+            if (est.equalsIgnoreCase("activo")) {
+                sent = " WHERE cli_estado = 'f' ";
+            } else if (est.equalsIgnoreCase("PASIVO")) {
+                sent = " WHERE cli_estado = 't' ";
+            } else {
+                sent = "";
+            }
+
+            String sql = " SELECT * FROM hip_clientes " + sent + " order by cli_id asc";
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -108,6 +117,11 @@ public class ControladorCliente1 {
                 o[6] = rs.getString("cli_tel_convencional");
                 o[7] = rs.getString("cli_celular");
                 o[8] = rs.getString("cli_correo_electronico");
+                if (rs.getString("cli_estado").equals("t")) {
+                    o[9] = "Pasivo";
+                } else {
+                    o[9] = "Activo";
+                }
 
                 dtm.addRow(o);
             }
@@ -124,9 +138,15 @@ public class ControladorCliente1 {
 
         conexion = new ConexionBD();
 
-        String sql = " SELECT *"
-                + " FROM hip_clientes where cli_cedula like '" + cl + "%'";
         try {
+            String sql = " SELECT * FROM hip_clientes ";
+            String sql2 = " UPPER(cli_cedula) LIKE"
+                    + " UPPER('" + cl + "%') ORDER BY cli_id ASC";
+            if (sent.isEmpty()) {
+                sql = sql + sent + " WHERE " + sql2;
+            } else {
+                sql = sql + sent + " AND " + sql2;
+            }
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -143,6 +163,11 @@ public class ControladorCliente1 {
                 o[6] = rs.getString("cli_tel_convencional");
                 o[7] = rs.getString("cli_celular");
                 o[8] = rs.getString("cli_correo_electronico");
+                if (rs.getString("cli_estado").equals("f")) {
+                    o[9] = "Activo";
+                } else {
+                    o[9] = "Pasivo";
+                }
 
                 dtm.addRow(o);
 
@@ -157,10 +182,6 @@ public class ControladorCliente1 {
 
     public boolean actualizarCliente(Cliente cli) {
 
-        System.out.println(cli.getCli_id());
-        System.out.println(cli.getCli_apellido());
-        System.out.println(cli.getCli_cedula());
-        System.out.println(cli.getCli_fecha_registro());
         boolean r = false;
         conexion = new ConexionBD();
 
@@ -193,6 +214,38 @@ public class ControladorCliente1 {
 
         return r;
 
+    }
+
+    public boolean cambiarEstadoCliente(Cliente cli) {
+        boolean cepb = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+
+        String sql = "";
+        sql += "UPDATE hip_clientes SET CLI_ESTADO=? WHERE CLI_ID=?";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            if (cli.getEstado().equalsIgnoreCase("activo")) {
+                pre.setString(1, "t");
+                pre.setInt(2, cli.getCli_id());
+                pre.executeUpdate();
+            } else if (cli.getEstado().equalsIgnoreCase("pasivo")) {
+                pre.setString(1, "f");
+                pre.setInt(2, cli.getCli_id());
+                pre.executeUpdate();
+            }
+
+            conexion.getConexion().commit();
+
+            cepb = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cambiar estado del"
+                    + " cliente:" + e.getMessage());
+        }
+        return cepb;
     }
 
     public boolean eliminarCliente(int id) {
