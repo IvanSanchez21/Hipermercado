@@ -11,10 +11,12 @@ import ec.edu.ups.modelo.DetalleFactura;
 import ec.edu.ups.modelo.Factura;
 import ec.edu.ups.modelo.Producto;
 import ec.edu.ups.modelo.Usuario;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,13 +30,42 @@ public class ControladorAnulada {
     private Usuario usuario;
     private DetalleFactura detalleFactura;
 
+    public boolean anularFactura(Factura factura) {
+        boolean anf = false;
+        PreparedStatement pre = null;
+        conexion = new ConexionBD();
+
+        String sql = "";
+        sql += "UPDATE HIP_FACTURA_CABECERAS SET FAC_ANULADO=?"
+                + " WHERE FAC_CAB_NUM=?";
+
+        try {
+            conexion.conectar();
+            pre = conexion.getConexion().prepareStatement(sql);
+
+            if (factura.getAnulado().equalsIgnoreCase("f")) {
+                pre.setString(1, "t");
+                pre.setString(2, factura.getNumFactura());
+                pre.executeUpdate();
+            }
+
+            conexion.getConexion().commit();
+
+            anf = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al anular"
+                    + " factura:" + e.getMessage());
+        }
+        return anf;
+    }
+
     public Factura buscarFactura(String codigo) {
         conexion = new ConexionBD();
 
         try {
             factura = new Factura();
-            String sql = "SELECT * FROM HIP_FACTURA_CABECERAS WHERE FAC_CAB_NUM LIKE '"
-                    + codigo + "%' AND FAC_ANULADO = 'f'";
+            String sql = "SELECT * FROM HIP_FACTURA_CABECERAS WHERE FAC_CAB_NUM = '"
+                    + codigo + "' AND FAC_ANULADO = 'f'";
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet respuesta = sta.executeQuery(sql);
@@ -109,5 +140,61 @@ public class ControladorAnulada {
             JOptionPane.showMessageDialog(null, "Usuario no encontrado");
         }
         return null;
+    }
+
+    public String buscarProducto(int numPro) {
+        conexion = new ConexionBD();
+        String nomPro = "";
+        try {
+            String sql = "SELECT PRD_NOMBRE FROM HIP_PRODUCTOS "
+                    + "WHERE PRD_ID = '" + numPro + "'";
+
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet rs = sta.executeQuery(sql);
+
+            while (rs.next()) {
+
+                nomPro = rs.getString(1);
+
+            }
+            return nomPro;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+        } finally {
+            conexion.desconectar();
+        }
+        return null;
+    }
+
+    public void buscarDetalle(DefaultTableModel dtm, Object[] o, int numFac) {
+        conexion = new ConexionBD();
+
+        try {
+            String sql = "SELECT * FROM HIP_FACTURA_DETALLES "
+                    + "WHERE HIP_FAC_CAB_ID = '" + numFac + "'";
+
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet rs = sta.executeQuery(sql);
+
+            while (rs.next()) {
+
+                o[0] = rs.getInt(8);
+                o[1] = buscarProducto(rs.getInt(8));
+                o[2] = rs.getDouble(2);
+                o[3] = rs.getDouble(3);
+                o[4] = rs.getDouble(4);
+                o[5] = rs.getDouble(5);
+                o[6] = rs.getDouble(6);
+
+                dtm.addRow(o);
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+        } finally {
+            conexion.desconectar();
+        }
     }
 }

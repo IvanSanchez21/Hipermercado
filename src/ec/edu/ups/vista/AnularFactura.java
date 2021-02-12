@@ -23,6 +23,7 @@ public class AnularFactura extends javax.swing.JInternalFrame {
     private Cliente cliente;
     private Usuario usuario;
     private DefaultTableModel modelo;
+    Object[] o = new Object[7];
 
     /**
      * Creates new form AnularFactura
@@ -34,9 +35,12 @@ public class AnularFactura extends javax.swing.JInternalFrame {
     }
 
     public void buscarFactura() {
-        String numFac = tNumEst.getText() + tNumFtrero.getText() + tNumFac.getText();
-        factura = ca.buscarFactura(numFac);
+        String numeFac = tNumEst.getText() + tNumFtrero.getText() + tNumFac.getText();
+        factura = ca.buscarFactura(numeFac);
         if (factura.getIdCabecera() != 0) {
+            modelo.setRowCount(0);
+            modelo = (DefaultTableModel) tabAnuladas.getModel();
+            ca.buscarDetalle(modelo, o, factura.getIdCabecera());
             cliente = ca.buscarCliente(factura.getIdCliente());
             usuario = ca.buscarUsuario(factura.getIdUsuario());
 
@@ -56,6 +60,18 @@ public class AnularFactura extends javax.swing.JInternalFrame {
                     + " o ya se encuentra anulado", "Sin Resultados",
                     JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    public void anularFac() {
+        factura = ca.buscarFactura(tNum.getText());
+        if (ca.anularFactura(factura) == true) {
+            JOptionPane.showMessageDialog(this, "Se ha anulado la factura",
+                    "Correcto", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al anular factura",
+                    "Incorrecto", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     public void vaciarTodo() {
@@ -171,6 +187,7 @@ public class AnularFactura extends javax.swing.JInternalFrame {
 
         tNum.setEditable(false);
         tNum.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tNum.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -204,7 +221,7 @@ public class AnularFactura extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(24, 24, 24)
-                                .addComponent(tNum, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(tNum, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
@@ -307,38 +324,47 @@ public class AnularFactura extends javax.swing.JInternalFrame {
 
         tabAnuladas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Producto", "Cantidad", "Valor Unitario", "Total"
+                "Código", "Producto", "Cantidad", "Valor Unitario", "Subtotal", "IVA", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tabAnuladas.setShowVerticalLines(true);
         jScrollPane1.setViewportView(tabAnuladas);
         if (tabAnuladas.getColumnModel().getColumnCount() > 0) {
             tabAnuladas.getColumnModel().getColumn(0).setResizable(false);
-            tabAnuladas.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tabAnuladas.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tabAnuladas.getColumnModel().getColumn(3).setResizable(false);
+            tabAnuladas.getColumnModel().getColumn(3).setPreferredWidth(10);
+            tabAnuladas.getColumnModel().getColumn(4).setResizable(false);
+            tabAnuladas.getColumnModel().getColumn(4).setPreferredWidth(10);
+            tabAnuladas.getColumnModel().getColumn(5).setResizable(false);
+            tabAnuladas.getColumnModel().getColumn(5).setPreferredWidth(10);
+            tabAnuladas.getColumnModel().getColumn(6).setResizable(false);
+            tabAnuladas.getColumnModel().getColumn(6).setPreferredWidth(10);
         }
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -353,21 +379,24 @@ public class AnularFactura extends javax.swing.JInternalFrame {
 
         bAnular.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bAnular.setText("Anular Factura");
+        bAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAnularActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Total a Pagar:");
 
         tIva.setEditable(false);
         tIva.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        tIva.setEnabled(false);
 
         tSubtotal.setEditable(false);
         tSubtotal.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        tSubtotal.setEnabled(false);
+        tSubtotal.setDragEnabled(true);
 
         tTotal.setEditable(false);
         tTotal.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        tTotal.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Iva:");
@@ -482,7 +511,13 @@ public class AnularFactura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bBuscarjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarjButton3ActionPerformed
-
+        if (tNumEst.getText().isEmpty() || tNumFtrero.getText().isEmpty()
+                || tNumFac.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campos vacíos", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            buscarFactura();
+        }
     }//GEN-LAST:event_bBuscarjButton3ActionPerformed
 
     private void tNumEstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tNumEstFocusLost
@@ -506,6 +541,16 @@ public class AnularFactura extends javax.swing.JInternalFrame {
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         vaciarTodo();
     }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnularActionPerformed
+        if (tNum.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay número", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            anularFac();
+        }
+        vaciarTodo();
+    }//GEN-LAST:event_bAnularActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
