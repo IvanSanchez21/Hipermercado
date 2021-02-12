@@ -32,8 +32,23 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaUsuario
      */
-    public Principal() {
-        initComponents();
+    public Principal(String usuario, String tipo) {
+
+        if (tipo.equalsIgnoreCase("f")) {
+            initComponents();
+            lTipoUsuario.setText("Empleado");
+            btnProductos.setVisible(false);
+            btnCategorias.setVisible(false);
+            btnProductos.setVisible(false);
+            btnProveedores.setVisible(false);
+
+        } else {
+            initComponents();
+            lTipoUsuario.setText("Administrador");
+
+        }
+        lNombreUsuario.setText(usuario);
+        this.setTitle(usuario);
         jDesktopPane1.setBorder(new ImagenFondoPrincipal());
         this.setExtendedState(Principal.MAXIMIZED_BOTH);
         jDesktopPane1.requestFocusInWindow();
@@ -58,12 +73,12 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lMenu = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lTipoUsuario = new javax.swing.JLabel();
+        lNombreUsuario = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnFacturacion = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
@@ -79,11 +94,11 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(23, 115, 189));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Menu");
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lMenu.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lMenu.setForeground(new java.awt.Color(255, 255, 255));
+        lMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lMenu.setText("Menu");
+        lMenu.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
         jDesktopPane1.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,9 +128,9 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(23, 115, 189));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Usuario");
+        lTipoUsuario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lTipoUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lTipoUsuario.setText("Usuario");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -123,19 +138,23 @@ public class Principal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jLabel1)
+                .addComponent(lTipoUsuario)
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lTipoUsuario)
                 .addContainerGap())
         );
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/usuario.png"))); // NOI18N
+        lNombreUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        lNombreUsuario.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lNombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        lNombreUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/usuario.png"))); // NOI18N
+        lNombreUsuario.setText("prueba");
+        lNombreUsuario.setIconTextGap(20);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,13 +163,13 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 793, Short.MAX_VALUE))
+                .addComponent(lNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 492, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(9, 115, 186));
@@ -310,7 +329,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -326,7 +345,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jDesktopPane1))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -538,12 +557,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnProveedores;
     public static javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lMenu;
+    private javax.swing.JLabel lNombreUsuario;
+    private javax.swing.JLabel lTipoUsuario;
     // End of variables declaration//GEN-END:variables
 }

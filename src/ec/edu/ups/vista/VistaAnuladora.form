@@ -64,6 +64,9 @@
         <Property name="text" type="java.lang.String" value="Petici&#xf3;n para Anulaci&#xf3;n"/>
         <Property name="borderPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPeticionActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

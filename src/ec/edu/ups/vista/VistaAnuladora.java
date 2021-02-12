@@ -15,6 +15,7 @@ public class VistaAnuladora extends javax.swing.JInternalFrame {
 
     private AnularFactura af;
     private Principal principal;
+    private VistaPeticion vp;
 
     /**
      * Creates new form VistaAnuladora
@@ -48,6 +49,11 @@ public class VistaAnuladora extends javax.swing.JInternalFrame {
         bPeticion.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         bPeticion.setText("Petición para Anulación");
         bPeticion.setBorderPainted(false);
+        bPeticion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPeticionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +92,20 @@ public class VistaAnuladora extends javax.swing.JInternalFrame {
             af.toFront();
         }
     }//GEN-LAST:event_bAnulacionActionPerformed
+
+    private void bPeticionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPeticionActionPerformed
+        if (vp == null || vp.isVisible() == false) {
+            vp = new VistaPeticion();
+            vp.setVisible(true);
+            principal.jDesktopPane1.add(vp);
+            Dimension desktopSize = principal.jDesktopPane1.getSize();
+            Dimension frameSize = vp.getSize();
+            vp.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vp.toFront();
+        } else {
+            vp.toFront();
+        }
+    }//GEN-LAST:event_bPeticionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -36,7 +36,7 @@ public class VistaProveedor extends javax.swing.JInternalFrame {
         ctProveedor = new controladorProveedor();
         txtCodigo.setText("" + ctProveedor.llenarId());
         txtFecha.setText(getFechaActual());
-        dtm = (DefaultTableModel)tabProv.getModel();
+        dtm = (DefaultTableModel) tabProv.getModel();
         llenarTabla();
         clickearTabla();
     }
@@ -335,7 +335,7 @@ public class VistaProveedor extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Se ha eliminado el proveedor",
                         "Correcto", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al elimanar proveedor",
+                JOptionPane.showMessageDialog(null, "Error al eliminar proveedor",
                         "Incorrecto", JOptionPane.WARNING_MESSAGE);
             }
         }
@@ -371,6 +371,13 @@ public class VistaProveedor extends javax.swing.JInternalFrame {
             proveedor.setFecha_registro(fin2);
             proveedor.setRazon_social(txtNombre.getText());
             proveedor.setCorreo(txtCorreo.getText());
+            if (ctProveedor.actualizarProveedor(proveedor) == true) {
+                JOptionPane.showMessageDialog(this, "Se ha editado el proveedor",
+                        "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al editar proveedor",
+                        "Incorrecto", JOptionPane.WARNING_MESSAGE);
+            }
         }
         limpiarTexto();
         llenarTabla();

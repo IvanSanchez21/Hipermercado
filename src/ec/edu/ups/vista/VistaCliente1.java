@@ -462,20 +462,11 @@ public class VistaCliente1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JButtonCrearActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        Cliente cl = new Cliente();
-        boolean c = ctCliente.valida(jTextFiltro.getText());
-        System.out.println(jTextFiltro.getText());
 
-        if (c == true) {
-            cl.setCli_cedula(jTextFiltro.getText());
-            dtm.setRowCount(0);
-            dtm = (DefaultTableModel) jTable1.getModel();
-            ctCliente.filtro(dtm, o, cl);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Cédula Incorrecta", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
-        }
+        String palabra = jTextFiltro.getText();
+        dtm.setRowCount(0);
+        dtm = (DefaultTableModel) jTable1.getModel();
+        ctCliente.filtro(dtm, o, palabra);
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 

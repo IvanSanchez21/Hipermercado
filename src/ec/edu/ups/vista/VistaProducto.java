@@ -175,6 +175,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setForeground(new java.awt.Color(0, 153, 51));
+        setIconifiable(true);
         setTitle("Productos");
 
         tbProductos.setModel(new javax.swing.table.DefaultTableModel(

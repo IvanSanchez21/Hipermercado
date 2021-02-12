@@ -7,6 +7,7 @@ package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorUsuario;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,22 +24,26 @@ public class InicioSesion extends javax.swing.JFrame {
     public InicioSesion() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         jPanel4.requestFocusInWindow();
         contUs = new ControladorUsuario();
     }
 
     private void logear() {
         String nombre = txtUsername.getText();
-        String contrasena = txtContrasenia.getText();
+        String contrasena = ptContrasenia.getText();
         String ingreso = contUs.VerificarUsuario(nombre, contrasena);
+        String nombreUsu = contUs.darElNeim(nombre, contrasena);
+        System.out.println(ingreso);
+        System.out.println(nombreUsu);
         try {
             if (ingreso.equals("t")) {
-                Principal p = new Principal();
+                Principal p = new Principal(nombreUsu, ingreso);
                 p.setVisible(true);
-                dispose();
+                this.dispose();
                 JOptionPane.showMessageDialog(this, "Ingresó un Administrador");
             } else if (ingreso.equals("f")) {
-                Principal p = new Principal();
+                Principal p = new Principal(nombreUsu, ingreso);
                 p.setVisible(true);
                 this.dispose();
                 JOptionPane.showMessageDialog(this, "Ingresó un Empleado");
@@ -46,7 +51,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Usuario no encontrado");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado:" + e.getMessage());
         }
     }
 
@@ -68,13 +73,12 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
-        txtContrasenia = new javax.swing.JTextField();
+        ptContrasenia = new javax.swing.JPasswordField();
 
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setUndecorated(true);
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
 
@@ -116,12 +120,13 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
 
-        txtUsername.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         txtUsername.setForeground(new java.awt.Color(23, 115, 189));
 
-        txtContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+        ptContrasenia.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        ptContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtContraseniaKeyPressed(evt);
+                ptContraseniaKeyPressed(evt);
             }
         });
 
@@ -132,10 +137,10 @@ public class InicioSesion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(ptContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtContrasenia, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(37, 37, 37))
         );
         jPanel4Layout.setVerticalGroup(
@@ -146,8 +151,8 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addGap(73, 73, 73)
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(ptContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -205,12 +210,12 @@ public class InicioSesion extends javax.swing.JFrame {
         jPanel4.requestFocusInWindow();
     }//GEN-LAST:event_jPanel4MouseEntered
 
-    private void txtContraseniaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseniaKeyPressed
+    private void ptContraseniaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ptContraseniaKeyPressed
         char car = (char) evt.getKeyCode();
         if (car == (char) KeyEvent.VK_ENTER) {
             logear();
         }
-    }//GEN-LAST:event_txtContraseniaKeyPressed
+    }//GEN-LAST:event_ptContraseniaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -257,7 +262,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JPasswordField ptContrasenia;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

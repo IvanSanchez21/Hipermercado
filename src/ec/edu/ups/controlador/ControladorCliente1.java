@@ -119,17 +119,16 @@ public class ControladorCliente1 {
         }
     }
 
-    public void filtro(DefaultTableModel dtm, Object[] o, Cliente cl) {
+    public void filtro(DefaultTableModel dtm, Object[] o, String cl) {
         System.out.println(cl);
 
         conexion = new ConexionBD();
 
         String sql = " SELECT *"
-                + " FROM hip_clientes where cli_cedula=?";
+                + " FROM hip_clientes where cli_cedula like '" + cl + "%'";
         try {
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
-            ps.setString(1, cl.getCli_cedula());
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -263,18 +262,17 @@ public class ControladorCliente1 {
         Pattern pattern = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
- 
+
         // El email a validar
         String e = email;
- 
+
         Matcher mather = pattern.matcher(e);
- 
+
         if (mather.find() == true) {
-          return true;
+            return true;
         } else {
-           return false;
+            return false;
         }
-      
 
     }
 

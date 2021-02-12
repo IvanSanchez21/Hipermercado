@@ -17,30 +17,51 @@ import javax.swing.JOptionPane;
  * @author José
  */
 public class ControladorUsuario {
-    
+
     private ConexionBD conexion;
     private Usuario usuario;
-    
-    public String VerificarUsuario(String usernam, String contraseña){
+
+    public String VerificarUsuario(String usernam, String contraseña) {
         String conf = "";
-        conexion=new ConexionBD();
-        try {                    
-            usuario= new Usuario();
-            String sql="SELECT * FROM HIP_USUARIOS WHERE USU_USUARIO='"+usernam+"' AND USU_CONTRASENIA='"+contraseña+"'";
+        conexion = new ConexionBD();
+        usuario = new Usuario();
+        try {
+
+            String sql = "SELECT * FROM HIP_USUARIOS WHERE USU_USUARIO='" + usernam + "' AND USU_CONTRASENIA='" + contraseña + "'";
             conexion.conectar();
             Statement sta = conexion.getConexion().createStatement();
             ResultSet rs = sta.executeQuery(sql);
             System.out.println(rs);
-            while(rs.next()){
-                 conf=rs.getString(8);                
+            while (rs.next()) {
+                conf = rs.getString(8);
             }
             System.out.println(conf);
-            conexion.desconectar();                                                  
+            conexion.desconectar();
         } catch (SQLException e) {
-            e.printStackTrace();
-        }        
-        return conf;        
-    }   
-    
-    
+            e.getMessage();
+        }
+        return conf;
+    }
+
+    public String darElNeim(String usernam, String contraseña) {
+        String neim = "";
+        conexion = new ConexionBD();
+        usuario = new Usuario();
+        try {
+
+            String sql = "SELECT * FROM HIP_USUARIOS WHERE USU_USUARIO='"
+                    + usernam + "' AND USU_CONTRASENIA='" + contraseña + "'";
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet rs = sta.executeQuery(sql);
+            while (rs.next()) {
+                neim = neim + rs.getString(3) + " " + rs.getString(4);
+            }
+            conexion.desconectar();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return neim;
+    }
+
 }
