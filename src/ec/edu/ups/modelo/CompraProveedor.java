@@ -15,16 +15,16 @@ public class CompraProveedor {
     private int codigo;
     private String numeroFac;
     private Date fEmision;
-    private Proveedor proveedor;
+    private int proveedor;
 
     public CompraProveedor() {
         this.codigo=codigo;
         this.numeroFac=numeroFac;
         this.fEmision=fEmision;
-        this.proveedor=new Proveedor();
+        this.proveedor=proveedor;
     }
 
-    public CompraProveedor(int codigo, String numeroFac, Date fEmision, Proveedor proveedor) {
+    public CompraProveedor(int codigo, String numeroFac, Date fEmision, int proveedor) {
         this.codigo = codigo;
         this.numeroFac = numeroFac;
         this.fEmision = fEmision;
@@ -55,18 +55,18 @@ public class CompraProveedor {
         this.fEmision = fEmision;
     }
 
-    public Proveedor getProveedor() {
+    public int getProveedor() {
         return proveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
+    public void setProveedor(int proveedor) {
         this.proveedor = proveedor;
     }
 
     @Override
     public String toString() {
-        return "CompraProveedor{" + "codigo=" + codigo + ", numeroFac=" + numeroFac +
-                ", fEmision=" + fEmision + ", proveedor=" + proveedor + '}';
+        return "CompraProveedor{" + "codigo=" + codigo + ", numeroFac=" + numeroFac
+                + ", fEmision=" + fEmision + ", proveedor=" + proveedor + '}';
     }
     
     

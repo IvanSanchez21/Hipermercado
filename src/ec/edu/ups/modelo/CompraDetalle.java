@@ -15,7 +15,7 @@ public class CompraDetalle {
     private int productos;
     private int compraProveedor;
     
-    CompraDetalle(){
+    public CompraDetalle(){
         this.codigo=codigo;
         this.cantidad=cantidad;
         this.productos=productos;
