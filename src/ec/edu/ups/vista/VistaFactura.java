@@ -6,7 +6,6 @@
 package ec.edu.ups.vista;
 
 import ec.edu.ups.conexion.ConexionBD;
-import ec.edu.ups.controlador.ControladorCorreo;
 import ec.edu.ups.controlador.ControladorFactura;
 import ec.edu.ups.modelo.Cliente;
 import ec.edu.ups.modelo.Correo;
@@ -21,8 +20,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
@@ -43,7 +40,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private ControladorFactura conFactura;
     private Cliente cliente;
     private Producto producto = new Producto();
-    private ControladorCorreo controladorCorreo;
     DefaultTableModel modelo = new DefaultTableModel();
     private Factura facCabecera;
     float pIva, pTotal, pSubtotal;
@@ -62,7 +58,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         conFactura = new ControladorFactura();
         correo =new Correo();
         txtFecha.setText(getFechaActual());
-        controladorCorreo= new ControladorCorreo();
         Idfactura();
     }
 
@@ -718,23 +713,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         }
     }
     
-    
-    public void enviarCorreo(){
-        correo.setContraseña("");// generar con correo que va a enviar desde el video
-        correo.setUsuarioCorreo("");//Correo con el que se va a enviar 
-        correo.setAsunto("Factura");
-        correo.setMensaje("a continuacion se le envia la factura");
-        correo.setDestino(txtCorreo.getText().trim());
-        correo.setNombreArchivo("Factura.pdf");
-        correo.setRutaArchivo("Factura.pdf");
-        
-        if(controladorCorreo.correoEnviado(correo)){
-            JOptionPane.showMessageDialog(this, "correo enviado");
-        }else{
-            JOptionPane.showMessageDialog(this, "correo no enviado");
-        }
-        
-    }
     public void limpiarfactura() {
         limpiarTabla();
         txtCedula.setText("");
