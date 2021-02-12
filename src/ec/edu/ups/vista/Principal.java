@@ -19,7 +19,7 @@ public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
     private VistaProveedor vpr;
-    private VistaCompraProveedor vcp;
+    private VistaComprar vcp;
     private VistaEmpleado ve;
     private VistaCategoria vct;
     private VistaFactura vf;
@@ -119,7 +119,7 @@ public class Principal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1070, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +153,6 @@ public class Principal extends javax.swing.JFrame {
 
         lNombreUsuario.setBackground(new java.awt.Color(255, 255, 255));
         lNombreUsuario.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        lNombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
         lNombreUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/ups/imagenes/usuario.png"))); // NOI18N
         lNombreUsuario.setText("prueba");
         lNombreUsuario.setIconTextGap(20);
@@ -527,7 +526,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
         // TODO add your handling code here:
         if (vcp == null || vcp.isVisible() == false) {
-            vcp = new VistaCompraProveedor();
+            vcp = new VistaComprar();
             vcp.setVisible(true);
             jDesktopPane1.add(vcp);
             Dimension desktopSize = jDesktopPane1.getSize();

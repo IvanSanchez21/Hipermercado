@@ -28,7 +28,7 @@ public class VistaProveedor extends javax.swing.JInternalFrame {
      * Creates new form VistaProveedor
      */
     private Date fecha;
-    private VistaCompraProveedor vpr;
+    
     private Principal principal;
     controladorProveedor ctProveedor;
     Proveedor proveedor;

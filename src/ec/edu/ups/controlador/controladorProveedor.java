@@ -140,6 +140,8 @@ public class controladorProveedor {
         String sql = "";
         sql += "UPDATE hip_proveedores SET PRO_RUC=?, PRO_FECHA_REGISTRO=?, "
                 + "PRO_RAZON_SOCIAL=?, PRO_CORREO_ELECTRONICO=? WHERE PRO_ID=?";
+        
+        
         try {
             conexion.conectar();
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);

@@ -18,10 +18,7 @@ public class CompraProveedor {
     private int proveedor;
 
     public CompraProveedor() {
-        this.codigo=codigo;
-        this.numeroFac=numeroFac;
-        this.fEmision=fEmision;
-        this.proveedor=proveedor;
+        
     }
 
     public CompraProveedor(int codigo, String numeroFac, Date fEmision, int proveedor) {

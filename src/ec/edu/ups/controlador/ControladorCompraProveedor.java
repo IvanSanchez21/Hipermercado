@@ -89,21 +89,20 @@ public class ControladorCompraProveedor {
     }
     
     public void GuardarFacCabecera(CompraProveedor facCabecera) {
-        System.out.println("........" + facCabecera.getCodigo());
+        System.out.println("codigo........" + facCabecera.getCodigo());
         PreparedStatement pre = null;
         conexion = new ConexionBD();
         //facCabecera = new Factura();
 
         String sql = "";
-        sql += "INSERT INTO hip_encabezados_compras VALUES (enc_compras_seq.nextval.nextval,?,?,?)";
+        sql += "INSERT INTO hip_encabezados_compras VALUES (fac_cabeceras_seq.nextval,?,?,?)";
 
         try {
             conexion.conectar();
             pre = conexion.getConexion().prepareStatement(sql);
-            pre.setInt(1, facCabecera.getCodigo());
-            pre.setString(2, facCabecera.getNumeroFac());
-            pre.setDate(3, (java.sql.Date) (Date) facCabecera.getfEmision());
-            pre.setInt(4, facCabecera.getProveedor());
+            pre.setString(1, "48");
+            pre.setDate(2, (java.sql.Date) facCabecera.getfEmision());
+            pre.setInt(3, facCabecera.getProveedor());
             pre.executeUpdate();
             conexion.getConexion().commit();
             conexion.desconectar();

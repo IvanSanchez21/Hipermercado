@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,6 +33,29 @@ public class ControladorFactura {
     int idCap;
     int r;
 
+    
+    public void listar(JTable tabla) {
+        DefaultTableModel model;
+        String[] columnas = {"pet_anu_id", "pet_anu_estado", "APELpet_anu_fechaLIDO", "pet_fac_id", "pet_usu_id",};
+        model = new DefaultTableModel(null, columnas);
+
+        String sql = "SELECT * FROM hip_peticiones_anulacion";
+        String[] filas = new String[5];
+        try {
+            conexion.conectar();
+            Statement sta = conexion.getConexion().createStatement();
+            ResultSet respuesta = sta.executeQuery(sql);
+            while (respuesta.next()) {
+                for (int i = 0; i < 7; i++) {
+                    filas[i] = respuesta.getString(i + 1);
+                }
+                model.addRow(filas);
+            }tabla.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+    }
+    
     public String numerarFactura() {
         String numFac = "";
         String numEst = "001";
