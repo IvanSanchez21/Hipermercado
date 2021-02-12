@@ -222,25 +222,23 @@ public class ControladorCliente1 {
     public static boolean valida(String x) {
 
         int suma = 0;
-        int a[] = new int[x.length() / 2];
-        int b[] = new int[(x.length() / 2)];
-        int c = 0;
-        int d = 1;
-        try {
-            if (x.length() == 9) {
-                System.out.println("Ingrese su cédula de 10 digitos");
-                return false;
-            } else {
-
-                for (int i = 0; i < x.length() / 2; i++) {
-                    a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
-                    c = c + 2;
-                    if (i < (x.length() / 2) - 1) {
-                        b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
-                        d = d + 2;
-                    }
+        if (x.length() == 9) {
+            System.out.println("Ingrese su cedula de 10 digitos");
+            return false;
+        } else {
+            int a[] = new int[x.length() / 2];
+            int b[] = new int[(x.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < x.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
+                c = c + 2;
+                if (i < (x.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
+                    d = d + 2;
                 }
             }
+
             for (int i = 0; i < a.length; i++) {
                 a[i] = a[i] * 2;
                 if (a[i] > 9) {
@@ -254,13 +252,9 @@ public class ControladorCliente1 {
                 return true;
             } else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
                 return true;
+            } else {
+                return false;
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al validar cédula:"
-                    + e.getMessage());
-        } finally {
-            return false;
         }
     }
 
