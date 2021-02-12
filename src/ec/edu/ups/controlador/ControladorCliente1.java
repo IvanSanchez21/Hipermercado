@@ -259,29 +259,22 @@ public class ControladorCliente1 {
     }
 
     public static boolean validarEmail(String email) {
-        System.out.println(email);
         // Patrón para validar el email
         Pattern pattern = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-
-        try {
-            // El email a validar
-            String e = email;
-
-            Matcher mather = pattern.matcher(e);
-
-            if (mather.find() == true) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al validar e-mail:"
-                    + e.getMessage());
-        } finally {
-            return false;
+ 
+        // El email a validar
+        String e = email;
+ 
+        Matcher mather = pattern.matcher(e);
+ 
+        if (mather.find() == true) {
+          return true;
+        } else {
+           return false;
         }
+      
 
     }
 
