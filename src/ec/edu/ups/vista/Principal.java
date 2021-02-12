@@ -19,6 +19,7 @@ public class Principal extends javax.swing.JFrame {
 
     private VistaProducto vp;
     private VistaProveedor vpr;
+    private VistaCompraProveedor vcp;
     private VistaEmpleado ve;
     private VistaCategoria vct;
     private VistaFactura vf;
@@ -89,6 +90,7 @@ public class Principal extends javax.swing.JFrame {
         btnFacEmitidas = new javax.swing.JButton();
         btnDetalles = new javax.swing.JButton();
         btnEmpleados = new javax.swing.JButton();
+        btnCompras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -278,6 +280,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnCompras.setBackground(new java.awt.Color(23, 115, 189));
+        btnCompras.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnCompras.setForeground(new java.awt.Color(255, 255, 255));
+        btnCompras.setText("Compras");
+        btnCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -293,7 +306,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnAnularfac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFacEmitidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,7 +330,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnCategorias.getAccessibleContext().setAccessibleName("Categorías");
@@ -508,6 +524,21 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
+    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
+        // TODO add your handling code here:
+        if (vcp == null || vcp.isVisible() == false) {
+            vcp = new VistaCompraProveedor();
+            vcp.setVisible(true);
+            jDesktopPane1.add(vcp);
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension frameSize = vcp.getSize();
+            vcp.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vcp.toFront();
+        } else {
+            vcp.toFront();
+        }
+    }//GEN-LAST:event_btnComprasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -550,6 +581,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnAnularfac;
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnCompras;
     private javax.swing.JButton btnDetalles;
     private javax.swing.JButton btnEmpleados;
     private javax.swing.JButton btnFacEmitidas;
