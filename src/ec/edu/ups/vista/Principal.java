@@ -25,7 +25,9 @@ public class Principal extends javax.swing.JFrame {
     private VistaCliente1 vc;
     private AnularFactura af;
     private BuscarFactura bf;
+    private VistaBuscadora vb;
     private InicioSesion is;
+    private VistaAnuladora van;
 
     /**
      * Creates new form VentanaUsuario
@@ -143,7 +145,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 784, Short.MAX_VALUE))
+                .addGap(0, 793, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +229,7 @@ public class Principal extends javax.swing.JFrame {
         btnFacEmitidas.setBackground(new java.awt.Color(23, 115, 189));
         btnFacEmitidas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnFacEmitidas.setForeground(new java.awt.Color(255, 255, 255));
-        btnFacEmitidas.setText("Facturas emitidas");
+        btnFacEmitidas.setText("Lista de Facturas");
         btnFacEmitidas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnFacEmitidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,7 +349,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         if (vc == null || vc.isVisible() == false) {
             vc = new VistaCliente1();
-            vc.toFront();
             vc.setVisible(true);
             jDesktopPane1.add(vc);
             Dimension desktopSize = jDesktopPane1.getSize();
@@ -364,7 +365,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
         if (vpr == null || vpr.isVisible() == false) {
             vpr = new VistaProveedor();
-            vpr.toFront();
             vpr.setVisible(true);
             jDesktopPane1.add(vpr);
             Dimension desktopSize = jDesktopPane1.getSize();
@@ -381,7 +381,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         if (vp == null || vp.isVisible() == false) {
             vp = new VistaProducto();
-            vp.toFront();
             vp.setVisible(true);
             jDesktopPane1.add(vp);
             Dimension desktopSize = jDesktopPane1.getSize();
@@ -397,7 +396,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         if (vct == null || vct.isVisible() == false) {
             vct = new VistaCategoria();
-            vct.toFront();
             vct.setVisible(true);
             jDesktopPane1.add(vct);
             Dimension desktopSize = jDesktopPane1.getSize();
@@ -411,33 +409,31 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnAnularfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularfacActionPerformed
-        if (af == null || af.isVisible() == false) {
-            af = new AnularFactura();
-            af.toFront();
-            af.setVisible(true);
-            jDesktopPane1.add(af);
+        if (van == null || van.isVisible() == false) {
+            van = new VistaAnuladora();
+            van.setVisible(true);
+            jDesktopPane1.add(van);
             Dimension desktopSize = jDesktopPane1.getSize();
-            Dimension frameSize = af.getSize();
-            af.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-            af.toFront();
+            Dimension frameSize = van.getSize();
+            van.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            van.toFront();
         } else {
-            af.toFront();
+            van.toFront();
         }
 
     }//GEN-LAST:event_btnAnularfacActionPerformed
 
     private void btnFacEmitidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacEmitidasActionPerformed
-        if (bf == null || bf.isVisible() == false) {
-            bf = new BuscarFactura();
-            bf.toFront();
-            bf.setVisible(true);
-            jDesktopPane1.add(bf);
+        if (vb == null || vb.isVisible() == false) {
+            vb = new VistaBuscadora();
+            vb.setVisible(true);
+            jDesktopPane1.add(vb);
             Dimension desktopSize = jDesktopPane1.getSize();
-            Dimension frameSize = bf.getSize();
-            bf.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
-            bf.toFront();
+            Dimension frameSize = vb.getSize();
+            vb.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+            vb.toFront();
         } else {
-            bf.toFront();
+            vb.toFront();
         }
 
     }//GEN-LAST:event_btnFacEmitidasActionPerformed
@@ -449,7 +445,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
         if (vf == null || vf.isVisible() == false) {
             vf = new VistaFactura();
-            vf.toFront();
             vf.setVisible(true);
             jDesktopPane1.add(vf);
             Dimension desktopSize = jDesktopPane1.getSize();
@@ -482,7 +477,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         if (ve == null || ve.isVisible() == false) {
             ve = new VistaEmpleado();
-            ve.toFront();
             ve.setVisible(true);
             jDesktopPane1.add(ve);
             Dimension desktopSize = jDesktopPane1.getSize();
@@ -543,7 +537,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnFacturacion;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnProveedores;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
