@@ -5,18 +5,33 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.conexion.ConexionBD;
+import ec.edu.ups.controlador.ControladorCorreo;
 import ec.edu.ups.controlador.ControladorFactura;
 import ec.edu.ups.modelo.Cliente;
+import ec.edu.ups.modelo.Correo;
 import ec.edu.ups.modelo.DetalleFactura;
 import ec.edu.ups.modelo.Factura;
 import ec.edu.ups.modelo.Producto;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -28,6 +43,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private ControladorFactura conFactura;
     private Cliente cliente;
     private Producto producto = new Producto();
+    private ControladorCorreo controladorCorreo;
     DefaultTableModel modelo = new DefaultTableModel();
     private Factura facCabecera;
     float pIva, pTotal, pSubtotal;
@@ -37,11 +53,16 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     float sub, iv, tot;
 
     private DetalleFactura detallefac = new DetalleFactura();
+    private ConexionBD conexion=new ConexionBD();
+    
+    private Correo correo;
 
     public VistaFactura() {
         initComponents();
         conFactura = new ControladorFactura();
+        correo =new Correo();
         txtFecha.setText(getFechaActual());
+        controladorCorreo= new ControladorCorreo();
         Idfactura();
     }
 
@@ -452,7 +473,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 "Id", "Código", "Producto", "Cantidad", "Valor Unitario", "Subtotal", "Iva", "Total"
             }
         ));
-        tblTablaDetalle.setShowVerticalLines(true);
         jScrollPane1.setViewportView(tblTablaDetalle);
         if (tblTablaDetalle.getColumnModel().getColumnCount() > 0) {
             tblTablaDetalle.getColumnModel().getColumn(0).setMinWidth(50);
@@ -663,6 +683,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
         enviarDatosFacCab();
         enviarDatosFacDetalle();
+        CrearPDF();
+        //enviarCorreo;
+        
         limpiarfactura();
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
@@ -674,7 +697,44 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         
         limpiarfactura();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    
+    public void CrearPDF(){
+        try {
+            conexion.conectar();
+            File reporte = new File("src/ec/edu/ups/reporte/factura.jasper");
+            JasperReport reportejasper=(JasperReport)JRLoader.loadObject(reporte);
+            Map parametro=new HashMap();
+            int codigo=conFactura.recuperarNunFacturaCab();
+            parametro.put("codigo", codigo);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(reportejasper, parametro,conexion.getConexion());
+            
+            JasperExportManager.exportReportToPdfFile(jasperPrint,"Factura.pdf");
+            JasperViewer.viewReport(jasperPrint,false);
+            
+            conexion.desconectar();
+            
+        } catch (JRException ex) {
+            
+        }
+    }
+    
+    
+    public void enviarCorreo(){
+        correo.setContraseña("");// generar con correo que va a enviar desde el video
+        correo.setUsuarioCorreo("");//Correo con el que se va a enviar 
+        correo.setAsunto("Factura");
+        correo.setMensaje("a continuacion se le envia la factura");
+        correo.setDestino(txtCorreo.getText().trim());
+        correo.setNombreArchivo("Factura.pdf");
+        correo.setRutaArchivo("Factura.pdf");
+        
+        if(controladorCorreo.correoEnviado(correo)){
+            JOptionPane.showMessageDialog(this, "correo enviado");
+        }else{
+            JOptionPane.showMessageDialog(this, "correo no enviado");
+        }
+        
+    }
     public void limpiarfactura() {
         limpiarTabla();
         txtCedula.setText("");
@@ -702,17 +762,17 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         }
     }
 
-//    public void actualizarStock() {
-//        for (int i = 0; i < modelo.getRowCount(); i++) {
-//            Producto pro = new Producto();
-//            idProd = Integer.parseInt(tblTablaDetalle.getValueAt(i, 0).toString());
-//            cantidad = Integer.parseInt(tblTablaDetalle.getValueAt(i, 3).toString());
-//
-//            pro = conFactura.buscarIdProducto(idProd);
-//            double stockAct = pro.getPrd_stock() - cantidad;
-//            conFactura.actualizarStock(stockAct, idProd);
-//        }
-//    }
+    public void actualizarStock() {
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Producto pro = new Producto();
+            idProd = Integer.parseInt(tblTablaDetalle.getValueAt(i, 0).toString());
+            cantidad = Integer.parseInt(tblTablaDetalle.getValueAt(i, 3).toString());
+
+            pro = conFactura.buscarIdProducto(idProd);
+            double stockAct = pro.getPrd_stock() - cantidad;
+            conFactura.actualizarStock(stockAct, idProd);
+        }
+    }
 
     public void enviarDatosFacCab() {
         int idCabecera = 0; // esto va en el controlador con la secuencia.
